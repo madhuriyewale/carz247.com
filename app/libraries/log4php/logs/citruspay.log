@@ -1,0 +1,131 @@
+2013-07-15T12:03:52+00:00 [CITRUSPAY] Transaction START
+2013-07-15T12:03:52+00:00 [CITRUSPAY] Signature data is merchantAccessKey=QG0K5V2D3IS5KKK18C6G&transactionId=1121&amount=
+2013-07-15T12:03:52+00:00 [CITRUSPAY] Signature Key generated is 7a0bd4f2d4ad9a7c923e7a9acd834aad2f34e2c1
+2013-07-15T12:03:52+00:00 [CITRUSPAY] Value of merchantAccessKey=QG0K5V2D3IS5KKK18C6G
+2013-07-15T12:03:52+00:00 [CITRUSPAY] Value of transactionId=1121
+2013-07-15T12:03:52+00:00 [CITRUSPAY] Value of issuerCode=CID001
+2013-07-15T12:03:52+00:00 [CITRUSPAY] Value of addressState=maharashtra
+2013-07-15T12:03:52+00:00 [CITRUSPAY] Value of addressCity=thane
+2013-07-15T12:03:52+00:00 [CITRUSPAY] Value of addressStreet1=testing
+2013-07-15T12:03:52+00:00 [CITRUSPAY] Value of addressCountry=India
+2013-07-15T12:03:52+00:00 [CITRUSPAY] Value of addressZip=400601
+2013-07-15T12:03:52+00:00 [CITRUSPAY] Value of firstName=vivek
+2013-07-15T12:03:52+00:00 [CITRUSPAY] Value of lastName=gholap
+2013-07-15T12:03:52+00:00 [CITRUSPAY] Value of phoneNumber=919877897890
+2013-07-15T12:03:52+00:00 [CITRUSPAY] Value of email=jigarzatakia@gmail.com
+2013-07-15T12:03:52+00:00 [CITRUSPAY] Value of paymentMode=NET_BANKING
+2013-07-15T12:03:52+00:00 [CITRUSPAY] Value of cardHolderName=
+2013-07-15T12:03:52+00:00 [CITRUSPAY] Value of expiryMonth=
+2013-07-15T12:03:52+00:00 [CITRUSPAY] Value of cardType=
+2013-07-15T12:03:52+00:00 [CITRUSPAY] Value of expiryYear=
+2013-07-15T12:03:52+00:00 [CITRUSPAY] Value of returnUrl=
+2013-07-15T12:03:52+00:00 [CITRUSPAY] Value of amount=
+2013-07-15T12:03:52+00:00 [CITRUSPAY] Value of signature=7a0bd4f2d4ad9a7c923e7a9acd834aad2f34e2c1
+2013-07-15T12:03:52+00:00 [CITRUSPAY] Request made to URL https://sandboxadmin.citruspay.com/api/v1/txn/transaction
+2013-07-15T12:03:52+00:00 [CITRUSPAY] Error Code: 400
+2013-07-15T12:03:52+00:00 [CITRUSPAY] Error Message: Merchant mandatory parameter missing
+2013-07-15T12:03:52+00:00 [CITRUSPAY] Transaction END for Moto RequestTransaction
+2013-07-15T12:04:03+00:00 [CITRUSPAY] Transaction START
+2013-07-15T12:04:03+00:00 [CITRUSPAY] Signature data is merchantAccessKey=QG0K5V2D3IS5KKK18C6G&transactionId=1121&amount=1
+2013-07-15T12:04:03+00:00 [CITRUSPAY] Signature Key generated is a2a4fee13f80c29b5ad50150dde10230f5296645
+2013-07-15T12:04:03+00:00 [CITRUSPAY] Value of merchantAccessKey=QG0K5V2D3IS5KKK18C6G
+2013-07-15T12:04:03+00:00 [CITRUSPAY] Value of transactionId=1121
+2013-07-15T12:04:03+00:00 [CITRUSPAY] Value of issuerCode=CID001
+2013-07-15T12:04:03+00:00 [CITRUSPAY] Value of addressState=maharashtra
+2013-07-15T12:04:03+00:00 [CITRUSPAY] Value of addressCity=thane
+2013-07-15T12:04:03+00:00 [CITRUSPAY] Value of addressStreet1=testing
+2013-07-15T12:04:03+00:00 [CITRUSPAY] Value of addressCountry=India
+2013-07-15T12:04:03+00:00 [CITRUSPAY] Value of addressZip=400601
+2013-07-15T12:04:03+00:00 [CITRUSPAY] Value of firstName=vivek
+2013-07-15T12:04:03+00:00 [CITRUSPAY] Value of lastName=gholap
+2013-07-15T12:04:03+00:00 [CITRUSPAY] Value of phoneNumber=919877897890
+2013-07-15T12:04:03+00:00 [CITRUSPAY] Value of email=jigarzatakia@gmail.com
+2013-07-15T12:04:03+00:00 [CITRUSPAY] Value of paymentMode=NET_BANKING
+2013-07-15T12:04:03+00:00 [CITRUSPAY] Value of cardHolderName=
+2013-07-15T12:04:03+00:00 [CITRUSPAY] Value of expiryMonth=
+2013-07-15T12:04:03+00:00 [CITRUSPAY] Value of cardType=
+2013-07-15T12:04:03+00:00 [CITRUSPAY] Value of expiryYear=
+2013-07-15T12:04:03+00:00 [CITRUSPAY] Value of returnUrl=http://www.indiaorders.com
+2013-07-15T12:04:03+00:00 [CITRUSPAY] Value of amount=1
+2013-07-15T12:04:03+00:00 [CITRUSPAY] Value of signature=a2a4fee13f80c29b5ad50150dde10230f5296645
+2013-07-15T12:04:03+00:00 [CITRUSPAY] Request made to URL https://sandboxadmin.citruspay.com/api/v1/txn/transaction
+2013-07-15T12:04:03+00:00 [CITRUSPAY] Successful response received
+2013-07-15T12:04:03+00:00 [CITRUSPAY] Transaction END for Moto RequestTransaction
+2013-07-15T12:18:44+00:00 [CITRUSPAY] Transaction START
+2013-07-15T12:18:44+00:00 [CITRUSPAY] Signature data is merchantAccessKey=QG0K5V2D3IS5KKK18C6G&transactionId=1121&amount=1
+2013-07-15T12:18:44+00:00 [CITRUSPAY] Signature Key generated is a2a4fee13f80c29b5ad50150dde10230f5296645
+2013-07-15T12:18:44+00:00 [CITRUSPAY] Value of merchantAccessKey=QG0K5V2D3IS5KKK18C6G
+2013-07-15T12:18:44+00:00 [CITRUSPAY] Value of transactionId=1121
+2013-07-15T12:18:44+00:00 [CITRUSPAY] Value of issuerCode=CID001
+2013-07-15T12:18:44+00:00 [CITRUSPAY] Value of addressState=maharashtra
+2013-07-15T12:18:44+00:00 [CITRUSPAY] Value of addressCity=thane
+2013-07-15T12:18:44+00:00 [CITRUSPAY] Value of addressStreet1=testing
+2013-07-15T12:18:44+00:00 [CITRUSPAY] Value of addressCountry=India
+2013-07-15T12:18:44+00:00 [CITRUSPAY] Value of addressZip=400601
+2013-07-15T12:18:44+00:00 [CITRUSPAY] Value of firstName=vivek
+2013-07-15T12:18:44+00:00 [CITRUSPAY] Value of lastName=gholap
+2013-07-15T12:18:44+00:00 [CITRUSPAY] Value of phoneNumber=919877897890
+2013-07-15T12:18:44+00:00 [CITRUSPAY] Value of email=jigarzatakia@gmail.com
+2013-07-15T12:18:44+00:00 [CITRUSPAY] Value of paymentMode=NET_BANKING
+2013-07-15T12:18:44+00:00 [CITRUSPAY] Value of cardHolderName=
+2013-07-15T12:18:44+00:00 [CITRUSPAY] Value of expiryMonth=
+2013-07-15T12:18:44+00:00 [CITRUSPAY] Value of cardType=
+2013-07-15T12:18:44+00:00 [CITRUSPAY] Value of expiryYear=
+2013-07-15T12:18:44+00:00 [CITRUSPAY] Value of returnUrl=http://www.indiaorders.com
+2013-07-15T12:18:44+00:00 [CITRUSPAY] Value of amount=1
+2013-07-15T12:18:44+00:00 [CITRUSPAY] Value of signature=a2a4fee13f80c29b5ad50150dde10230f5296645
+2013-07-15T12:18:44+00:00 [CITRUSPAY] Request made to URL https://sandboxadmin.citruspay.com/api/v1/txn/transaction
+2013-07-15T12:18:44+00:00 [CITRUSPAY] Successful response received
+2013-07-15T12:18:44+00:00 [CITRUSPAY] Transaction END for Moto RequestTransaction
+2013-07-15T12:18:48+00:00 [CITRUSPAY] Transaction START
+2013-07-15T12:18:48+00:00 [CITRUSPAY] Signature data is merchantAccessKey=QG0K5V2D3IS5KKK18C6G&transactionId=1121&amount=1
+2013-07-15T12:18:48+00:00 [CITRUSPAY] Signature Key generated is a2a4fee13f80c29b5ad50150dde10230f5296645
+2013-07-15T12:18:48+00:00 [CITRUSPAY] Value of merchantAccessKey=QG0K5V2D3IS5KKK18C6G
+2013-07-15T12:18:48+00:00 [CITRUSPAY] Value of transactionId=1121
+2013-07-15T12:18:48+00:00 [CITRUSPAY] Value of issuerCode=CID001
+2013-07-15T12:18:48+00:00 [CITRUSPAY] Value of addressState=maharashtra
+2013-07-15T12:18:48+00:00 [CITRUSPAY] Value of addressCity=thane
+2013-07-15T12:18:48+00:00 [CITRUSPAY] Value of addressStreet1=testing
+2013-07-15T12:18:48+00:00 [CITRUSPAY] Value of addressCountry=India
+2013-07-15T12:18:48+00:00 [CITRUSPAY] Value of addressZip=400601
+2013-07-15T12:18:48+00:00 [CITRUSPAY] Value of firstName=vivek
+2013-07-15T12:18:48+00:00 [CITRUSPAY] Value of lastName=gholap
+2013-07-15T12:18:48+00:00 [CITRUSPAY] Value of phoneNumber=919877897890
+2013-07-15T12:18:48+00:00 [CITRUSPAY] Value of email=jigarzatakia@gmail.com
+2013-07-15T12:18:48+00:00 [CITRUSPAY] Value of paymentMode=NET_BANKING
+2013-07-15T12:18:48+00:00 [CITRUSPAY] Value of cardHolderName=
+2013-07-15T12:18:48+00:00 [CITRUSPAY] Value of expiryMonth=
+2013-07-15T12:18:48+00:00 [CITRUSPAY] Value of cardType=
+2013-07-15T12:18:48+00:00 [CITRUSPAY] Value of expiryYear=
+2013-07-15T12:18:48+00:00 [CITRUSPAY] Value of returnUrl=http://www.indiaorders.com
+2013-07-15T12:18:48+00:00 [CITRUSPAY] Value of amount=1
+2013-07-15T12:18:48+00:00 [CITRUSPAY] Value of signature=a2a4fee13f80c29b5ad50150dde10230f5296645
+2013-07-15T12:18:48+00:00 [CITRUSPAY] Request made to URL https://sandboxadmin.citruspay.com/api/v1/txn/transaction
+2013-07-15T12:18:49+00:00 [CITRUSPAY] Successful response received
+2013-07-15T12:18:49+00:00 [CITRUSPAY] Transaction END for Moto RequestTransaction
+2013-07-15T13:09:59+00:00 [CITRUSPAY] Transaction START
+2013-07-15T13:09:59+00:00 [CITRUSPAY] Signature data is merchantAccessKey=QG0K5V2D3IS5KKK18C6G&transactionId=1121&amount=1
+2013-07-15T13:09:59+00:00 [CITRUSPAY] Signature Key generated is a2a4fee13f80c29b5ad50150dde10230f5296645
+2013-07-15T13:09:59+00:00 [CITRUSPAY] Value of merchantAccessKey=QG0K5V2D3IS5KKK18C6G
+2013-07-15T13:09:59+00:00 [CITRUSPAY] Value of transactionId=1121
+2013-07-15T13:09:59+00:00 [CITRUSPAY] Value of issuerCode=CID001
+2013-07-15T13:09:59+00:00 [CITRUSPAY] Value of addressState=asdadadad
+2013-07-15T13:09:59+00:00 [CITRUSPAY] Value of addressCity=thane
+2013-07-15T13:09:59+00:00 [CITRUSPAY] Value of addressStreet1=testing
+2013-07-15T13:09:59+00:00 [CITRUSPAY] Value of addressCountry=India
+2013-07-15T13:09:59+00:00 [CITRUSPAY] Value of addressZip=400601
+2013-07-15T13:09:59+00:00 [CITRUSPAY] Value of firstName=vivek
+2013-07-15T13:09:59+00:00 [CITRUSPAY] Value of lastName=gholap
+2013-07-15T13:09:59+00:00 [CITRUSPAY] Value of phoneNumber=919877897890
+2013-07-15T13:09:59+00:00 [CITRUSPAY] Value of email=jigarzatakia@gmail.com
+2013-07-15T13:09:59+00:00 [CITRUSPAY] Value of paymentMode=NET_BANKING
+2013-07-15T13:09:59+00:00 [CITRUSPAY] Value of cardHolderName=
+2013-07-15T13:09:59+00:00 [CITRUSPAY] Value of expiryMonth=
+2013-07-15T13:09:59+00:00 [CITRUSPAY] Value of cardType=
+2013-07-15T13:09:59+00:00 [CITRUSPAY] Value of expiryYear=
+2013-07-15T13:09:59+00:00 [CITRUSPAY] Value of returnUrl=http://www.indiaorders.com
+2013-07-15T13:09:59+00:00 [CITRUSPAY] Value of amount=1
+2013-07-15T13:09:59+00:00 [CITRUSPAY] Value of signature=a2a4fee13f80c29b5ad50150dde10230f5296645
+2013-07-15T13:09:59+00:00 [CITRUSPAY] Request made to URL https://sandboxadmin.citruspay.com/api/v1/txn/transaction
+2013-07-15T13:09:59+00:00 [CITRUSPAY] Successful response received
+2013-07-15T13:09:59+00:00 [CITRUSPAY] Transaction END for Moto RequestTransaction
