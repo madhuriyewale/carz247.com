@@ -30,7 +30,6 @@ return View::make('frontend.pages.privacy_policy');
 Route::get('/partner-with-us', array('as' => 'partner-with-us', 'uses' => 'PagesController@partner_with_us'));
 Route::post('/save_partner', array('as' => 'save_partner', 'uses' => 'PagesController@save_partner'));
 
-
 Route::get('/contact', array('as' => 'contact', 'uses' => 'PagesController@contact'));
 Route::post('/save_contact', array('as' => 'save_contact', 'uses' => 'PagesController@save_contact'));
 
@@ -43,7 +42,6 @@ Route::get('/quick-pay', array('as' => 'quick-pay', 'uses' => function() {
 return View::make('frontend.pages.quickpay');
 }));
 
-
 Route::get('/thank-you', array('as' => 'thank-you', 'uses' => function() {
 return View::make('frontend.pages.thank_you');
 }));
@@ -54,22 +52,17 @@ Route::post('airport-transfer', 'PagesController@airport');
 Route::post('get_customer', 'BookingController@booking_get_customer');
 Route::post('proceed', array('as' => 'save_booking', 'uses' => 'BookingController@save_booking'));
 
-Route::get('/register', array('as' => 'register', 'uses' => 'PagesController@register'));
-
 Route::get('/login', array('as' => 'login', 'uses' => 'PagesController@login'));
-
+Route::post('/check_login', array('as' => 'check_login', 'uses' => 'PagesController@check_login'));
 Route::get('/logout', array('as' => 'logout', 'uses' => 'PagesController@logout'));
 
-
 Route::post('/save_register', array('as' => 'save_register', 'uses' => 'PagesController@save_register'));
+Route::get('/register', array('as' => 'register', 'uses' => 'PagesController@register'));
 
-Route::post('/check_login', array('as' => 'check_login', 'uses' => 'PagesController@check_login'));
 
 Route::get('/edit_profile', array('as' => 'edit_profile', 'uses' => 'PagesController@edit_profile'));
 Route::post('/update_edit_profile', array('as' => 'update_edit_profile', 'uses' => 'PagesController@update_edit_profile'));
-
 Route::get('/change_password', array('as' => 'change-password', 'uses' => 'PagesController@change_password'));
-
 Route::post('/check_change_password', array('as' => 'check_change_password', 'uses' => 'PagesController@check_change_password'));
 Route::get('/forgot_password', array('as' => 'forgot_password', 'uses' => 'PagesController@forgot_password'));
 Route::post('/check_forgot_password', array('as' => 'check_forgot_password', 'uses' => 'PagesController@check_forgot_password'));
@@ -85,7 +78,6 @@ Route::get('/success_mail', function() {
 Route::get('/reset-password/{email_id}', array('as' => 'reset_password', 'uses' => 'PagesController@reset_password'));
 
 Route::post('/check_reset_password', array('as' => 'check_reset_password', 'uses' => 'PagesController@check_reset_password'));
-
 
 Route::group(array('prefix' => 'admin'), function() {
 
@@ -127,16 +119,20 @@ Route::group(array('prefix' => 'admin'), function() {
     Route::post('/save_listing', array('as' => 'save_listing', 'uses' => 'AdminController@save_listing'));
     Route::post('/master/listing_edit', array('as' => 'listing_edit', 'uses' => 'AdminController@listing_edit'));
 
-    Route::get('/master/orders', array('as' => 'orders', 'uses' => 'AdminController@orders'));
-    Route::get('/master/order_delete/{id}', array('as' => 'order_delete', 'uses' => 'AdminController@order_delete'));
-    Route::post('/save_order', array('as' => 'save_order', 'uses' => 'AdminController@save_order'));
-    Route::post('/master/order_edit', array('as' => 'order_edit', 'uses' => 'AdminController@order_edit'));
+    Route::get('users', array('as' => 'users', 'uses' => 'AdminController@users'));
+    Route::post('save_user', array('as' => 'save_user', 'uses' => 'AdminController@save_user'));
+    Route::get('user_delete/{id}', array('as' => 'user_delete', 'uses' => 'AdminController@user_delete'));
+    Route::post('user_edit', array('as' => 'user_edit', 'uses' => 'AdminController@user_edit'));
+    
+    Route::get('orders', array('as' => 'orders', 'uses' => 'AdminController@orders'));
+    Route::get('order_delete/{id}', array('as' => 'order_delete', 'uses' => 'AdminController@order_delete'));
+    Route::post('save_order', array('as' => 'save_order', 'uses' => 'AdminController@save_order'));
+    Route::post('order_edit', array('as' => 'order_edit', 'uses' => 'AdminController@order_edit'));
 
-    Route::get('/master/venders', array('as' => 'venders', 'uses' => 'AdminController@venders'));
-    Route::post('/save_vender', array('as' => 'save_vender', 'uses' => 'AdminController@save_vender'));
-    Route::get('/master/vender_delete/{id}', array('as' => 'vender_delete', 'uses' => 'AdminController@vender_delete'));
-    Route::post('/master/vender_edit', array('as' => 'vender_edit', 'uses' => 'AdminController@vender_edit'));
-
+    Route::get('venders', array('as' => 'venders', 'uses' => 'AdminController@venders'));
+    Route::post('save_vender', array('as' => 'save_vender', 'uses' => 'AdminController@save_vender'));
+    Route::get('vender_delete/{id}', array('as' => 'vender_delete', 'uses' => 'AdminController@vender_delete'));
+    Route::post('vender_edit', array('as' => 'vender_edit', 'uses' => 'AdminController@vender_edit'));
 
     Route::get('/master/contact_enquiries', array('as' => 'contact_enquiries', 'uses' => 'AdminController@contact_enquiries'));
     Route::get('/master/career_requests', array('as' => 'career_requests', 'uses' => 'AdminController@career_requests'));
@@ -144,5 +140,5 @@ Route::group(array('prefix' => 'admin'), function() {
 
     Route::get('/master/invoice/{id}', array('as' => 'invoice', 'uses' => 'AdminController@invoice'));
 
-   Route::get('/drivers_dropdown/{id}', 'AdminController@drivers_dropdown');
+    Route::get('/drivers_dropdown/{id}', 'AdminController@drivers_dropdown');
 });

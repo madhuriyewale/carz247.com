@@ -59,7 +59,7 @@
                 </a>
             </li>
             <li>
-                <a href="pages/calendar.html">
+                <a href="{{ URL::route('users'); }}">
                     <i class="fa fa-users"></i> <span>Users</span>
                 </a>
             </li>  

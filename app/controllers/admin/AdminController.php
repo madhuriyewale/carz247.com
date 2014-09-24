@@ -200,6 +200,41 @@ class AdminController extends BaseController {
         return Redirect::route('categories');
     }
 
+    public function users() {
+        $users = Customer::all();
+        return View::make('admin.pages.users', compact('users'));
+    }
+
+    public function save_user() {
+
+        $saveUser = new Customer();
+        $saveUser->fname = Input::get('fname');
+        $saveUser->lname = Input::get('lname');
+        $saveUser->address = Input::get('address');
+        $saveUser->phone = Input::get('phone');
+        $saveUser->zipcode = Input::get('zipcode');
+        $saveUser->email = Input::get('email');
+        $saveUser->save();
+        return Redirect::route('users');
+    }
+
+    public function user_delete($id) {
+        Customer::find($id)->delete();
+        return Redirect::route('users');
+    }
+
+    public function user_edit() {
+        $updateUser = Customer::find(Input::get("id"));
+        $updateUser->fname = Input::get('fname');
+        $updateUser->lname = Input::get('lname');
+        $updateUser->address = Input::get('address');
+        $updateUser->phone = Input::get('phone');
+        $updateUser->zipcode = Input::get('zipcode');
+        $updateUser->email = Input::get('email');
+        $updateUser->update();
+        return Redirect::route('users');
+    }
+
     public function listing_edit() {
 
         $listing = Listing::find(Input::get("id"));
@@ -435,17 +470,16 @@ class AdminController extends BaseController {
             $days = $interval->days + 1;
             $kmsTravelled = $kms - $bookingData[0]["min_kms"] * $days;
             $amount = ($kmsTravelled <= 0 ? $bookingData[0]["min_kms"] * $days : $kms ) * $bookingData[0]["extra_km_cost"] + $days * $bookingData[0]["driver_cost"];
-        
-             $recieptCnt = "<p>1</p><p>2</p><p>3</p>";
+
+            $recieptCnt = "<p>1</p><p>2</p><p>3</p>";
             $recieptCont = "<p>" . ucwords($bookingData[0]['category']) . " Car Category</p>
-                            <p>Extra km above " . $bookingData[0]["min_kms"]*$days . " @ Rs." . $bookingData[0]["extra_km_cost"] . "/-km </p>
+                            <p>Extra km above " . $bookingData[0]["min_kms"] * $days . " @ Rs." . $bookingData[0]["extra_km_cost"] . "/-km </p>
                             <p>Driver Allowance " . $bookingData[0]["driver_cost"] . "/-Day";
 
             $finalAmnt = ($amount + $extra - $discount);
             $finalAmnt = $finalAmnt + ($finalAmnt * ($st / 100)) - $prepaid;
-            
+
             $hours = $days;
-            
         }
         return View::make('admin.pages.invoice', compact('bookingData', 'recieptCnt', 'recieptCont', 'kms', 'hours', 'amount', 'discount', 'extra', 'st', 'prepaid', 'finalAmnt'));
     }

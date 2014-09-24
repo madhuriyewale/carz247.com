@@ -64,7 +64,7 @@
             $("form#serviceForm").append("<input type='hidden' name='id' value='" + $("tr[data-tr='" + id + "'] td").eq(0).text() + "'>")
             $("form#serviceForm").attr("action", "{{ URL::route('service_edit') }}");
         });
-        //category Edit
+ //category Edit
         $(document).on("click", ".categoryEdit", function() {
             var id = $(this).attr('data-id');
             $("form#categoryForm input[name='category']").val($("tr[data-tr='" + id + "'] td").eq(1).text());
@@ -77,7 +77,21 @@
             $("form#categoryForm").append("<input type='hidden' name='id' value='" + $("tr[data-tr='" + id + "'] td").eq(0).text() + "'>")
             $("form#categoryForm").attr("action", "{{ URL::route('category_edit')}}");
         });
-        //listing edit
+
+//customer edit
+        $(document).on("click", ".userEdit", function() {
+            var id = $(this).attr('data-id');
+            $("form#userForm input[name='fname']").val($("tr[data-tr='" + id + "'] td").eq(1).text());
+            $("form#userForm input[name='lname']").val($("tr[data-tr='" + id + "'] td").eq(2).text());
+            $("form#userForm input[name='email']").val($("tr[data-tr='" + id + "'] td").eq(3).text());
+            $("form#userForm input[name='phone']").val($("tr[data-tr='" + id + "'] td").eq(4).text());
+            $("form#userForm textarea[name='address']").val($("tr[data-tr='" + id + "'] td").eq(5).text());
+            $("form#userForm input[name='zipcode']").val($("tr[data-tr='" + id + "'] td").eq(6).text());
+            $("form#userForm").append("<input type='hidden' name='id' value='" + $("tr[data-tr='" + id + "'] td").eq(0).text() + "'>")
+            $("form#userForm").attr("action", "{{ URL::route('user_edit') }}");
+        });
+
+  //listing edit
         $(document).on("click", ".listingEdit", function() {
             var id = $(this).attr('data-id');
             $("form#listingForm select[name='city'] option[value='" + $("tr[data-tr='" + id + "'] td").eq(1).attr("data-value") + "']").prop('selected', true);
@@ -93,7 +107,7 @@
             $("form#listingForm").append("<input type='hidden' name='id' value='" + $("tr[data-tr='" + id + "'] td").eq(0).text() + "'>")
             $("form#listingForm").attr("action", "{{ URL::route('listing_edit') }}");
         });
-        //vender edit
+//vender edit
 
         $(document).on("click", ".venderEdit", function() {
             var id = $(this).attr('data-id');
