@@ -17,5 +17,9 @@ class Helper {
     public static function partner_count() {
         return $read_count = Partner::where('read', "=", 0)->count();
     }
+    
+     public static function all_orders() {
+        return $all_orders = Booking::count();
+    }
 
 }

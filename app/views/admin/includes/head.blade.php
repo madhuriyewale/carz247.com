@@ -12,6 +12,10 @@
 <!-- Theme style -->
 {{ HTML::style('public/admin/css/AdminLTE.css'); }}
 
+{{ HTML::style('public/admin/css/fullcalendar/fullcalendar.css'); }}
+{{ HTML::style('public/admin/css/fullcalendar/fullcalendar.print.css'); }}
+
+
 <link href="//code.jquery.com/ui/1.11.1/themes/pepper-grinder/jquery-ui.css" rel="stylesheet" />
 
 <!-- jQuery 2.0.2 -->
