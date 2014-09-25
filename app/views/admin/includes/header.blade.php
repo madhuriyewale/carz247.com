@@ -1,6 +1,6 @@
-<a href="index.html" class="logo">
+<a href="{{ URL::to('/admin/dashboard'); }}" class="logo">
     <!-- Add the class icon to your logo image or logo icon to add the margining -->
-    AdminLTE
+    Welcome {{ Session::get('admin_fname');}}
 </a>
 <!-- Header Navbar: style can be found in header.less -->
 <nav class="navbar navbar-static-top" role="navigation">
@@ -205,15 +205,15 @@
             <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <i class="glyphicon glyphicon-user"></i>
-                    <span>Jane Doe <i class="caret"></i></span>
+                    <span>{{ Session::get('admin_fname');}}  {{ Session::get('admin_lname');}}<i class="caret"></i></span>
                 </a>
                 <ul class="dropdown-menu">
                     <!-- User image -->
                     <li class="user-header bg-light-blue">
-                        {{ HTML::image('public/admin/img/avatar3.png' ,'', array('class' => 'img-circle')) }}
+                        {{ HTML::image('public/admin/img/' ,'', array('class' => 'img-circle')) }}
                         <p>
-                            Jane Doe - Web Developer
-                            <small>Member since Nov. 2012</small>
+                            {{ Session::get('admin_fname');}} {{ Session::get('admin_lname');}}  - Admin
+                            <small></small>
                         </p>
                     </li>
                     <!-- Menu Body -->
@@ -234,7 +234,7 @@
                             <a href="#" class="btn btn-default btn-flat">Profile</a>
                         </div>
                         <div class="pull-right">
-                            <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                            <a href="{{URL::route('logout'); }}" class="btn btn-default btn-flat">Sign out</a>
                         </div>
                     </li>
                 </ul>

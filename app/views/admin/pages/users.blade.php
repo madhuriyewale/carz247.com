@@ -48,8 +48,30 @@
 
                             <div class="form-group">
                                 <label>Address</label>
-                                <textarea cols="150" rows="2" name="address" id="address" class="textarea textarea_middle" required="true"></textarea>
+                                <textarea cols="150" rows="2" name="address" id="address" class="form-control" required="true"></textarea>
                             </div>
+
+
+                            <div class="form-group">
+
+                                <label>City</label>
+
+                                <select class="form-control" name="city">
+
+
+
+                                    <option value="">Please Select</option>
+
+                                    @foreach ($cities as $city)
+
+                                    <option  value="{{ $city->id }}" >{{ $city->city }}</option>
+
+                                    @endforeach
+
+                                </select>
+
+                            </div>
+
 
                             <div class="form-group">
                                 <label>Zipcode </label>
@@ -79,10 +101,13 @@
                                     <th>Email</th>
                                     <th>Phone</th>
                                     <th>Address</th>
+                                    <th>City</th>
                                     <th>Zipcode</th>
-                                      <th>Edit</th>
-                                      
-                                       <th>Delete</th>
+
+
+                                    <th>Edit</th>
+
+                                    <th>Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -94,6 +119,8 @@
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->phone }}</td>
                                     <td>{{ $user->address }}</td>
+                                    <td data-value="{{ $user->city_id }}">{{ $user->city }}</td>
+
                                     <td>{{ $user->zipcode }}</td>
 
                                     <td><a href="javascript:void();" class="userEdit" data-id="{{$user->id}}">Edit</a></td>

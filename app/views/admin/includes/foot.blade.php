@@ -64,7 +64,7 @@
             $("form#serviceForm").append("<input type='hidden' name='id' value='" + $("tr[data-tr='" + id + "'] td").eq(0).text() + "'>")
             $("form#serviceForm").attr("action", "{{ URL::route('service_edit') }}");
         });
- //category Edit
+        //category Edit
         $(document).on("click", ".categoryEdit", function() {
             var id = $(this).attr('data-id');
             $("form#categoryForm input[name='category']").val($("tr[data-tr='" + id + "'] td").eq(1).text());
@@ -86,12 +86,25 @@
             $("form#userForm input[name='email']").val($("tr[data-tr='" + id + "'] td").eq(3).text());
             $("form#userForm input[name='phone']").val($("tr[data-tr='" + id + "'] td").eq(4).text());
             $("form#userForm textarea[name='address']").val($("tr[data-tr='" + id + "'] td").eq(5).text());
-            $("form#userForm input[name='zipcode']").val($("tr[data-tr='" + id + "'] td").eq(6).text());
+            $("form#userForm select[name='city'] option[value='" + $("tr[data-tr='" + id + "'] td").eq(6).attr("data-value") + "']").prop('selected', true);
+
+
+            $("form#userForm input[name='zipcode']").val($("tr[data-tr='" + id + "'] td").eq(7).text());
             $("form#userForm").append("<input type='hidden' name='id' value='" + $("tr[data-tr='" + id + "'] td").eq(0).text() + "'>")
             $("form#userForm").attr("action", "{{ URL::route('user_edit') }}");
         });
 
-  //listing edit
+
+//testimonials Edit
+        $(document).on("click", ".testimonialEdit", function() {
+            var id = $(this).attr('data-id');
+            $("form#testimonialForm input[name='testimonial']").val($("tr[data-tr='" + id + "'] td").eq(1).text());
+            $("form#testimonialForm input[name='from']").val($("tr[data-tr='" + id + "'] td").eq(2).text());
+            $("form#testimonialForm").append("<input type='hidden' name='id' value='" + $("tr[data-tr='" + id + "'] td").eq(0).text() + "'>")
+            $("form#testimonialForm").attr("action", "{{ URL::route('testimonial_edit') }}");
+        });
+
+        //listing edit
         $(document).on("click", ".listingEdit", function() {
             var id = $(this).attr('data-id');
             $("form#listingForm select[name='city'] option[value='" + $("tr[data-tr='" + id + "'] td").eq(1).attr("data-value") + "']").prop('selected', true);

@@ -201,8 +201,9 @@ class AdminController extends BaseController {
     }
 
     public function users() {
-        $users = Customer::all();
-        return View::make('admin.pages.users', compact('users'));
+        $users = Customer::leftJoin("cities","cities.id","=","customers.city_id")->get(['customers.*','cities.city']);
+        $cities = City::all();
+        return View::make('admin.pages.users', compact('users', 'cities'));
     }
 
     public function save_user() {
@@ -212,6 +213,7 @@ class AdminController extends BaseController {
         $saveUser->lname = Input::get('lname');
         $saveUser->address = Input::get('address');
         $saveUser->phone = Input::get('phone');
+        $saveUser->city_id = Input::get('city');
         $saveUser->zipcode = Input::get('zipcode');
         $saveUser->email = Input::get('email');
         $saveUser->save();
@@ -224,17 +226,49 @@ class AdminController extends BaseController {
     }
 
     public function user_edit() {
-        $updateUser = Customer::find(Input::get("id"));
+        
+        $updateUser = Customer::find(Input::get('id'));
         $updateUser->fname = Input::get('fname');
         $updateUser->lname = Input::get('lname');
         $updateUser->address = Input::get('address');
         $updateUser->phone = Input::get('phone');
+        $updateUser->city_id = Input::get('city');
         $updateUser->zipcode = Input::get('zipcode');
         $updateUser->email = Input::get('email');
         $updateUser->update();
         return Redirect::route('users');
     }
 
+    public function testimonials(){
+        $testimonials=Testimonial::all();
+        
+         return View::make('admin.pages.testimonial', compact( 'testimonials')); 
+        
+    }
+    
+       public function save_testimonial() {
+        $testimonial = new Testimonial();
+        $testimonial->testimonial = Input::get('testimonial');
+        $testimonial->from = Input::get('from');
+        $testimonial->save();
+        return Redirect::route('testimonials');
+    }
+    
+    
+     public function testimonial_delete($id) {
+        Testimonial::find($id)->delete();
+        return Redirect::route('testimonials');
+    }
+
+    public function testimonial_edit() {
+        
+        $testimonialUpdate = Testimonial::find(Input::get('id'));
+         $testimonialUpdate->testimonial = Input::get('testimonial');
+        $testimonialUpdate->from = Input::get('from');
+        $testimonialUpdate->update();
+        return Redirect::route('testimonials');
+    }
+    
     public function listing_edit() {
 
         $listing = Listing::find(Input::get("id"));
@@ -270,7 +304,7 @@ class AdminController extends BaseController {
 
         $listings_data = Listing::all();
 
-
+        
         $customers = Customer::all();
         $localities = Locality::all();
         $venders = Vender::all();
@@ -359,23 +393,59 @@ class AdminController extends BaseController {
     }
 
     public function contact_enquiries() {
+        
+        Contact::where("read","=","0")->update(["read" => 1]);
         $contacts = Contact::all();
         return View::make('admin.pages.contact_enquiries', compact('contacts'));
     }
 
     public function partners_with_us() {
+        Partner::where("read","=","0")->update(["read" => 1]);
         $partners = Partner::all();
         return View::make('admin.pages.partners_with_us', compact('partners'));
     }
 
     public function career_requests() {
+        $careerUpdate = Career::where('read','=',0)->update(['read' => 1]);
+        
         $careers = Career::all();
+    
         return View::make('admin.pages.career_requests', compact('careers'));
     }
 
-    public function login() {
+    public function admin_login_chk() {
+        
+           $userdata = array(
+            'email' => Input::get('email'),
+            'password' => Input::get('password')
+        );
+        $email = Input::get('email');
+        $user_name = Customer::where('email', "=", $email)->get()->first();
+        //$user_name = DB::table('customers')->where('email', $email)->first();
+     
+        if (Auth::attempt($userdata)) {
+            $data = Session::all();
+            Session::put('admin_email', Input::get("email"));
+            Session::put('customer_id', $user_name->id);
+
+            Session::put('admin_fname', $user_name->fname);
+            Session::put('admin_lname', $user_name->lname);
+            Session::put('address', $user_name->address);
+           
+            return Redirect::to('/admin/dashboard');
+        } else {
+           return Redirect::to('/admin')->withErrors(['Error being login']);
+        }
+    
+    }
+    
+    public function admin_logout(){
+         Auth::logout();
+        Session::flush();
+        return Redirect::to('/admin');
         
     }
+
 
     public function venders() {
         $venders = Vender::all();

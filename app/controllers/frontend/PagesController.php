@@ -55,6 +55,61 @@ class PagesController extends BaseController {
 
         return View::make('frontend.pages.home', compact('categories', 'localCities', 'outstationCities', 'localPackages', 'airportCities', 'allCities'));
     }
+    
+    public function home2(){
+        $categories = Category::leftJoin("listings", "listings.category_id", "=", "categories.id")->where("listings.city_id", "=", 815)->where("listings.service_id", "=", 1)->where("listings.package_id", "=", 1)->get(["categories.*", "listings.extra_km_cost"]);
+
+        /* Cities/packages for Local Listings */
+
+        Session::forget('toDate');
+        Session::forget('fromDate');
+        Session::forget('city_id');
+        Session::forget('booking_id');
+
+        $localCities = City::Join("listings", "cities.id", "=", "listings.city_id")
+                ->where('cities.status', '=', 1)
+                ->where('listings.service_id', '=', 1)
+                ->groupBy('cities.id')
+                ->get(['cities.*']);
+
+        $localPackages = Package::Join("listings", "packages.id", "=", "listings.package_id")
+                ->where('packages.status', '=', 1)
+                ->where('listings.service_id', '=', 1)
+                ->groupBy('packages.id')
+                ->get(['packages.*']);
+
+        /* Cities for Outstation Listings */
+
+        $outstationCities = City::Join("listings", "cities.id", "=", "listings.city_id")
+                ->where('cities.status', '=', 1)
+                ->where('listings.service_id', '=', 2)
+                ->groupBy('cities.id')
+                ->get(['cities.*']);
+
+
+        /* Cities for Airport Listings */
+
+        $airportCities = City::Join("listings", "cities.id", "=", "listings.city_id")
+                ->where('cities.status', '=', 1)
+                ->where('listings.service_id', '=', 2)
+                ->groupBy('cities.id')
+                ->get(['cities.*']);
+
+
+        $get_cities = City::select('city')->orderBy('city', 'asc')->get()->toArray();
+
+        $allCities = [];
+
+        foreach ($get_cities as $value) {
+            array_push($allCities, $value["city"]);
+        }
+
+        $allCities = json_encode($allCities);
+
+        return View::make('frontend.pages.home2', compact('categories', 'localCities', 'outstationCities', 'localPackages', 'airportCities', 'allCities'));  
+        
+        
+    }
 
     public function local() {
 

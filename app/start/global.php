@@ -12,7 +12,7 @@
  */
 
 ClassLoader::addDirectories(array(
-    app_path() . '/libraries',
+    app_path() . '/libraries/helper.php',
     app_path() . '/commands',
     app_path() . '/controllers',
     app_path() . '/controllers/admin',
@@ -76,5 +76,5 @@ App::down(function() {
   | definitions instead of putting them all in the main routes file.
   |
  */
-
+require app_path().'/libraries/helper.php';
 require app_path() . '/filters.php';

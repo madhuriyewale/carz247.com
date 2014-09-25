@@ -96,15 +96,15 @@ class BookingController extends BaseController {
 
         $response_data = Input::all();
 
-       //dd($response_data['paymentMode']);
+        //dd($response_data['paymentMode']);
         if ($response_data['TxStatus'] == 'SUCCESS') {
-        $bookingUpdate = Booking::find(Session::get('booking_id'));
-        $bookingUpdate->mode = $response_data['paymentMode'];
-       // $bookingUpdate->card_type =  @$response_data['cardType'];
-        $bookingUpdate->txn_ref_no =  $response_data['TxRefNo'];
-        $bookingUpdate->txn_status =  $response_data['TxStatus'];
-        $bookingUpdate->txn_msg =  $response_data['TxMsg'];
-        $bookingUpdate->update();
+            $bookingUpdate = Booking::find(Session::get('booking_id'));
+            $bookingUpdate->mode = $response_data['paymentMode'];
+            // $bookingUpdate->card_type =  @$response_data['cardType'];
+            $bookingUpdate->txn_ref_no = $response_data['TxRefNo'];
+            $bookingUpdate->txn_status = $response_data['TxStatus'];
+            $bookingUpdate->txn_msg = $response_data['TxMsg'];
+            $bookingUpdate->update();
             $contactEmail = "info@carz247.com";
             $contactName = '';
 
@@ -116,21 +116,21 @@ class BookingController extends BaseController {
             Mail::send('frontend.pages.success_mail', $data, function($message) use ($contactEmail, $contactName, $email_id, $to_name) {
                 $message->from($contactEmail, $contactName);
                 $message->to($email_id, $to_name)->subject('Invoice');
+                $message->cc('parin@infiniteit.biz');
+                $message->cc('gautam.udani@infiniteit.biz');
             });
-        }else{
-            
-        $bookingUpdate = Booking::find(Session::get('booking_id'));
-        $bookingUpdate->mode = $response_data['paymentMode'];
-       // $bookingUpdate->card_type =  $response_data['cardType'];
-        $bookingUpdate->txn_ref_no =  $response_data['TxRefNo'];
-        $bookingUpdate->txn_status =  $response_data['TxStatus'];
-        $bookingUpdate->txn_msg =  $response_data['TxMsg'];
-        $bookingUpdate->update(); 
-            
-            
+        } else {
+
+            $bookingUpdate = Booking::find(Session::get('booking_id'));
+            $bookingUpdate->mode = $response_data['paymentMode'];
+            // $bookingUpdate->card_type =  $response_data['cardType'];
+            $bookingUpdate->txn_ref_no = $response_data['TxRefNo'];
+            $bookingUpdate->txn_status = $response_data['TxStatus'];
+            $bookingUpdate->txn_msg = $response_data['TxMsg'];
+            $bookingUpdate->update();
         }
-        
-        
+
+
 
 
 

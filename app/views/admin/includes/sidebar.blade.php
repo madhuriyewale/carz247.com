@@ -16,7 +16,7 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu">
             <li class="active">
-                <a href="/admin">
+                <a href="/admin/dashboard">
                     <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                 </a>
             </li>
@@ -40,22 +40,18 @@
                     <span>Carz Listings</span>
                 </a>
             </li>
-            <li>
-                <a href="#">
-                    <i class="fa fa-edit"></i> <span>Inclusions & Exclusions</span>
-                </a>
-            </li>
+          
             <li>
                 <a href="{{ URL::route('orders'); }}">
                     <i class="fa fa-table"></i> <span>Orders</span>
-                    <small class="badge pull-right bg-red">3</small>
+                    <small class="badge pull-right bg-red">{{Helper::orders_count()}} </small>
                 </a>
             </li>
 
             <li>
                 <a href="{{ URL::route('venders'); }}">
                     <i class="fa fa-table"></i> <span>Venders</span>
-                    <small class="badge pull-right bg-red">3</small>
+                    <small class="badge pull-right bg-red"></small>
                 </a>
             </li>
             <li>
@@ -64,26 +60,25 @@
                 </a>
             </li>  
             <li class="treeview">
-                <a href="pages/mailbox.html">
+                <a href="#">
                     <i class="fa fa-flask"></i> <span>Miscellaneous</span>
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="pages/charts/morris.html"><i class="fa fa-angle-double-right"></i>Testimonials</a> </li>
-                    <li><a href="pages/charts/flot.html"><i class="fa fa-angle-double-right"></i>Meta Tags</a> </li>
-                    <li><a href="pages/charts/flot.html"><i class="fa fa-angle-double-right"></i>Carz Info</a> </li>
+                    <li><a href="{{ URL::route('testimonials'); }}"><i class="fa fa-angle-double-right"></i>Testimonials</a> </li>
+                    <li><a href="#"><i class="fa fa-angle-double-right"></i>Meta Tags</a> </li>
+                    <li><a href="#"><i class="fa fa-angle-double-right"></i>Carz Info</a> </li>
                 </ul>
             </li>
             <li class="treeview">
-                <a href="pages/mailbox.html">
+                <a href="#">
                     <i class="fa fa-envelope"></i> <span>Mailbox</span>
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ URL::route('contact_enquiries'); }}"><i class="fa fa-angle-double-right"></i>Enquiries<small class="badge pull-right bg-yellow">12</small></a> </li>
-                    <li><a href="{{ URL::route('career_requests'); }}"><i class="fa fa-angle-double-right"></i>Career Requests<small class="badge pull-right bg-yellow">2</small></a> </li>
-                    <li><a href="{{ URL::route('partners_with_us'); }}"><i class="fa fa-angle-double-right"></i>Partner with us<small class="badge pull-right bg-yellow">2</small></a> </li>
-
+                    <li><a href="{{ URL::route('contact_enquiries'); }}"><i class="fa fa-angle-double-right"></i>Enquiries<small class="badge pull-right bg-yellow">{{ Helper::contact_count() }}</small></a> </li>
+                    <li><a href="{{ URL::route('career_requests'); }}"><i class="fa fa-angle-double-right"></i>Career Requests<small class="badge pull-right bg-yellow">{{ Helper::careers_count() }}</small></a> </li>
+                    <li><a href="{{ URL::route('partners_with_us'); }}"><i class="fa fa-angle-double-right"></i>Partner with us<small class="badge pull-right bg-yellow">{{ Helper::partner_count() }}</small></a> </li>
                 </ul>
             </li>
 

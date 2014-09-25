@@ -94,8 +94,6 @@
 
                     <div class="row">
 
-                       
-
                         <label class="label_title">Full Name:</label>
 
                         <input name="contact_person" id="contact_person" type="text" class="sidebar_input" required="true">
