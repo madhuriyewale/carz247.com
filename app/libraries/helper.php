@@ -32,7 +32,6 @@ class Helper {
     }
 
     public static function all_enquiries() {
-
         return $all_contacts = Contact::count();
     }
 
@@ -43,13 +42,34 @@ class Helper {
 
     public static function sales_summary() {
         $sales_summary = DB::select(DB::raw("SELECT MONTHNAME(STR_TO_DATE(Month(modified),'%m')) month, sum(final_amt) sales FROM `bookings` where booking_status = 3 group by Month(modified)"));
-
         return json_encode($sales_summary);
     }
 
-     public static function booking_summary() {
+    public static function booking_summary() {
         $booking_summary = DB::select(DB::raw("SELECT MONTHNAME(STR_TO_DATE(Month(modified),'%m')) month, count(*) bookings FROM `bookings` where booking_status = 3 group by Month(modified)"));
-
         return json_encode($booking_summary);
     }
+
+    public static function service_local_summary() {
+        $service_local_summary = DB::select(DB::raw("select MONTHNAME(STR_TO_DATE(Month(bookings.modified),'%m')) y, sum(bookings.final_amt) item1 from bookings,listings where bookings.listing_id=listings.id and listings.service_id=1 group by Month(bookings.modified)"));
+        return json_encode($service_local_summary);
+    }
+
+    public static function service_outstation_summary() {
+        $service_outstation_summary = DB::select(DB::raw("select MONTHNAME(STR_TO_DATE(Month(bookings.modified),'%m')) month, sum(bookings.final_amt) sale from bookings,listings where bookings.listing_id=listings.id and listings.service_id=2 group by Month(bookings.modified)"));
+        return json_encode($service_outstation_summary);
+    }
+
+    public static function service_airport_summary() {
+        $service_airport_summary = DB::select(DB::raw("select MONTHNAME(STR_TO_DATE(Month(bookings.modified),'%m')) month, sum(bookings.final_amt) sale from bookings,listings where bookings.listing_id=listings.id and listings.service_id=3 group by Month(bookings.modified)"));
+        return json_encode($service_airport_summary);
+    }
+
+    public static function all_service_summary() {
+        $all_service_summary = DB::select(DB::raw("select  services.service label, sum(bookings.final_amt) value from bookings,listings,services where bookings.listing_id=listings.id and
+listings.service_id=services.id
+group by services.service"));
+        return json_encode($all_service_summary);
+    }
+
 }
