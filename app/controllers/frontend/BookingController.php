@@ -50,6 +50,8 @@ class BookingController extends BaseController {
             $listing[0]["base_cost"] = $listing[0]['min_kms'] * $listing[0]['extra_km_cost'] * $days + $days * $listing[0]['driver_cost'];
             $listing[0]["min_kms"] = $listing[0]["min_kms"] * $days;
             Session::put('baseCost', $listing[0]["base_cost"]);
+        } else {
+            Session::put('baseCost', $listing[0]["base_cost"]);
         }
 
 
@@ -95,12 +97,9 @@ class BookingController extends BaseController {
 
 
         $response_data = Input::all();
-
-        //dd($response_data['paymentMode']);
         if ($response_data['TxStatus'] == 'SUCCESS') {
             $bookingUpdate = Booking::find(Session::get('booking_id'));
-            $bookingUpdate->mode = $response_data['paymentMode'];
-            // $bookingUpdate->card_type =  @$response_data['cardType'];
+            $bookingUpdate->mode = @$response_data['paymentMode'];
             $bookingUpdate->txn_ref_no = $response_data['TxRefNo'];
             $bookingUpdate->txn_status = $response_data['TxStatus'];
             $bookingUpdate->txn_msg = $response_data['TxMsg'];
@@ -110,8 +109,6 @@ class BookingController extends BaseController {
 
             $email_id = $booking_data[0]['email'];
             $to_name = $booking_data[0]['fname'];
-
-            //$data = array();
             $data = array('listings_data' => $listings_data, 'booking_data' => $booking_data, 'response_data' => $response_data);
             Mail::send('frontend.pages.success_mail', $data, function($message) use ($contactEmail, $contactName, $email_id, $to_name) {
                 $message->from($contactEmail, $contactName);
@@ -123,21 +120,13 @@ class BookingController extends BaseController {
 
             $bookingUpdate = Booking::find(Session::get('booking_id'));
             $bookingUpdate->mode = $response_data['paymentMode'];
-            // $bookingUpdate->card_type =  $response_data['cardType'];
             $bookingUpdate->txn_ref_no = $response_data['TxRefNo'];
             $bookingUpdate->txn_status = $response_data['TxStatus'];
             $bookingUpdate->txn_msg = $response_data['TxMsg'];
             $bookingUpdate->update();
         }
 
-
-
-
-
-
-
-
-        //dd($response_data);
+        Session::forget('booking_id');
         return View::make('frontend.pages.booking-success', compact('response_data', 'booking_data', 'listings_data'));
     }
 
@@ -227,6 +216,9 @@ class BookingController extends BaseController {
         $booking->locality_id = $locality_id;
         $booking->pickup_time = $pickup_time;
         $booking->instructions = $instruction;
+        $booking->upload = json_encode([]);
+        $booking->start_date = date("Y-m-d H:i:s", strtotime(Session::get('fromDate')));
+        $booking->end_date = Session::get('toDate') ? date("Y-m-d H:i:s", strtotime(Session::get('toDate'))) : date("Y-m-d H:i:s", strtotime(Session::get('fromDate')));
         $booking->cost = $cost;
         $save = $booking->save();
 

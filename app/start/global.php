@@ -12,6 +12,7 @@
  */
 
 ClassLoader::addDirectories(array(
+    app_path() . '/libraries/',
     app_path() . '/libraries/helper.php',
     app_path() . '/commands',
     app_path() . '/controllers',

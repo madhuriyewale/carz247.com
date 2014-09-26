@@ -21,5 +21,19 @@ class Helper {
      public static function all_orders() {
         return $all_orders = Booking::count();
     }
+    
+    public static function all_users(){
+        
+        return $all_users= Customer::count();
+    }
+    
+    public static function all_venders(){
+        return $all_venders = Vender::count();
+    }
+    
+    public static function all_enquiries(){
+        
+        return $all_contacts= Contact::count();
+    }
 
 }
