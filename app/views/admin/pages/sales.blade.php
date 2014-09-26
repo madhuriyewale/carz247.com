@@ -77,7 +77,9 @@
                         labels: ['Bookings'],
                         hideHover: 'auto',
                         parseTime : false,
-                        xLabels : "Months"
+                        xLabels : "Months",
+                        barSizeRatio : 0.1
+                        
                 });
         });
 </script>
