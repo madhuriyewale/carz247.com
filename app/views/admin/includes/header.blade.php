@@ -205,34 +205,22 @@
             <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <i class="glyphicon glyphicon-user"></i>
-                    <span>{{ Session::get('admin_fname');}}  {{ Session::get('admin_lname');}}<i class="caret"></i></span>
+                    <span>{{ Session::get('admin_fname');}}<i class="caret"></i></span>
                 </a>
                 <ul class="dropdown-menu">
                     <!-- User image -->
                     <li class="user-header bg-light-blue">
-                        {{ HTML::image('public/admin/img/' ,'', array('class' => 'img-circle')) }}
+                        {{ HTML::image('public/admin/img/avatar3.png' ,'', array('class' => 'img-circle')) }}
                         <p>
-                            {{ Session::get('admin_fname');}} {{ Session::get('admin_lname');}}  - Admin
+                            Admin
                             <small></small>
                         </p>
                     </li>
                     <!-- Menu Body -->
-                    <li class="user-body">
-                        <div class="col-xs-4 text-center">
-                            <a href="#">Followers</a>
-                        </div>
-                        <div class="col-xs-4 text-center">
-                            <a href="#">Sales</a>
-                        </div>
-                        <div class="col-xs-4 text-center">
-                            <a href="#">Friends</a>
-                        </div>
-                    </li>
+               
                     <!-- Menu Footer-->
                     <li class="user-footer">
-                        <div class="pull-left">
-                            <a href="#" class="btn btn-default btn-flat">Profile</a>
-                        </div>
+                      
                         <div class="pull-right">
                             <a href="{{URL::route('logout'); }}" class="btn btn-default btn-flat">Sign out</a>
                         </div>

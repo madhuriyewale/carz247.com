@@ -16,13 +16,16 @@
 {{ HTML::style('public/admin/css/fullcalendar/fullcalendar.print.css'); }}
 
 
+{{ HTML::style('public/admin/css/morris/morris.css'); }}
+
+{{ HTML::style('public/admin/css/morris/morris.css'); }}
 <link href="//code.jquery.com/ui/1.11.1/themes/pepper-grinder/jquery-ui.css" rel="stylesheet" />
+
 
 <!-- jQuery 2.0.2 -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
 <script src="//code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
 {{ HTML::script('public/admin/js/jquery-ui-timepicker-addon.js'); }}
-
 
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

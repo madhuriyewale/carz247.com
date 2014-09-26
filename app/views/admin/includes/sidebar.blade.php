@@ -50,7 +50,7 @@
 
             <li>
                 <a href="{{ URL::route('venders'); }}">
-                    <i class="fa fa-table"></i> <span>Venders</span>
+                    <i class="fa fa-child"></i> <span>Venders</span>
                     <small class="badge pull-right bg-red"></small>
                 </a>
             </li>
@@ -80,6 +80,13 @@
                     <li><a href="{{ URL::route('career_requests'); }}"><i class="fa fa-angle-double-right"></i>Career Requests<small class="badge pull-right bg-yellow">{{ Helper::careers_count() }}</small></a> </li>
                     <li><a href="{{ URL::route('partners_with_us'); }}"><i class="fa fa-angle-double-right"></i>Partner with us<small class="badge pull-right bg-yellow">{{ Helper::partner_count() }}</small></a> </li>
                 </ul>
+            </li>
+            
+            <li>
+                <a href="{{ URL::route('sales'); }}">
+                    <i class="fa fa-line-chart"></i> <span>Sales Summary</span>
+                    <small class="badge pull-right bg-red"></small>
+                </a>
             </li>
 
         </ul>

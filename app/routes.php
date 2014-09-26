@@ -28,6 +28,8 @@ Route::get('/privacy-policy', array('as' => 'privacy-policy', 'uses' => function
 return View::make('frontend.pages.privacy_policy');
 }));
 
+
+
 Route::get('/partner-with-us', array('as' => 'partner-with-us', 'uses' => 'PagesController@partner_with_us'));
 Route::post('/save_partner', array('as' => 'save_partner', 'uses' => 'PagesController@save_partner'));
 
@@ -157,6 +159,9 @@ Route::group(array('prefix' => 'admin'), function() {
         Route::get('/master/invoice/{id}', array('as' => 'invoice', 'uses' => 'AdminController@invoice'));
 
         Route::get('/drivers_dropdown/{id}', 'AdminController@drivers_dropdown');
+        
+        Route::get('/sales-summary', array('as' => 'sales', 'uses' => 'AdminController@sales'));
+
     });
 });
 
