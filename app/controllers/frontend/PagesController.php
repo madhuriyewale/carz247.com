@@ -232,21 +232,36 @@ class PagesController extends BaseController {
     }
 
     public function save_register() {
-        if (Input::get('password') === Input::get('confirm_password')) {
-            $register = new Customer();
-            $register->fname = Input::get('fname');
-            $register->lname = Input::get('lname');
-            $register->email = Input::get('email');
-            $register->phone = Input::get('mobile');
-            $register->password = Hash::make(Input::get('password'));
-            $register->zipcode = Input::get('zipcode');
-            $register->address = Input::get('address');
-            $register->city_id = Input::get('city');
-            $register->save();
-            return Redirect::route('register')->withErrors(['Successfully registered with carz247.']);
-        } else {
-            return Redirect::route('register')->withErrors(['Error being registered.']);
-        }
+        $email = Customer::where('email', '=', Input::get('email'))->get()->first();
+        if (empty($email->email)) {
+            if (Input::get('password') === Input::get('confirm_password')) {
+                $register = new Customer();
+                $register->fname = Input::get('fname');
+                $register->lname = Input::get('lname');
+                $register->email = Input::get('email');
+                $register->phone = Input::get('mobile');
+                $register->password = Hash::make(Input::get('password'));
+                $register->zipcode = Input::get('zipcode');
+                $register->address = Input::get('address');
+                $register->city_id = Input::get('city');
+                $register->save();
+                //Email Function for successful registration
+                $email_id = Input::get('email');
+                $to_name = Input::get('fname') . " " . Input::get('lname');
+
+                $contactEmail = "info@carz247.com";
+                $contactName = '';
+                $data = array('to_name' => $to_name);
+                Mail::send('frontend.pages.successful_register_mail', $data, function($message) use ($contactEmail, $contactName, $email_id, $to_name) {
+                    $message->from($contactEmail, $contactName);
+                    $message->to($email_id, $to_name)->subject('Thank you for Registration with Carz247');
+                });
+                return Redirect::route('register')->withErrors(['Successfully registered with carz247.']);
+            } else {
+                return Redirect::route('register')->withErrors(['Error being registered.']);
+             }
+        } else
+            return Redirect::route('register')->withErrors(['You are already registered with registered with carz247.']);
     }
 
     public function login() {
@@ -340,7 +355,7 @@ class PagesController extends BaseController {
             $contactEmail = "info@carz247.com";
             $contactName = '';
             //$data = array();
-            $data = array('encode_url' => "http://carz247.boxcommerce.in/reset-password/" . $encoded_url,'to_name'=>$to_name);
+            $data = array('encode_url' => "http://carz247.boxcommerce.in/reset-password/" . $encoded_url, 'to_name' => $to_name);
             Mail::send('frontend.pages.email', $data, function($message) use ($contactEmail, $contactName, $email_id, $to_name) {
                 $message->from($contactEmail, $contactName);
                 $message->to($email_id, $to_name)->subject('Reset Password - Carz247');

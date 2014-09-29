@@ -74,6 +74,11 @@ Route::get('/email', function() {
     return View::make('frontend.pages.email');
 });
 
+Route::get('/successful_register_mail', function() {
+    return View::make('frontend.pages.successful_register_mail');
+});
+
+
 Route::get('/success_mail', function() {
     return View::make('frontend.pages.success_mail');
 });

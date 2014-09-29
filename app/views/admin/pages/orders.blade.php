@@ -291,7 +291,7 @@
 <script>
     //order edit
 
-    $(document).ready(function() {
+    jQuery(document).ready(function($) {
 
         $("#startDate").datetimepicker({
             dateFormat: "yy-mm-dd",

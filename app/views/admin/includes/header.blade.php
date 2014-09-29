@@ -15,7 +15,7 @@
         <ul class="nav navbar-nav">
             <!-- Messages: style can be found in dropdown.less-->
             <li class="dropdown messages-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <a href="" class="dropdown-toggle" data-toggle="dropdown">
                     <i class="fa fa-envelope"></i>
                     <span class="label label-success">4</span>
                 </a>
@@ -101,10 +101,17 @@
                         <!-- inner menu: contains the actual data -->
                         <ul class="menu">
                             <li>
-                                <a href="#">
+                                <a href="">
                                     <i class="ion ion-ios7-people info"></i> 5 new members joined today
                                 </a>
                             </li>
+                            
+                            
+           
+                            
+                            
+                            
+                            
                             <li>
                                 <a href="#">
                                     <i class="fa fa-warning danger"></i> Very long description here that may not fit into the page and may cause design problems
