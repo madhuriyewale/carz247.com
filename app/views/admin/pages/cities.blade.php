@@ -19,7 +19,8 @@
             <div class="col-xs-12">
                 <div class="box box-warning">
                     <div class="box-header">
-                        <h3 class="box-title">Add a New Cities</h3>
+                        <h3 class="box-title">Add New Cities</h3>
+                         {{ View::make('admin.includes.addButton',array("name"=>"City")) }}
                     </div><!-- /.box-header -->
                     <div class="box-body">
                         <form id="citiesForm" role="form" method="post" action="{{ URL::route('save_cities'); }}">

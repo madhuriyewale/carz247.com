@@ -21,47 +21,47 @@
                     <div id="register_error" style="margin:15px 0px 0 8px;width:auto; font-size:14px; color:#FF0000"></div>
                     <div class="row alignleft field_text">
                         <label class="label_title">First Name*</label>
-                        <input name="fname" id="fname" class="inputtext input_middle" value="" type="text" required="true">
+                        <input name="fname" id="fname" class="inputtext input_middle validate[required] text-input"  type="text">
 
                     </div>
 
                     <div class="row alignleft field_text omega">
                         <label class="label_title">Last Name*</label>
-                        <input name="lname" id="lname" class="inputtext input_middle" value="" type="text" required="true">
+                        <input name="lname" id="lname" class="inputtext input_middle validate[required] text-input" type="text">
                     </div>
 
                     <div class="row alignleft field_text">
                         <label class="label_title">Mobile*</label>
-                        <input name="mobile" id="mobile" class="inputtext input_middle" value="" type="number" required="true">
+                        <input name="mobile" id="mobile" class="inputtext input_middle validate[required] text-input" type="number">
                     </div>
 
 
                     <div class="row alignleft field_text omega">
                         <label class="label_title">Email*</label>
-                        <input name="email" id="email" class="inputtext input_middle" value="" type="email" required="true">
+                        <input name="email" id="email" class="inputtext input_middle validate[required,custom[email]]" type="email">
                     </div>
 
                     <div class="row alignleft field_text">
                         <label  class="label_title">Password*</label>
-                        <input name="password" id="password" pattern=".{6,}" required title="minimum 6 characters required." class="inputtext input_middle" value="" type="password">
+                        <input name="password" id="password"  class="inputtext input_middle validate[required,minSize[6]] text-input" value="" type="password">
                     </div>
 
 
                     <div class="row alignleft field_text omega">
                         <label  class="label_title">Confirm Password*</label>
-                        <input name="confirm_password" id="cpass" pattern=".{6,}" required title="minimum 6 characters required." class="inputtext input_middle" value="" type="password" >
+                        <input name="confirm_password" id="cpass" class="inputtext input_middle validate[required,minSize[6]] text-input" value="" type="password" >
                     </div>
 
                     <div class="clear"></div>
 
                     <div class="row alignleft field_text">
                         <label  class="label_title">Address*</label>
-                        <textarea name="address" id="address" class="textarea textarea_middle" value="" type="text" required="true"></textarea>
+                        <textarea name="address" id="address" class="textarea textarea_middle validate[required] text-input"  type="text" ></textarea>
                     </div>
 
                     <div class="row alignleft field_select">
                         <label class="label_title">City</label>
-                        <select  name="city" class="select_styled" required="true">
+                        <select  name="city" class="select_styled validate[required]" >
                             <option value="">Please Select</option>
                             @foreach ($cities as $city)
                             <option  value="{{ $city->id }}" >{{ $city->city }}</option>
@@ -70,7 +70,7 @@
                     </div>
                     <div class="row alignleft field_text omega">
                         <label  class="label_title">Zipcode*</label>
-                        <input name="zipcode"  id="pincode" class="inputtext input_middle" value="" type="text" required="true"/>
+                        <input name="zipcode"  id="pincode" class="inputtext input_middle validate[required] text-input" value="" type="text"/>
                     </div>
                     <div class="clear"></div>
                     <div class="row rowSubmit clearfix">

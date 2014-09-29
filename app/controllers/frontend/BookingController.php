@@ -104,8 +104,8 @@ class BookingController extends BaseController {
             $bookingUpdate->txn_status = $response_data['TxStatus'];
             $bookingUpdate->txn_msg = $response_data['TxMsg'];
             $bookingUpdate->update();
-            $contactEmail = "info@carz247.com";
-            $contactName = '';
+            $contactEmail = "bookings@carz247.com";
+            $contactName = ''; 
 
             $email_id = $booking_data[0]['email'];
             $to_name = $booking_data[0]['fname'];
@@ -216,6 +216,8 @@ class BookingController extends BaseController {
         $booking->locality_id = $locality_id;
         $booking->pickup_time = $pickup_time;
         $booking->instructions = $instruction;
+        $booking->from_city=Session::get('from_city');
+        $booking->to_city = Session::get('toCity') ? Session::get('toCity'): Session::get('from_city');
         $booking->upload = json_encode([]);
         $booking->start_date = date("Y-m-d H:i:s", strtotime(Session::get('fromDate')));
         $booking->end_date = Session::get('toDate') ? date("Y-m-d H:i:s", strtotime(Session::get('toDate'))) : date("Y-m-d H:i:s", strtotime(Session::get('fromDate')));

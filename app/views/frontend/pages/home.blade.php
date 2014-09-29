@@ -28,115 +28,97 @@
 
 
 
-                    {{ HTML::image("public/frontend/images/car-bg.jpg" ,'Carz247',array("class"=>"carz bgtab", "data-fullwidthcentering" => "on")) }}
+            {{ HTML::image("public/frontend/images/car-bg.jpg" ,'Carz247',array("class"=>"carz bgtab", "data-fullwidthcentering" => "on")) }}
 
 
 
-                    
 
-                        <div class="tabs_framed tf_sidebar_tabs hometab container" >
 
+            <div class="tabs_framed tf_sidebar_tabs hometab container" >
 
 
-                            <ul class="tabs">
 
-                                <li class=" border-right"><a href="#tabs_1_1"><i class="fa fa-tachometer"></i> Local</a></li>
+                <ul class="tabs">
 
-                                <li class=" border-right"><a href="#tabs_1_2"> <i class="fa fa-map-marker"></i> Outstation</a></li>
+                    <li class=" border-right"><a href="#tabs_1_1"><i class="fa fa-tachometer"></i> Local</a></li>
 
-                                <li class=" border-right"><a href="#tabs_1_3"> <i class="fa fa-plane"></i> Airport Transfer </a></li>
+                    <li class=" border-right"><a href="#tabs_1_2"> <i class="fa fa-map-marker"></i> Outstation</a></li>
 
-                            </ul>
+                    <li class=" border-right"><a href="#tabs_1_3"> <i class="fa fa-plane"></i> Airport Transfer </a></li>
 
+                </ul>
 
 
-                            <div id="tabs_1_1" class="tabcontent">
 
-                                <div class="inner search_row">
+                <div id="tabs_1_1" class="tabcontent">
 
-                                    <form action="local" method="post" class="search_form advsearch_hide clearfix" >
+                    <div class="inner search_row">
 
+                        <form action="local" method="post" class="search_form advsearch_hide clearfix" >
 
 
 
 
-                                        <div class="adv_search_hidden clearfix">
 
+                            <div class="adv_search_hidden clearfix">
 
 
-                                            <div class="row field_select">
 
-                                                <label class="label_title">From</label>
+                                <div class="row field_select">
 
+                                    <label class="label_title">From</label>
 
 
-                                                <select class="select_styled" name="city_id" required>
 
-                                                    <option value="">Please Select </option>
+                                    <select class="select_styled validate[required]" name="city_id" >
 
-                                                    @foreach ($localCities as $city)
+                                        <option value="">Please Select </option>
 
+                                        @foreach ($localCities as $city)
 
 
-                                                    <option value="{{ $city->id }}">{{ $city->city}}</option>
 
-                                                    @endforeach
+                                        <option value="{{ $city->id }}">{{ $city->city}}</option>
 
+                                        @endforeach
 
 
-                                                </select>
 
-                                            </div>
+                                    </select>
 
+                                </div>
 
 
-                                            <div class="row field_select">
 
-                                                <label class="label_title">Package</label>
+                                <div class="row field_select">
 
+                                    <label class="label_title">Package</label>
 
 
-                                                <select class="select_styled" name="package_id" required>
 
-                                                    <option value="">Please Select </option>
+                                    <select class="select_styled validate[required]" name="package_id">
 
-                                                    @foreach ($localPackages as $package)
+                                        <option value="">Please Select </option>
 
-                                                    <option value="{{ $package->id }}">{{ $package->package }}</option>
+                                        @foreach ($localPackages as $package)
 
-                                                    @endforeach
+                                        <option value="{{ $package->id }}">{{ $package->package }}</option>
 
+                                        @endforeach
 
 
-                                                </select>
 
-                                            </div>
+                                    </select>
 
+                                </div>
 
 
-                                            <div class="row field_select">
 
-                                                <label class="label_title">Date</label>
+                                <div class="row field_select">
 
-                                                <input type="text" name="fromDate" class="form-control datepicker" name="date" placeholder="Please Select" autocomplete="off" required/>
+                                    <label class="label_title">Date</label>
 
-                                            </div>
-
-                                        </div>
-
-
-
-                                        <div class="row rowSubmit">
-
-                                            <label class="label_title" id="adv_search_open">&nbsp;</label>
-
-                                            <input type="hidden" name="service_id" value="1" />
-
-                                            <span class="btn btn_search btn_red"><input type="submit" value="Book Now"></span>
-
-                                        </div>
-
-                                    </form>                    		
+                                    <input type="text" name="fromDate" class="form-control datepicker validate[required]" name="date" placeholder="Please Select" autocomplete="off" readonly="readonly"/>
 
                                 </div>
 
@@ -144,181 +126,192 @@
 
 
 
-                            <div id="tabs_1_2" class="tabcontent">
+                            <div class="row rowSubmit">
 
-                                <div class="inner search_row">
+                                <label class="label_title" id="adv_search_open">&nbsp;</label>
 
-                                    <form action="outstation" method="post" class="search_form advsearch_hide clearfix">
+                                <input type="hidden" name="service_id" value="1" />
 
+                                <span class="btn btn_search btn_red"><input type="submit" value="Book Now"></span>
 
+                            </div>
 
+                        </form>                    		
 
+                    </div>
 
-                                        <div class="adv_search_hidden clearfix">
-
-
-
-                                            <div class="row field_select">
-
-                                                <label class="label_title">From</label>
-
-                                                <select class="select_styled" name="city_id"  required>
-
-                                                    <option value="">Please Select </option>
-
-                                                    @foreach ($outstationCities as $city)
+                </div>
 
 
 
-                                                    
+                <div id="tabs_1_2" class="tabcontent">
 
-                                                    <option value="{{ $city->id }}">{{ $city->city}}</option>
+                    <div class="inner search_row">
 
-                                                    @endforeach
-
-
-
-                                                </select>
-
-                                            </div>
-
-
-
-                                            <div class="row field_select">
-
-                                                <label class="label_title">Travel To</label>
+                        <form action="outstation" method="post" class="search_form advsearch_hide clearfix">
 
 
 
 
 
-                                                <input type="text" name="toCity" class="form-control" id="travel_to" placeholder="Enter the city" required="true">
-
-                                            </div>
+                            <div class="adv_search_hidden clearfix">
 
 
 
-                                            <div class="row field_select">
+                                <div class="row field_select">
 
-                                                <label class="label_title">Start Date</label>
+                                    <label class="label_title">From</label>
 
-                                                <input type="text" name="fromDate" id="fromDate" class="form-control" placeholder="Please Select" autocomplete="off" required>
+                                    <select class="select_styled validate[required]" name="city_id" >
 
-                                            </div>
+                                        <option value="">Please Select </option>
 
-
-
-                                            <div class="row field_select">
-
-                                                <label class="label_title">End Date</label>
-
-                                                <input type="text" name="toDate" id="toDate" class="form-control" placeholder="Please Select" autocomplete="off" required>
-
-                                            </div>
+                                        @foreach ($outstationCities as $city)
 
 
 
 
 
-                                        </div>
+                                        <option value="{{ $city->id }}">{{ $city->city}}</option>
+
+                                        @endforeach
 
 
 
-                                        <div class="row rowSubmit">
-
-                                            <label class="label_title" id="adv_search_open">&nbsp;</label>
-
-                                            <input type="hidden" name="service_id" value="2" />
-
-                                            <input type="hidden" name="package_id" value="0" />
-
-                                            <span class="btn btn_search btn_red"><input type="submit" value="Book Now"></span>
-
-                                        </div>
-
-                                    </form>                    		
+                                    </select>
 
                                 </div>
+
+
+
+                                <div class="row field_select">
+                                    <label class="label_title">Travel To</label>
+                                    <input type="text" name="toCity" class="form-control validate[required] input-text" id="travel_to" placeholder="Enter the city" />
+                                </div>
+
+
+
+                                <div class="row field_select">
+
+                                    <label class="label_title">Start Date</label>
+
+                                    <input type="text" name="fromDate" id="fromDate" class="form-control validate[required]" placeholder="Please Select"  readonly="readonly" autocomplete="off" >
+
+                                </div>
+
+
+
+                                <div class="row field_select">
+
+                                    <label class="label_title">End Date</label>
+
+                                    <input type="text" name="toDate" id="toDate" class="form-control validate[required]" placeholder="Please Select" readonly="readonly" autocomplete="off" required>
+
+                                </div>
+
+
+
+
 
                             </div>
 
 
 
-                            <div id="tabs_1_3" class="tabcontent">
+                            <div class="row rowSubmit">
 
-                                <div class="inner search_row">
+                                <label class="label_title" id="adv_search_open">&nbsp;</label>
 
-                                    <form action="airport-transfer" method="post" class="search_form advsearch_hide clearfix">
+                                <input type="hidden" name="service_id" value="2" />
 
+                                <input type="hidden" name="package_id" value="0" />
 
+                                <span class="btn btn_search btn_red"><input type="submit" value="Book Now"></span>
 
+                            </div>
 
+                        </form>                    		
 
-                                        <div class="adv_search_hidden clearfix">
+                    </div>
 
-
-
-                                            <div class="row field_select">
-
-                                                <label class="label_title">From</label>
-
-                                                <select class="select_styled" name="city_id" required>
-
-                                                    <option value="">Please Select </option>
-
-                                                    @foreach ($airportCities as $city)
+                </div>
 
 
 
-                                                    <option value="{{ $city->id }}">{{ $city->city}}</option>
+                <div id="tabs_1_3" class="tabcontent">
 
-                                                    @endforeach
+                    <div class="inner search_row">
 
-
-
-                                                </select>
+                        <form action="airport-transfer" method="post" class="search_form advsearch_hide clearfix">
 
 
 
-                                            </div>
+
+
+                            <div class="adv_search_hidden clearfix">
 
 
 
-                                            <div class="row field_select">
+                                <div class="row field_select">
 
-                                                <label class="label_title">Date</label>
+                                    <label class="label_title">From</label>
 
-                                                <input type="text" name="fromDate" class="form-control datepicker" placeholder="Please Select" autocomplete="off" required>
+                                    <select class="select_styled validate[required]" name="city_id">
 
-                                            </div>
+                                        <option value="">Please Select </option>
 
-
-
-                                        </div>
+                                        @foreach ($airportCities as $city)
 
 
 
-                                        <div class="row rowSubmit">
+                                        <option value="{{ $city->id }}">{{ $city->city}}</option>
 
-                                            <label class="label_title" id="adv_search_open">&nbsp;</label>
+                                        @endforeach
 
-                                            <input type="hidden" name="service_id" value="3" />
 
-                                            <span class="btn btn_search btn_red"><input type="submit" value="Book Now"></span>
 
-                                        </div>
+                                    </select>
 
-                                    </form>                    		
+
 
                                 </div>
+
+
+
+                                <div class="row field_select">
+
+                                    <label class="label_title">Date</label>
+
+                                    <input type="text" name="fromDate" class="form-control datepicker validate[required]" placeholder="Please Select" readonly="readonly" autocomplete="off" required>
+
+                                </div>
+
+
 
                             </div>
 
 
 
-                        </div>
+                            <div class="row rowSubmit">
 
-                    
+                                <label class="label_title" id="adv_search_open">&nbsp;</label>
+
+                                <input type="hidden" name="service_id" value="3" />
+
+                                <span class="btn btn_search btn_red"><input type="submit" value="Book Now"></span>
+
+                            </div>
+
+                        </form>                    		
+
+                    </div>
+
+                </div>
+
+
+
+            </div>
+
+
 
 
 
@@ -337,19 +330,14 @@
         if ($.fn.cssOriginal != undefined)
 
                 $.fn.css = $.fn.cssOriginal;
-
                 $('.fullwidthbanner').revolution({
 
         delay: 5000,
-
                 startwidth: 950,
-
                 startheight: 617,
-
                 onHoverStop: "off", // Stop Banner Timet at Hover on Slide on/off
 
                 hideThumbs: 0,
-
                 navigationType: "bullet", // bullet, thumb, none
 
                 navigationArrows: "none", // nexttobullets, solo (old name verticalcentered), none
@@ -365,9 +353,7 @@
                 navigationVAlign: "bottom", // Horizontal Align left,center,right
 
                 navigationHOffset: 0,
-
                 navigationVOffset: 23,
-
                 touchenabled: "on", // Enable Swipe Function : on/off
 
 
@@ -387,13 +373,11 @@
 
 
                 fullWidth: "on",
-
                 shadow: 0								//0 = no Shadow, 1,2,3 = 3 Different Art of Shadows -  (No Shadow in Fullwidth Version !)
 
 
 
         });
-
         });</script>
 
     <!--/ header slider -->
@@ -487,23 +471,15 @@
                 function carSpecicalInit() {
 
                 var car_specical = $('#special_offers');
-
                         car_specical.carouFredSel({
 
                         prev: "#special_offers_prev",
-
                                 next: "#special_offers_next",
-
                                 infinite: true,
-
                                 circular: false,
-
                                 auto: false,
-
                                 width: '100%',
-
                                 direction: "down",
-
                                 scroll: {
 
                                 items: 1
@@ -511,25 +487,18 @@
                                 }
 
                         });
-
                 }
 
                 $(window).load(function() {
 
                 carSpecicalInit();
-
                 });
-
                         var resizeTimer;
-
                         $(window).resize(function() {
 
                 clearTimeout(resizeTimer);
-
                         resizeTimer = setTimeout(carSpecicalInit, 100);
-
                 });
-
                 });</script> 
 
         </div>           
@@ -693,29 +662,20 @@
                 $('#testimonials').carouFredSel({
 
                 next: "#testimonials_next",
-
                         prev: "#testimonials_prev",
-
                         infinite: false,
-
                         items: 1,
-
                         auto: true,
-
                         scroll: {
 
                         items: 1,
-
                                 fx: "crossfade",
-
                                 easing: "linear",
-
                                 duration: 300
 
                         }
 
                 });
-
                 });
 
         </script>    

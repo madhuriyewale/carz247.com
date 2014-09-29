@@ -91,7 +91,7 @@ Route::group(array('prefix' => 'admin'), function() {
 
     Route::post('/admin_login_chk', array('as' => 'admin_login_chk', 'uses' => 'AdminController@admin_login_chk'));
 
-    Route::get('/admin_logout', array('as' => 'logout', 'uses' => 'AdminController@admin_logout'));
+    Route::get('/admin_logout', array('as' => 'admin_logout', 'uses' => 'AdminController@admin_logout'));
 
 
     Route::group(array('before' => 'auth.admin'), function() {

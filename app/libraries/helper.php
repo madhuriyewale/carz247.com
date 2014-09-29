@@ -36,7 +36,13 @@ class Helper {
     }
 
     public static function all_booking_for_calendar() {
-        $booking_calender = DB::select(DB::raw("select CONCAT_WS(' ',cities.city, services.service, categories.category, packages.package) title, bookings.start_date start,bookings.end_date end from `bookings` left join `customers` on `customers`.`id` = `bookings`.`customer_id` left join `localities` on `localities`.`id` = `bookings`.`locality_id` left join `listings` on `listings`.`id` = `bookings`.`listing_id` left join `services` on `services`.`id` = `listings`.`service_id` left join `cities` on `cities`.`id` = `listings`.`city_id` left join `packages` on `packages`.`id` = `listings`.`package_id` left join `categories` on `categories`.`id` = `listings`.`category_id` left join `venders` on `venders`.`id` = `bookings`.`vender_id`"));
+        $booking_calender = DB::select(DB::raw("select CONCAT_WS(' ',cities.city, services.service, categories.category, packages.package) title, bookings.start_date start,bookings.end_date end, (
+    CASE services.id
+        WHEN '1' THEN '#f56954'
+        WHEN '2' THEN '#00a65a'
+        WHEN '3' THEN '#0073b7'
+        ELSE '#0073b7'
+    END) as backgroundColor, '#fff' as borderColor, '/admin/orders' as url from `bookings` left join `customers` on `customers`.`id` = `bookings`.`customer_id` left join `localities` on `localities`.`id` = `bookings`.`locality_id` left join `listings` on `listings`.`id` = `bookings`.`listing_id` left join `services` on `services`.`id` = `listings`.`service_id` left join `cities` on `cities`.`id` = `listings`.`city_id` left join `packages` on `packages`.`id` = `listings`.`package_id` left join `categories` on `categories`.`id` = `listings`.`category_id` left join `venders` on `venders`.`id` = `bookings`.`vender_id`"));
         return json_encode($booking_calender);
     }
 
@@ -51,7 +57,7 @@ class Helper {
     }
 
     public static function service_local_summary() {
-        $service_local_summary = DB::select(DB::raw("select MONTHNAME(STR_TO_DATE(Month(bookings.modified),'%m')) y, sum(bookings.final_amt) item1 from bookings,listings where bookings.listing_id=listings.id and listings.service_id=1 group by Month(bookings.modified)"));
+        $service_local_summary = DB::select(DB::raw("select MONTHNAME(STR_TO_DATE(Month(bookings.modified),'%m')) y, sum(bookings.final_amt) Sale from bookings,listings where bookings.listing_id=listings.id and listings.service_id=1 group by Month(bookings.modified)"));
         return json_encode($service_local_summary);
     }
 

@@ -13,7 +13,7 @@
 {{ HTML::style('public/admin/css/AdminLTE.css'); }}
 
 {{ HTML::style('public/admin/css/fullcalendar/fullcalendar.css'); }}
-{{ HTML::style('public/admin/css/fullcalendar/fullcalendar.print.css'); }}
+{{ HTML::style('public/admin/css/fullcalendar/fullcalendar.print.css',array('media'=>'print')); }}
 
 
 {{ HTML::style('public/admin/css/morris/morris.css'); }}

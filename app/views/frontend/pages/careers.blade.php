@@ -96,29 +96,29 @@
 
                         <label class="label_title">Full Name:</label>
 
-                        <input name="contact_person" id="contact_person" type="text" class="sidebar_input" required="true">
+                        <input name="contact_person" id="contact_person" type="text" class="sidebar_input  validate[required] text-input" >
 
                         <div class="clear"></div>
 
                           <label class="label_title">Email:</label>
 
-                        <input name="email" id="email" type="email" class="sidebar_input" required="true">
+                        <input name="email" id="email" type="email" class="sidebar_input validate[required,custom[email]]">
 
                         <div class="clear"></div>
 
                         <label class="label_title">Mobile Number:</label>
 
-                        <input name="mobile" id="mobile" type="number" class="sidebar_input" required="true">
+                        <input name="mobile" id="mobile" type="number" class="sidebar_input validate[required] text-input">
 
                         <div class="clear"></div>
 
                          <label class="label_title">Upload your resume:</label>
 
-                         <input type="file" name="resume" id="userfile" required="true">
+                         <input type="file" name="resume" id="userfile" class="validate[required] text-input">
 
                        <label class="label_title">Remark:</label>
 
-                        <input name="remarks" id="remark" type="text" class="sidebar_input" required="true">
+                        <input name="remarks" id="remark" type="text" class="sidebar_input validate[required] text-input" >
 
                         <div class="clear"></div>
 

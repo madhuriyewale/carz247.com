@@ -146,7 +146,7 @@
 
                         <label class="label_title">Company Name:</label>
 
-                        <input name="company_name" id="company_name" type="text" class="sidebar_input" required="true">
+                        <input name="company_name" id="company_name" type="text" class="sidebar_input  validate[required] text-input" >
 
                         <div class="clear"></div>
 
@@ -154,7 +154,7 @@
 
                         <label class="label_title">Contact Person:</label>
 
-                        <input name="contact_person" id="contact_person" type="text" class="sidebar_input" required="true">
+                        <input name="contact_person" id="contact_person" type="text" class="sidebar_input validate[required] text-input" >
 
                        
 
@@ -164,7 +164,7 @@
 
                         <label class="label_title">Mobile Number:</label>
 
-                        <input name="mobile" id="mobile" type="number" class="sidebar_input" required="true">
+                        <input name="mobile" id="mobile" type="number" class="sidebar_input validate[required] text-input">
 
                         <div class="clear"></div>
 
@@ -172,7 +172,7 @@
 
                         <label class="label_title">Email:</label>
 
-                        <input name="email" id="email" type="email" class="sidebar_input" required="true">
+                        <input name="email" id="email" type="email" class="sidebar_input validate[required,custom[email]]" >
 
                         <div class="clear"></div>
 
@@ -180,7 +180,7 @@
 
                         <label class="label_title">Address:</label>
 
-                        <textarea name="address" id="address" type="text" class="sidebar_input" required="true"></textarea>
+                        <textarea name="address" id="address" type="text" class="sidebar_input validate[required] text-input" ></textarea>
 
                         <div class="clear"></div>
 

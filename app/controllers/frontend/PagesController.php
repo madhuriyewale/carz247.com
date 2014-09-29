@@ -12,6 +12,8 @@ class PagesController extends BaseController {
         Session::forget('fromDate');
         Session::forget('city_id');
         Session::forget('booking_id');
+        Session::forget('toCity');
+        Session::forget('from_city');
 
         $localCities = City::Join("listings", "cities.id", "=", "listings.city_id")
                 ->where('cities.status', '=', 1)
@@ -43,20 +45,14 @@ class PagesController extends BaseController {
                 ->get(['cities.*']);
 
 
-        $get_cities = City::select('city')->orderBy('city', 'asc')->get()->toArray();
+        $get_cities = City::orderBy('city', 'asc')->get(['id as value', 'city as label'])->toArray();
 
-        $allCities = [];
-
-        foreach ($get_cities as $value) {
-            array_push($allCities, $value["city"]);
-        }
-
-        $allCities = json_encode($allCities);
+        $allCities = json_encode($get_cities);
 
         return View::make('frontend.pages.home', compact('categories', 'localCities', 'outstationCities', 'localPackages', 'airportCities', 'allCities'));
     }
-    
-    public function home2(){
+
+    public function home2() {
         $categories = Category::leftJoin("listings", "listings.category_id", "=", "categories.id")->where("listings.city_id", "=", 815)->where("listings.service_id", "=", 1)->where("listings.package_id", "=", 1)->get(["categories.*", "listings.extra_km_cost"]);
 
         /* Cities/packages for Local Listings */
@@ -106,9 +102,7 @@ class PagesController extends BaseController {
 
         $allCities = json_encode($allCities);
 
-        return View::make('frontend.pages.home2', compact('categories', 'localCities', 'outstationCities', 'localPackages', 'airportCities', 'allCities'));  
-        
-        
+        return View::make('frontend.pages.home2', compact('categories', 'localCities', 'outstationCities', 'localPackages', 'airportCities', 'allCities'));
     }
 
     public function local() {
@@ -116,6 +110,10 @@ class PagesController extends BaseController {
         Session::put('fromDate', Input::get("fromDate"));
         Session::put('toDate', Input::get("toDate"));
         Session::put('city_id', Input::get("city_id"));
+
+        $from_city = City::where('id', '=', Input::get("city_id"))->get()->first();
+        Session::put('from_city', $from_city->city);
+
 
         $listings = Listing::where('city_id', '=', Input::get("city_id"))
                         ->where('package_id', '=', Input::get("package_id"))
@@ -134,6 +132,10 @@ class PagesController extends BaseController {
         Session::put('toDate', Input::get("toDate"));
         Session::put('city_id', Input::get("city_id"));
 
+        $from_city = City::where('id', '=', Input::get("city_id"))->get()->first();
+        Session::put('from_city', $from_city->city);
+
+
         $listings = Listing::where('city_id', '=', Input::get("city_id"))
                         ->where('service_id', '=', Input::get("service_id"))
                         ->join("services", "services.id", "=", "listings.service_id")
@@ -149,6 +151,9 @@ class PagesController extends BaseController {
         Session::put('toDate', Input::get("toDate"));
         Session::put('city_id', Input::get("city_id"));
         Session::put('toCity', Input::get("toCity"));
+
+        $from_city = City::where('id', '=', Input::get("city_id"))->get()->first();
+        Session::put('from_city', $from_city->city);
 
         $fromDate = new DateTime(Input::get("fromDate"));
         $toDate = new DateTime(Input::get("toDate"));
@@ -265,7 +270,7 @@ class PagesController extends BaseController {
             Session::put('fname', $user_name->fname);
             Session::put('lname', $user_name->lname);
             Session::put('address', $user_name->address);
-           
+
             Session::put('zipcode', $user_name->zipcode);
             Session::put('phone', $user_name->phone);
             return Redirect::to('/');
@@ -277,7 +282,7 @@ class PagesController extends BaseController {
     public function logout() {
         Auth::logout();
         Session::flush();
-        return Redirect::to('/');
+        return Redirect::to('/login');
     }
 
     public function edit_profile() {
@@ -335,10 +340,10 @@ class PagesController extends BaseController {
             $contactEmail = "info@carz247.com";
             $contactName = '';
             //$data = array();
-            $data = array('encode_url' => "http://carz247.boxcommerce.in/reset-password/" . $encoded_url);
+            $data = array('encode_url' => "http://carz247.boxcommerce.in/reset-password/" . $encoded_url,'to_name'=>$to_name);
             Mail::send('frontend.pages.email', $data, function($message) use ($contactEmail, $contactName, $email_id, $to_name) {
                 $message->from($contactEmail, $contactName);
-                $message->to($email_id, $to_name)->subject('CARZ checking');
+                $message->to($email_id, $to_name)->subject('Reset Password - Carz247');
             });
 
             return Redirect::to('/forgot_password')->withErrors(['A Link to reset your password has been sent. Please check your email.']);
