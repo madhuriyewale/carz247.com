@@ -1,5 +1,10 @@
 @extends('frontend.layouts.default')
 @section('content')
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;
+charset=UTF-8">
+    </head>
 <div class="header listing-bg  header_thin" >
     <div class="header_title"> <strong> Registration <span>Form</span> </strong> </div>
 </div>

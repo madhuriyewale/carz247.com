@@ -77,5 +77,11 @@ listings.service_id=services.id
 group by services.service"));
         return json_encode($all_service_summary);
     }
+    
+    public static function booking_status($id){
+        $status = ['Received','Confirmed','Allocated','Completed','Cancelled'];
+        return $status[$id];
+    }
+    
 
 }

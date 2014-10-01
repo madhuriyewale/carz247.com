@@ -20,7 +20,9 @@ $(function() {
         "bFilter": false,
         "bSort": true,
         "bInfo": true,
-        "bAutoWidth": false
+        "bAutoWidth": false,
+      
+         "aaSorting": []
     });
 
 
@@ -32,7 +34,7 @@ $(function() {
 <script>
 
     $(document).ready(function() {
-        
+
 //cities Edit
         $('.citiesEdit').click(function() {
             var id = $(this).attr('data-id');
@@ -40,8 +42,8 @@ $(function() {
             $("form#citiesForm").append("<input type='hidden' name='id' value='" + $("tr[data-tr='" + id + "'] td").eq(0).text() + "'>")
             $("form#citiesForm").attr("action", "{{ URL::route('cities_edit') }}");
         });
-        
-        
+
+
 //package Edit
         $('.packageEdit').click(function() {
             var id = $(this).attr('data-id');
@@ -58,8 +60,8 @@ $(function() {
             //  $("form#serviceForm input[name='status']").val($("tr[data-tr='" + id + "'] td").eq(2).text().prop('selected', true));
             // $("form#serviceForm radio[value='" + radioVal + "']").parent().addClass("checked");
             // $('[checked="checked"]').parent().addClass("active");
-            
-           // alert( $("input[type=radio][name=status]").val() );
+
+            // alert( $("input[type=radio][name=status]").val() );
             $("form#serviceForm").append("<input type='hidden' name='id' value='" + $("tr[data-tr='" + id + "'] td").eq(0).text() + "'>")
             $("form#serviceForm").attr("action", "{{ URL::route('service_edit') }}");
 

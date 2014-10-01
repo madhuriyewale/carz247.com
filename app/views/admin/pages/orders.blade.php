@@ -246,7 +246,10 @@
                                     <td>{{ $order->txn_ref_no }}</td>
                                     <td>{{ $order->txn_status }}</td>
                                     <td>{{ $order->txn_msg }}</td>
-                                    <td>{{ $order->booking_status }}</td>
+                                    
+                                    <td data-value="{{ $order->booking_status }}">{{ Helper::booking_status($order->booking_status) }}</td>
+                                    
+                                    
                                     <td data-value="{{$order->vender_id}}">{{ $order->venders_name }}</td>
                                     <td >{{ $order->drivers }}</td>
                                     <td>{{ $order->cars }}</td>
@@ -340,7 +343,7 @@
             $("form#orderForm input[name='txn_ref_no']").val($("tr[data-tr='" + id + "'] td").eq(8).text());
             $("form#orderForm input[name='txn_status']").val($("tr[data-tr='" + id + "'] td").eq(9).text());
             $("form#orderForm input[name='txn_msg']").val($("tr[data-tr='" + id + "'] td").eq(10).text());
-            $("form#orderForm select[name='booking_status']").val($("tr[data-tr='" + id + "'] td").eq(11).text());
+            $("form#orderForm select[name='booking_status']").val($("tr[data-tr='" + id + "'] td").eq(11).attr("data-value") );
             $("form#orderForm select[name='vendersName'] option[value='" + $("tr[data-tr='" + id + "'] td").eq(12).attr("data-value") + "']").prop('selected', true);
             $("form#orderForm input[name='startDate']").val($("tr[data-tr='" + id + "'] td").eq(15).text());
             $("form#orderForm input[name='endDate']").val($("tr[data-tr='" + id + "'] td").eq(16).text());

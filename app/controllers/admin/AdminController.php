@@ -290,7 +290,8 @@ class AdminController extends BaseController {
     }
 
     public function orders() {
-        $orders = Booking::leftJoin("customers", "customers.id", "=", "bookings.customer_id")
+        $orders = Booking::orderBy("bookings.modified")
+                ->leftJoin("customers", "customers.id", "=", "bookings.customer_id")
                 ->leftJoin("localities", "localities.id", "=", "bookings.locality_id")
                 ->leftJoin("listings", "listings.id", "=", "bookings.listing_id")
                 ->leftJoin("services", "services.id", "=", "listings.service_id")
@@ -298,6 +299,7 @@ class AdminController extends BaseController {
                 ->leftJoin("packages", "packages.id", "=", "listings.package_id")
                 ->leftJoin("categories", "categories.id", "=", "listings.category_id")
                 ->leftJoin("venders", "venders.id", "=", "bookings.vender_id")
+               
                 ->get([ 'customers.fname', 'customers.lname', 'venders.venders_name', 'localities.locality', 'listings.*', 'services.service', 'cities.city', 'packages.package', 'categories.category', 'bookings.*']);
 
         $listings_data = Listing::all();

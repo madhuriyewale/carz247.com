@@ -256,10 +256,42 @@ class PagesController extends BaseController {
                     $message->from($contactEmail, $contactName);
                     $message->to($email_id, $to_name)->subject('Thank you for Registration with Carz247');
                 });
+
+                /*
+                  //extract data from the post
+                  //extract($_POST);
+                  //set POST variables
+                  $url = "http://bulkpush.mytoday.com/BulkSms/SingleMsgApi";
+                  $fields = array("feedid" => ("345549"),
+                  "mobile" => urlencode(Input::get("mobile"))
+                  );
+
+                  //url-ify the data for the POST
+                  //      foreach ($fields as $key => $value) {
+                  //         $fields_string .= $key . '=' . $value . '&';
+                  //     }
+                  //   rtrim($fields_string, '&');
+                  $fields_string="this is test message";
+                  //open connection
+                  $ch = curl_init();
+
+                  //set the url, number of POST vars, POST data
+                  curl_setopt($ch, CURLOPT_URL, $url);
+                  curl_setopt($ch, CURLOPT_POST, count($fields));
+                  curl_setopt($ch, CURLOPT_POSTFIELDS, $fields_string);
+
+                  //execute post
+                  $result = curl_exec($ch);
+
+                  //close connection
+                  curl_close($ch);
+                  dd();
+                 * 
+                 */
                 return Redirect::route('register')->withErrors(['Successfully registered with carz247.']);
             } else {
                 return Redirect::route('register')->withErrors(['Error being registered.']);
-             }
+            }
         } else
             return Redirect::route('register')->withErrors(['You are already registered with registered with carz247.']);
     }
