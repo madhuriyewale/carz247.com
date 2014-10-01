@@ -50,10 +50,14 @@
 
             <li>
                 <a href="{{ URL::route('venders'); }}">
-                    <i class="fa fa-child"></i> <span>Venders</span>
+                    <i class="fa fa-child"></i> <span>Vendors</span>
                     <small class="badge pull-right bg-red"></small>
                 </a>
             </li>
+            
+             
+          
+            
             <li>
                 <a href="{{ URL::route('users'); }}">
                     <i class="fa fa-users"></i> <span>Users</span>

@@ -59,7 +59,6 @@
                                 </select>
                             </div>
 
-
                             <div class="form-group">
                                 <label class="label_title"><strong>Pickup time</strong></label>
                                 <input type="text" name="pickuptime" value="" class="form-control" placeholder="Hour:Min"> 
@@ -107,7 +106,7 @@
                             </div>
 
                             <div class="form-group ">
-                                <label class="venderlabel" >Venders </label>
+                                <label class="venderlabel" >Vendors </label>
                                 <select class="form-control select_vender_name" id="vendersName" name="vendersName" placeholder="Please Select">
                                     <option value="">Please Select</option>
                                     @foreach($venders as $vender)
@@ -187,10 +186,7 @@
                             <div class="box-footer">
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </div>
-
                         </form>
-
-
                     </div>
                 </div>
             </div>

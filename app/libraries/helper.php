@@ -77,11 +77,29 @@ listings.service_id=services.id
 group by services.service"));
         return json_encode($all_service_summary);
     }
-    
-    public static function booking_status($id){
-        $status = ['Received','Confirmed','Allocated','Completed','Cancelled'];
+
+    public static function booking_status($id) {
+        $status = ['Received', 'Confirmed', 'Allocated', 'Completed', 'Cancelled'];
         return $status[$id];
     }
-    
+
+    public static function sendSMS($to, $message) {
+        // create curl resource 
+        $ch = curl_init();
+
+        // set url 
+        curl_setopt($ch, CURLOPT_URL, "http://bulkpush.mytoday.com/BulkSms/SingleMsgApi?feedid=345549&To=$to&Text=" . urlencode($message) . "&mtype=1&username=7666947247&password=gjpwg");
+
+        //return the transfer as a string 
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+        // $output contains the output string 
+        $output = curl_exec($ch);
+
+        // close curl resource to free up system resources 
+        curl_close($ch);
+
+        return $output;
+    }
 
 }

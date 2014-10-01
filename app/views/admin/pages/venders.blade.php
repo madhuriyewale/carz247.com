@@ -4,7 +4,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Vender Master
+            Vendor Master
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -19,7 +19,7 @@
             <div class="col-xs-12">
                 <div class="box box-warning">
                     <div class="box-header">
-                        <h3 class="box-title">Add New Venders</h3>
+                        <h3 class="box-title">Add New Vendor</h3>
                          {{ View::make('admin.includes.addButton',array("name"=>"Vendors")) }}
                     </div><!-- /.box-header -->
                     <div class="box-body">
@@ -29,7 +29,7 @@
 
                             <div class="form-group">
                                 <label>Vender Name</label>
-                                <input type="text" name="vendersName" class="form-control" placeholder="Vender Name" required="true"/>
+                                <input type="text" name="vendersName" class="form-control" placeholder="Vendor Name" required="true"/>
                             </div>
 
                             <div class="form-group">
@@ -92,7 +92,7 @@
                             <thead>
                                 <tr>
                                     <th>Sr No.</th>
-                                    <th>vender name</th>
+                                    <th>vendor name</th>
                                     <th>City Name</th>
                                     <th>Address</th>
                                     <th>zone</th>

@@ -91,6 +91,19 @@ $(function() {
 
 
 
+    $(document).on("click", ".userEdit", function() {
+            var id = $(this).attr('data-id');
+            $("form#userForm input[name='fname']").val($("tr[data-tr='" + id + "'] td").eq(1).text());
+            $("form#userForm input[name='lname']").val($("tr[data-tr='" + id + "'] td").eq(2).text());
+            $("form#userForm input[name='email']").val($("tr[data-tr='" + id + "'] td").eq(3).text());
+            $("form#userForm input[name='phone']").val($("tr[data-tr='" + id + "'] td").eq(4).text());
+            $("form#userForm textarea[name='address']").val($("tr[data-tr='" + id + "'] td").eq(5).text());
+            $("form#userForm input[name='zipcode']").val($("tr[data-tr='" + id + "'] td").eq(6).text());
+            $("form#userForm").append("<input type='hidden' name='id' value='" + $("tr[data-tr='" + id + "'] td").eq(0).text() + "'>")
+            $("form#userForm").attr("action", "{{ URL::route('user_edit') }}");
+        });
+
+
     //listing edit
 
 
@@ -113,6 +126,9 @@ $(function() {
         $("form#listingForm").append("<input type='hidden' name='id' value='" + $("tr[data-tr='" + id + "'] td").eq(0).text() + "'>")
         $("form#listingForm").attr("action", "{{ URL::route('listing_edit') }}");
     });
+    
+    
+    
 
 
 

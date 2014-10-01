@@ -105,7 +105,7 @@ class BookingController extends BaseController {
             $bookingUpdate->txn_msg = $response_data['TxMsg'];
             $bookingUpdate->update();
             $contactEmail = "bookings@carz247.com";
-            $contactName = ''; 
+            $contactName = '';
 
             $email_id = $booking_data[0]['email'];
             $to_name = $booking_data[0]['fname'];
@@ -116,6 +116,11 @@ class BookingController extends BaseController {
                 $message->cc('parin@infiniteit.biz');
                 $message->cc('gautam.udani@infiniteit.biz');
             });
+            //sending sms 
+            $phone = $booking_data[0]['phone'];
+            $message = "We have received your booking with order no " . Session::get('booking_id') . ". To manage your order please call on 7666947247.";
+            Helper::sendSMS($phone, $message);
+            Helper::sendSMS('7666947247', $message);
         } else {
 
             $bookingUpdate = Booking::find(Session::get('booking_id'));
@@ -216,8 +221,8 @@ class BookingController extends BaseController {
         $booking->locality_id = $locality_id;
         $booking->pickup_time = $pickup_time;
         $booking->instructions = $instruction;
-        $booking->from_city=Session::get('from_city');
-        $booking->to_city = Session::get('toCity') ? Session::get('toCity'): Session::get('from_city');
+        $booking->from_city = Session::get('from_city');
+        $booking->to_city = Session::get('toCity') ? Session::get('toCity') : Session::get('from_city');
         $booking->upload = json_encode([]);
         $booking->start_date = date("Y-m-d H:i:s", strtotime(Session::get('fromDate')));
         $booking->end_date = Session::get('toDate') ? date("Y-m-d H:i:s", strtotime(Session::get('toDate'))) : date("Y-m-d H:i:s", strtotime(Session::get('fromDate')));
