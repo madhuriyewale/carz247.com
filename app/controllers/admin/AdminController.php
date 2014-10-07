@@ -305,7 +305,7 @@ class AdminController extends BaseController {
 
 
         $customers = Customer::all();
-        $localities = Locality::all();
+        $localities = Locality::orderBy('locality')->get();
         $venders = Vender::all();
         $listings = Listing::leftJoin("services", "services.id", "=", "listings.service_id")
                         ->leftJoin("cities", "cities.id", "=", "listings.city_id")
