@@ -36,7 +36,7 @@
                             <div class="form-group">
                                 <div class="radio">
                                     <label>
-                                        <input type="radio" name="status" id="optionsRadios1" value="1" checked>
+                                        <input type="radio" name="status" id="optionsRadios1" value="1">
                                         Yes
                                     </label>
                                     <label>

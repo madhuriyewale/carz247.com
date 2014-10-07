@@ -113,10 +113,7 @@
                                 <label class="label_title"><strong>txn Message</strong></label>
                                 <input type="text" name="txn_msg" value="" class="form-control" placeholder="txn  Message"> 
                             </div>
-                            <div class="form-group">
-                                <label class="label_title"><strong>Instructions</strong></label>
-                                <textarea cols="30" rows="1" name="instructions" class="form-control"></textarea>
-                            </div>
+                           
                             <div class="form-group  ">
                                 <label>Booking Status</label>
                                 <select class="form-control booking_status_select" id="bookingStatus" name="booking_status" placeholder="Please Select">
@@ -139,6 +136,10 @@
                                 <label class="labelEndDate">End Date</label>
                                 <input type="text" name="endDate" id="endDate" class="form-control datepicker" name="date" placeholder="Please Select" autocomplete="off" />
 
+                            </div>
+                             <div class="form-group">
+                                <label class="label_title"><strong>Instructions</strong></label>
+                                <textarea cols="30" rows="1" name="instructions" class="form-control"></textarea>
                             </div>
 
                             <div class="form-group ">

@@ -36,7 +36,7 @@
                             <div class="form-group">
                                 <div class="radio">
                                     <label>
-                                        <input type="radio" name="status" id="optionsRadios1" value="1" checked>
+                                        <input type="radio" name="status" id="optionsRadios1" value="1" >
                                         Yes
                                     </label>
                                     <label>
@@ -72,8 +72,7 @@
                                 <tr data-tr="{{ $packages->id }}">
                                     <td>{{ $packages->id }}</td>
                                     <td>{{ $packages->package }}</td>
-
-                                    <th>{{ ($packages->status == 0)?"No":"Yes" }}</th>
+                                    <td data-value="{{$packages->status}}" >{{ ($packages->status == 0)?"No":"Yes" }}</td>
                                     <td><a href="javascript:void();" class="packageEdit" data-id="{{$packages->id}}">Edit</a></td>
                                     <td>{{HTML::linkAction('package_delete', 'Delete', $packages->id ,array('onClick' => 'return confirm(\' Are you sure you want to Delete this Entry? \')')) }}</td>
                                 </tr>
