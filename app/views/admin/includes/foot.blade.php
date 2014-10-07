@@ -93,10 +93,14 @@ $(function() {
             $("form#localityForm").attr("action", "{{ URL::route('locality_edit') }}");
         });
 
-
-
-
-
+    //testimonials Edit
+        $(document).on("click", ".testimonialEdit", function() {
+            var id = $(this).attr('data-id');
+            $("form#testimonialForm input[name='testimonial']").val($("tr[data-tr='" + id + "'] td").eq(1).text());
+            $("form#testimonialForm input[name='from']").val($("tr[data-tr='" + id + "'] td").eq(2).text());
+            $("form#testimonialForm").append("<input type='hidden' name='id' value='" + $("tr[data-tr='" + id + "'] td").eq(0).text() + "'>")
+            $("form#testimonialForm").attr("action", "{{ URL::route('testimonial_edit') }}");
+        });
 
         //vender Edit
         $(document).on("click", ".venderEdit", function() {
@@ -161,10 +165,12 @@ $(function() {
         $("form#listingForm select[name='category'] option[value='" + $("tr[data-tr='" + id + "'] td").eq(3).attr("data-value") + "']").prop('selected', true);
         $("form#listingForm select[name='package'] option[value='" + $("tr[data-tr='" + id + "'] td").eq(4).attr("data-value") + "']").prop('selected', true);
         $("form#listingForm input[name='min_kms']").val($("tr[data-tr='" + id + "'] td").eq(5).text());
-        $("form#listingForm input[name='base_cost']").val($("tr[data-tr='" + id + "'] td").eq(6).text());
-        $("form#listingForm input[name='driver_cost']").val($("tr[data-tr='" + id + "'] td").eq(7).text());
-        $("form#listingForm input[name='extra_km_cost']").val($("tr[data-tr='" + id + "'] td").eq(8).text());
-        $("form#listingForm input[name='extra_hr_cost']").val($("tr[data-tr='" + id + "'] td").eq(9).text());
+        $("form#listingForm input[name='min_hrs']").val($("tr[data-tr='" + id + "'] td").eq(6).text());
+
+        $("form#listingForm input[name='base_cost']").val($("tr[data-tr='" + id + "'] td").eq(7).text());
+        $("form#listingForm input[name='driver_cost']").val($("tr[data-tr='" + id + "'] td").eq(8).text());
+        $("form#listingForm input[name='extra_km_cost']").val($("tr[data-tr='" + id + "'] td").eq(9).text());
+        $("form#listingForm input[name='extra_hr_cost']").val($("tr[data-tr='" + id + "'] td").eq(10).text());
         $("form#listingForm").append("<input type='hidden' name='id' value='" + $("tr[data-tr='" + id + "'] td").eq(0).text() + "'>")
         $("form#listingForm").attr("action", "{{ URL::route('listing_edit') }}");
     });
