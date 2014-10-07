@@ -55,8 +55,13 @@
                 </a>
             </li>
             
-             
-          
+                <li>
+                <a href="{{ URL::route('vender_listings'); }}">
+                    <i class="fa fa-list"></i> <span>Vendors Listing</span>
+                    <small class="badge pull-right bg-red"></small>
+                </a>
+            </li>
+            
             
             <li>
                 <a href="{{ URL::route('users'); }}">

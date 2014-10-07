@@ -1,7 +1,1 @@
-<?php
-
-return array(
-  'staff' => array('xwxman', 'SmashMouth')
-);
-
-?>
+<?phpreturn [    'ADMIN_NAME' => 'administrator'];?>

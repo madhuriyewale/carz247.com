@@ -43,7 +43,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Zone</label>
-                                <input type="text" name="zone" class="form-control" placeholder="Zone" required="true"/>
+                                <input type="text" name="zone" class="form-control" placeholder="Zone" />
                             </div>
                             <div class="form-group">
                                 <label>Mobile No</label>
@@ -53,13 +53,13 @@
 
                             <div class="form-group">
                                 <label>Tan No</label>
-                                <input type="text" name="tanNo" class="form-control" placeholder="Tan Number" required="true"/>
+                                <input type="text" name="tanNo" class="form-control" placeholder="Tan Number" />
                             </div>
 
 
                             <div class="form-group">
                                 <label>Pan No</label>
-                                <input type="text" name="panNo" class="form-control" placeholder="Pan Number" required="true"/>
+                                <input type="text" name="panNo" class="form-control" placeholder="Pan Number" />
                             </div>
 
                             <div class="form-group">

@@ -150,6 +150,12 @@ Route::group(array('prefix' => 'admin'), function() {
         Route::get('vender_delete/{id}', array('as' => 'vender_delete', 'uses' => 'AdminController@vender_delete'));
         Route::post('vender_edit', array('as' => 'vender_edit', 'uses' => 'AdminController@vender_edit'));
 
+        Route::get('vender_listings', array('as' => 'vender_listings', 'uses' => 'AdminController@vender_listings'));
+        Route::post('save_vender_listing', array('as' => 'save_vender_listing', 'uses' => 'AdminController@save_vender_listing'));
+        Route::get('vender_listing_delete/{id}', array('as' => 'vender_listing_delete', 'uses' => 'AdminController@vender_listing_delete'));
+        Route::post('vender_listing_edit', array('as' => 'vender_listing_edit', 'uses' => 'AdminController@vender_listing_edit'));
+
+
 
         Route::get('testimonials', array('as' => 'testimonials', 'uses' => 'AdminController@testimonials'));
         Route::post('save_testimonial', array('as' => 'save_testimonial', 'uses' => 'AdminController@save_testimonial'));
@@ -164,9 +170,8 @@ Route::group(array('prefix' => 'admin'), function() {
         Route::get('/master/invoice/{id}', array('as' => 'invoice', 'uses' => 'AdminController@invoice'));
 
         Route::get('/drivers_dropdown/{id}', 'AdminController@drivers_dropdown');
-        
-        Route::get('/sales-summary', array('as' => 'sales', 'uses' => 'AdminController@sales'));
 
+        Route::get('/sales-summary', array('as' => 'sales', 'uses' => 'AdminController@sales'));
     });
 });
 

@@ -20,7 +20,7 @@
                 <div class="box box-warning">
                     <div class="box-header">
                         <h3 class="box-title">Add New Orders</h3>
-                         {{ View::make('admin.includes.addButton',array("name"=>"Orders")) }}
+                        {{ View::make('admin.includes.addButton',array("name"=>"Orders")) }}
                     </div><!-- /.box-header -->
                     <div class="box-body">
                         <form id="orderForm" role="form" method="post" action="{{ URL::route('save_order'); }}" enctype="multipart/form-data">
@@ -48,6 +48,34 @@
                                 </select>
                             </div>
 
+
+
+
+
+
+                            <div class="form-group">
+                                <label>Pick up Hours</label>
+                                <select class="form-control" id="pickuptime" name="pickuphour">
+                                    <option  value="" >Hours</option>
+                                    <?php for ($i = 1; $i <= 24; $i++): ?>
+                                        <option><?= $i ?></option>
+                                    <?php endfor; ?>
+                                </select>
+                            </div>  
+
+                            <div class="form-group">
+                                <label>Pick up Minutes</label>
+                                <select  class="form-control" id="pickupmins" name="pickupmin">
+                                    <option  value="" >Minutes</option>                               
+                                    <option value="00">00</option>
+                                    <option value="15">15</option>
+                                    <option value="30">30</option>
+                                    <option value="45">45</option>
+
+                                </select>
+                            </div>
+
+
                             <div class="form-group">
                                 <label>Locality</label>
                                 <select class="form-control" name="locality">
@@ -59,10 +87,7 @@
                                 </select>
                             </div>
 
-                            <div class="form-group">
-                                <label class="label_title"><strong>Pickup time</strong></label>
-                                <input type="text" name="pickuptime" value="" class="form-control" placeholder="Hour:Min"> 
-                            </div>
+
 
                             <div class="form-group">
                                 <label class="label_title"><strong>Cost</strong></label>
@@ -105,6 +130,17 @@
 
                             </div>
 
+                            <div class="form-group  start_date_div">
+                                <label class="labelStartDate">Start Date</label>
+                                <input type="text" name="startDate" id="startDate" class="form-control datepicker" name="date" placeholder="Please Select" autocomplete="off" />
+
+                            </div>
+                            <div class="form-group end_date_div ">
+                                <label class="labelEndDate">End Date</label>
+                                <input type="text" name="endDate" id="endDate" class="form-control datepicker" name="date" placeholder="Please Select" autocomplete="off" />
+
+                            </div>
+
                             <div class="form-group ">
                                 <label class="venderlabel" >Vendors </label>
                                 <select class="form-control select_vender_name" id="vendersName" name="vendersName" placeholder="Please Select">
@@ -128,16 +164,7 @@
                                 </select>
                             </div>
 
-                            <div class="form-group  start_date_div">
-                                <label class="labelStartDate">Start Date</label>
-                                <input type="text" name="startDate" id="startDate" class="form-control datepicker" name="date" placeholder="Please Select" autocomplete="off" />
 
-                            </div>
-                            <div class="form-group end_date_div ">
-                                <label class="labelEndDate">End Date</label>
-                                <input type="text" name="endDate" id="endDate" class="form-control datepicker" name="date" placeholder="Please Select" autocomplete="off" />
-
-                            </div>
 
                             <div class="form-group start_km_div">
                                 <label class="labelStartKm"><strong>Start Km</strong></label>
@@ -149,21 +176,21 @@
                                 <input type="text" name="endKm" value="" class="form-control endkm" placeholder="End Km"> 
                             </div>
 
-                            
-                               
+
+
                             <div class="form-group extras_div">
                                 <label class="labelExtras"><strong>Extras</strong></label>
                                 <input type="text" name="extras" value="" class="form-control extras" placeholder="Extras"> 
                             </div>
-                            
-                            
-                            
+
+
+
                             <div class="form-group discount_div">
                                 <label class="labelDiscount"><strong>Discount</strong></label>
                                 <input type="text" name="discount" value="" class="form-control discount" placeholder="Discount"> 
                             </div>
-                            
-                         
+
+
 
                             <div class="form-group service_tax_div">
                                 <label class="labelRemark"><strong>Service Tax</strong></label>
@@ -222,7 +249,7 @@
                                     <th>Service Tax</th>
                                     <th>Order Upload</th>
                                     <th>Remark</th>
-                                   <th>Extras</th>
+                                    <th>Extras</th>
                                     <th>Edit</th>
                                     <th>Delete</th>
                                     <th>Invoice</th>
@@ -242,10 +269,10 @@
                                     <td>{{ $order->txn_ref_no }}</td>
                                     <td>{{ $order->txn_status }}</td>
                                     <td>{{ $order->txn_msg }}</td>
-                                    
+
                                     <td data-value="{{ $order->booking_status }}">{{ Helper::booking_status($order->booking_status) }}</td>
-                                    
-                                    
+
+
                                     <td data-value="{{$order->vender_id}}">{{ $order->venders_name }}</td>
                                     <td >{{ $order->drivers }}</td>
                                     <td>{{ $order->cars }}</td>
@@ -255,7 +282,7 @@
                                     <td>{{ $order->end_km }}</td>
                                     <td>{{ $order->discount }}</td>
                                     <td>{{ $order->service_tax }}</td>
-                                    
+
                                     <td>
                                         <?php $orderUpload = json_decode($order->upload, true); ?>
                                         <ol>
@@ -266,8 +293,8 @@
                                         </ol>
                                     </td>
                                     <td>{{ $order->remark }}</td>
-                                       <td>{{ $order->extras }}</td>
-                                    
+                                    <td>{{ $order->extras }}</td>
+
                                     <td><a href="javascript:void();" class="orderEdit" data-id="{{$order->id}}">Edit</a></td>
                                     <td>{{HTML::linkAction('order_delete', 'Delete', $order->id ,array('onClick' => 'return confirm(\' Are you sure you want to Delete this Entry? \')')) }}</td>
 
@@ -316,8 +343,8 @@
         $(".venderlabel").css("display", "none");
         $(".driverlabel").css("display", "none");
         $(".carlabel").css("display", "none");
-        $(".start_date_div").hide();
-        $(".end_date_div").hide();
+        //  $(".start_date_div").hide();
+        //  $(".end_date_div").hide();
         $(".start_km_div").hide();
         $(".end_km_div").hide();
         $(".discount_div").hide();
@@ -325,21 +352,25 @@
         $(".upload_div").hide();
         $(".remark_div").hide();
         $(".extras_div").hide();
-        
+
         $(document).on("click", ".orderEdit", function() {
             $("html, body").animate({scrollTop: 0}, "slow");
             var id = $(this).attr('data-id');
             $("form#orderForm select[name='customer'] option[value='" + $("tr[data-tr='" + id + "'] td").eq(1).attr("data-value") + "']").prop('selected', true);
             $("form#orderForm select[name='listing'] option[value='" + $("tr[data-tr='" + id + "'] td").eq(2).attr("data-value") + "']").prop('selected', true);
             $("form#orderForm select[name='locality'] option[value='" + $("tr[data-tr='" + id + "'] td").eq(3).attr("data-value") + "']").prop('selected', true);
-            $("form#orderForm input[name='pickuptime']").val($("tr[data-tr='" + id + "'] td").eq(4).text());
+            var array = $("tr[data-tr='" + id + "'] td").eq(4).text().split(":");
+            // alert(array[1]);
+            $("form#orderForm select[name='pickuphour']").val(array[0]);
+            $("form#orderForm select[name='pickupmin']").val(array[1]);
+            //$("form#orderForm input[name='pickuptime']").val($("tr[data-tr='" + id + "'] td").eq(4).text());
             $("form#orderForm textarea[name='instructions']").val($("tr[data-tr='" + id + "'] td").eq(5).text());
             $("form#orderForm input[name='cost']").val($("tr[data-tr='" + id + "'] td").eq(6).text());
             $("form#orderForm input[name='mode']").val($("tr[data-tr='" + id + "'] td").eq(7).text());
             $("form#orderForm input[name='txn_ref_no']").val($("tr[data-tr='" + id + "'] td").eq(8).text());
             $("form#orderForm input[name='txn_status']").val($("tr[data-tr='" + id + "'] td").eq(9).text());
             $("form#orderForm input[name='txn_msg']").val($("tr[data-tr='" + id + "'] td").eq(10).text());
-            $("form#orderForm select[name='booking_status']").val($("tr[data-tr='" + id + "'] td").eq(11).attr("data-value") );
+            $("form#orderForm select[name='booking_status']").val($("tr[data-tr='" + id + "'] td").eq(11).attr("data-value"));
             $("form#orderForm select[name='vendersName'] option[value='" + $("tr[data-tr='" + id + "'] td").eq(12).attr("data-value") + "']").prop('selected', true);
             $("form#orderForm input[name='startDate']").val($("tr[data-tr='" + id + "'] td").eq(15).text());
             $("form#orderForm input[name='endDate']").val($("tr[data-tr='" + id + "'] td").eq(16).text());
@@ -379,8 +410,8 @@
                 $(".driverlabel").css("display", "block");
                 $(".carlabel").css("display", "block");
                 $(".completed").css("display", "block");
-                $(".start_date_div").show();
-                $(".end_date_div").show();
+                // $(".start_date_div").show();
+                //  $(".end_date_div").show();
                 $(".start_km_div").show();
                 $(".end_km_div").show();
                 $(".discount_div").show();
@@ -424,8 +455,8 @@
                 $(".driverlabel").css("display", "block");
                 $(".carlabel").css("display", "block");
                 $(".completed").css("display", "block");
-                $(".start_date_div").show();
-                $(".end_date_div").show();
+                //   $(".start_date_div").show();
+                //   $(".end_date_div").show();
                 $(".start_km_div").show();
                 $(".end_km_div").show();
                 $(".discount_div").show();

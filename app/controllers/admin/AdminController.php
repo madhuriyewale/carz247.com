@@ -299,7 +299,6 @@ class AdminController extends BaseController {
                 ->leftJoin("packages", "packages.id", "=", "listings.package_id")
                 ->leftJoin("categories", "categories.id", "=", "listings.category_id")
                 ->leftJoin("venders", "venders.id", "=", "bookings.vender_id")
-               
                 ->get([ 'customers.fname', 'customers.lname', 'venders.venders_name', 'localities.locality', 'listings.*', 'services.service', 'cities.city', 'packages.package', 'categories.category', 'bookings.*']);
 
         $listings_data = Listing::all();
@@ -322,13 +321,11 @@ class AdminController extends BaseController {
         $order->customer_id = Input::get('customer');
         $order->listing_id = Input::get('listing');
         $order->locality_id = Input::get('locality');
-        $order->pickup_time = Input::get('pickuptime');
+        $order->pickup_time = (Input::get('pickuphour') . ":" . Input::get('pickupmin'));
         $order->instructions = Input::get('instructions');
         $order->cost = Input::get('cost');
         $order->mode = Input::get('mode');
-
         $order->upload = json_encode(array());
-
 
         $order->txn_ref_no = Input::get('txn_ref_no');
         $order->txn_status = Input::get('txn_status');
@@ -351,7 +348,7 @@ class AdminController extends BaseController {
         $orderUpdate->customer_id = Input::get("customer");
         $orderUpdate->listing_id = Input::get("listing");
         $orderUpdate->locality_id = Input::get("locality");
-        $orderUpdate->pickup_time = Input::get("pickuptime");
+        $orderUpdate->pickup_time = (Input::get('pickuphour') . ":" . Input::get('pickupmin'));
         $orderUpdate->instructions = Input::get('instructions');
         $orderUpdate->cost = Input::get("cost");
         $orderUpdate->mode = Input::get("mode");
@@ -492,6 +489,61 @@ class AdminController extends BaseController {
         $venderUpdate->cars = json_encode(explode(',', Input::get("cars")));
         $venderUpdate->update();
         return Redirect::route('venders');
+    }
+
+    public function vender_listings() {
+
+        $vender_listings = VenderListing::leftJoin("services", "services.id", "=", "vender_listings.service_id")
+                ->leftJoin("cities", "cities.id", "=", "vender_listings.city_id")
+                ->leftJoin("packages", "packages.id", "=", "vender_listings.package_id")
+                ->leftJoin("categories", "categories.id", "=", "vender_listings.category_id")
+                ->leftJoin("venders", "venders.id", "=", "vender_listings.vender_id")
+                ->get(['vender_listings.*', 'packages.package', 'cities.city', 'categories.category', 'services.service', 'venders.venders_name']);
+        $cities = City::all();
+        $venders = Vender::all();
+        $services = Service::all();
+        $packages = Package::all();
+        $categories = Category::all();
+        return View::make('admin.pages.vender_listing', compact('vender_listings', 'cities', 'services', 'categories', 'venders', 'packages'));
+    }
+
+    public function save_vender_listing() {
+        $vender_listings = new VenderListing();
+        $vender_listings->vender_id = Input::get('vender_name');
+        $vender_listings->city_id = Input::get('city');
+        $vender_listings->service_id = Input::get('service');
+        $vender_listings->category_id = Input::get('category');
+        $vender_listings->package_id = Input::get('package');
+        $vender_listings->min_kms = Input::get('min_kms');
+        $vender_listings->min_hrs = Input::get('min_hrs');
+        $vender_listings->base_cost = Input::get('base_cost');
+        $vender_listings->driver_cost = Input::get('driver_cost');
+        $vender_listings->extra_km_cost = Input::get('extra_km_cost');
+        $vender_listings->extra_hr_cost = Input::get('extra_hr_cost');
+        $vender_listings->save();
+        return Redirect::route('vender_listings');
+    }
+
+    public function vender_listing_edit() {
+        $vender_listings_update = VenderListing::find(Input::get("id"));
+        $vender_listings_update->vender_id = Input::get("vender_name");
+        $vender_listings_update->service_id = Input::get("service");
+        $vender_listings_update->package_id = Input::get("package");
+        $vender_listings_update->city_id = Input::get("city");
+        $vender_listings_update->category_id = Input::get("category");
+        $vender_listings_update->min_kms = Input::get('min_kms');
+        $vender_listings_update->min_hrs = Input::get('min_hrs');
+        $vender_listings_update->base_cost = Input::get('base_cost');
+        $vender_listings_update->driver_cost = Input::get('driver_cost');
+        $vender_listings_update->extra_km_cost = Input::get('extra_km_cost');
+        $vender_listings_update->extra_hr_cost = Input::get('extra_hr_cost');
+        $vender_listings_update->update();
+        return Redirect::route('vender_listings');
+    }
+
+    public function vender_listing_delete($id) {
+        VenderListing::find($id)->delete();
+        return Redirect::route('vender_listings');
     }
 
     public function invoice($id) {
