@@ -192,7 +192,6 @@
                             </div>
 
 
-
                             <div class="form-group service_tax_div">
                                 <label class="labelRemark"><strong>Service Tax</strong></label>
                                 <input type="text" name="serviceTax" value="" class="form-control serviceTax" placeholder="Service Tax"> 
@@ -392,10 +391,10 @@
             $(".venderlabel").css("display", "none");
             $(".driverlabel").css("display", "none");
             $(".carlabel").css("display", "none");
-            if ($("tr[data-tr='" + id + "'] td").eq(11).text() == "1") {
+            if ($("tr[data-tr='" + id + "'] td").eq(11).text() == "Confirmed") {
                 $(".select_vender_name").css("display", "block");
                 $(".venderlabel").css("display", "block");
-            } else if ($("tr[data-tr='" + id + "'] td").eq(11).text() == "2") {
+            } else if ($("tr[data-tr='" + id + "'] td").eq(11).text() == "Allocated") {
                 $(".select_vender_name").css("display", "block");
                 $(".select_driver_name").css("display", "block");
                 $(".select_car_name").css("display", "block");
@@ -403,7 +402,7 @@
                 $(".venderlabel").css("display", "block");
                 $(".driverlabel").css("display", "block");
                 $(".carlabel").css("display", "block");
-            } else if ($("tr[data-tr='" + id + "'] td").eq(11).text() == "3") {
+            } else if ($("tr[data-tr='" + id + "'] td").eq(11).text() == "Completed") {
                 $(".select_vender_name").css("display", "block");
                 $(".venderlabel").css("display", "block");
                 $(".select_driver_name").css("display", "block");

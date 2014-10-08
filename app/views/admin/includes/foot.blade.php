@@ -36,14 +36,16 @@ $(function() {
             var optValue = ($("tr[data-tr='" + id + "'] td").eq(2).text());
             // alert(optValue);
             if (optValue == "Yes") {
-                alert(optValue);
-                $('#optionsRadios1').parent('div').addClass('checked');
+             //    alert(optValue);
                 $('#optionsRadios2').parent('div').removeClass('checked');
+                $('#optionsRadios1').parent('div').addClass('checked');
+
             }
             else {
-                alert(optValue);
+                 alert(optValue);
                 $('#optionsRadios2').parent('div').addClass('checked');
                 $('#optionsRadios1').parent('div').removeClass('checked');
+
             }
             $("form#citiesForm").append("<input type='hidden' name='id' value='" + $("tr[data-tr='" + id + "'] td").eq(0).text() + "'>")
             $("form#citiesForm").attr("action", "{{ URL::route('cities_edit') }}");
@@ -73,12 +75,13 @@ $(function() {
             $("form#serviceForm input[name='service']").val($("tr[data-tr='" + id + "'] td").eq(1).text());
             var optValue = ($("tr[data-tr='" + id + "'] td").eq(2).text());
             if (optValue == "Yes") {
-                $('#serviceoptionsRadios1').parent('div').addClass('checked');
-                $('#serviceoptionsRadios2').parent('div').removeClass('checked');
-            }
-            else {
                 $('#serviceoptionsRadios2').parent('div').addClass('checked');
                 $('#serviceoptionsRadios1').parent('div').removeClass('checked');
+            }
+            else {
+
+                $('#serviceoptionsRadios1').parent('div').addClass('checked');
+                $('#serviceoptionsRadios2').parent('div').removeClass('checked');
             }
             $("form#serviceForm").append("<input type='hidden' name='id' value='" + $("tr[data-tr='" + id + "'] td").eq(0).text() + "'>")
             $("form#serviceForm").attr("action", "{{ URL::route('service_edit') }}");
@@ -93,7 +96,7 @@ $(function() {
             $("form#localityForm").attr("action", "{{ URL::route('locality_edit') }}");
         });
 
-    //testimonials Edit
+        //testimonials Edit
         $(document).on("click", ".testimonialEdit", function() {
             var id = $(this).attr('data-id');
             $("form#testimonialForm input[name='testimonial']").val($("tr[data-tr='" + id + "'] td").eq(1).text());
