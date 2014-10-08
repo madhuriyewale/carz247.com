@@ -33,20 +33,16 @@ $(function() {
         $(document).on("click", ".citiesEdit", function() {
             var id = $(this).attr('data-id');
             $("form#citiesForm input[name='city']").val($("tr[data-tr='" + id + "'] td").eq(1).text());
-            var optValue = ($("tr[data-tr='" + id + "'] td").eq(2).text());
-            // alert(optValue);
-            if (optValue == "Yes") {
-             //    alert(optValue);
-                $('#optionsRadios2').parent('div').removeClass('checked');
+            var optValue = $.trim($("tr[data-tr='" + id + "'] td").eq(2).text());
+            var chkValue = "Yes";
+            if (optValue == chkValue) {
                 $('#optionsRadios1').parent('div').addClass('checked');
-
-            }
-            else {
-                 alert(optValue);
-                $('#optionsRadios2').parent('div').addClass('checked');
+                $('#optionsRadios2').parent('div').removeClass('checked');
+            } else {
                 $('#optionsRadios1').parent('div').removeClass('checked');
-
+                $('#optionsRadios2').parent('div').addClass('checked');
             }
+
             $("form#citiesForm").append("<input type='hidden' name='id' value='" + $("tr[data-tr='" + id + "'] td").eq(0).text() + "'>")
             $("form#citiesForm").attr("action", "{{ URL::route('cities_edit') }}");
         });
@@ -55,8 +51,9 @@ $(function() {
         $(document).on("click", ".packageEdit", function() {
             var id = $(this).attr('data-id');
             $("form#packageForm input[name='package']").val($("tr[data-tr='" + id + "'] td").eq(1).text());
-            var optValue = ($("tr[data-tr='" + id + "'] td").eq(2).text());
-            if (optValue == "Yes") {
+            var optValue = $.trim(($("tr[data-tr='" + id + "'] td").eq(2).text()));
+            var chkValue = "Yes";
+            if (optValue == chkValue) {
                 $('#optionsRadios1').parent('div').addClass('checked');
                 $('#optionsRadios2').parent('div').removeClass('checked');
             }
@@ -73,15 +70,16 @@ $(function() {
         $(document).on("click", ".serviceEdit", function() {
             var id = $(this).attr('data-id');
             $("form#serviceForm input[name='service']").val($("tr[data-tr='" + id + "'] td").eq(1).text());
-            var optValue = ($("tr[data-tr='" + id + "'] td").eq(2).text());
-            if (optValue == "Yes") {
-                $('#serviceoptionsRadios2').parent('div').addClass('checked');
-                $('#serviceoptionsRadios1').parent('div').removeClass('checked');
-            }
-            else {
-
+            var optValue = $.trim($("tr[data-tr='" + id + "'] td").eq(2).text());
+            var chkValue = "Yes";
+            if (optValue == chkValue) {
+               // alert("yes");
                 $('#serviceoptionsRadios1').parent('div').addClass('checked');
                 $('#serviceoptionsRadios2').parent('div').removeClass('checked');
+            } else {
+              //  alert("no");
+                $('#serviceoptionsRadios1').parent('div').removeClass('checked');
+                $('#serviceoptionsRadios2').parent('div').addClass('checked');
             }
             $("form#serviceForm").append("<input type='hidden' name='id' value='" + $("tr[data-tr='" + id + "'] td").eq(0).text() + "'>")
             $("form#serviceForm").attr("action", "{{ URL::route('service_edit') }}");
