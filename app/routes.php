@@ -155,23 +155,20 @@ Route::group(array('prefix' => 'admin'), function() {
         Route::get('vender_listing_delete/{id}', array('as' => 'vender_listing_delete', 'uses' => 'AdminController@vender_listing_delete'));
         Route::post('vender_listing_edit', array('as' => 'vender_listing_edit', 'uses' => 'AdminController@vender_listing_edit'));
 
-
-
         Route::get('testimonials', array('as' => 'testimonials', 'uses' => 'AdminController@testimonials'));
         Route::post('save_testimonial', array('as' => 'save_testimonial', 'uses' => 'AdminController@save_testimonial'));
         Route::get('testimonial_delete/{id}', array('as' => 'testimonial_delete', 'uses' => 'AdminController@testimonial_delete'));
         Route::post('testimonial_edit', array('as' => 'testimonial_edit', 'uses' => 'AdminController@testimonial_edit'));
 
-
         Route::get('/master/contact_enquiries', array('as' => 'contact_enquiries', 'uses' => 'AdminController@contact_enquiries'));
         Route::get('/master/career_requests', array('as' => 'career_requests', 'uses' => 'AdminController@career_requests'));
         Route::get('/master/partners_with_us', array('as' => 'partners_with_us', 'uses' => 'AdminController@partners_with_us'));
-
         Route::get('/master/invoice/{id}', array('as' => 'invoice', 'uses' => 'AdminController@invoice'));
-
+        
         Route::get('/drivers_dropdown/{id}', 'AdminController@drivers_dropdown');
-
         Route::get('/sales-summary', array('as' => 'sales', 'uses' => 'AdminController@sales'));
+        Route::get('/orders/order_view/{id}', array('as' => 'order_view', 'uses' => 'AdminController@order_view'));
+
     });
 });
 

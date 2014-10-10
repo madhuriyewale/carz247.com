@@ -344,6 +344,10 @@ class AdminController extends BaseController {
     }
 
     public function order_edit() {
+
+        // $all_data=Input::get('endKm');
+        //  echo is_array($all_data) ? 'Array ' : 'not an Array';
+        // dd($all_data);
         $orderUpdate = Booking::find(Input::get("id"));
         $orderUpdate->customer_id = Input::get("customer");
         $orderUpdate->listing_id = Input::get("listing");
@@ -361,11 +365,22 @@ class AdminController extends BaseController {
         $orderUpdate->cars = Input::get("vendersCars");
         $orderUpdate->start_date = Input::get("startDate");
         $orderUpdate->end_date = Input::get("endDate");
-        $orderUpdate->start_km = Input::get("startKm");
-        $orderUpdate->end_km = Input::get("endKm");
+
+        //$statKM=Input::get('startKm');
+        // $readings = [];
+        // foreach ($statKM as $value) {
+        //  array_push($readings, $value[""]);
+        //  }
+
+
+
+        is_array(Input::get("startKm")) ? $orderUpdate->start_km = json_encode(Input::get('startKm')) : $orderUpdate->start_km = Input::get('startKm');
+        // $orderUpdate->end_km = Input::get("endKm");
+        is_array(Input::get("endKm")) ? $orderUpdate->end_km = json_encode(Input::get('endKm')) : $orderUpdate->end_km = Input::get('endKm');
         $orderUpdate->discount = Input::get("discount");
         $orderUpdate->remark = Input::get("remark");
-        $orderUpdate->extras = Input::get("extras");
+        // $orderUpdate->extras = Input::get("extras");
+        is_array(Input::get("extras")) ? $orderUpdate->extras = json_encode(Input::get('extras')) : $orderUpdate->end_km = Input::get('extras');
 
         $orderUpdate->service_tax = Input::get("serviceTax");
         $orderDocs = $orderUpdate->upload == "" ? array() : json_decode($orderUpdate->upload, true);
@@ -610,6 +625,20 @@ class AdminController extends BaseController {
 
     public function sales() {
         return View::make('admin.pages.sales');
+    }
+
+    public function order_view($id) {
+        $orders_view = Booking::where("bookings.id", "=", $id)
+                ->leftJoin("customers", "customers.id", "=", "bookings.customer_id")
+                ->leftJoin("localities", "localities.id", "=", "bookings.locality_id")
+                ->leftJoin("listings", "listings.id", "=", "bookings.listing_id")
+                ->leftJoin("services", "services.id", "=", "listings.service_id")
+                ->leftJoin("cities", "cities.id", "=", "listings.city_id")
+                ->leftJoin("packages", "packages.id", "=", "listings.package_id")
+                ->leftJoin("categories", "categories.id", "=", "listings.category_id")
+                ->leftJoin("venders", "venders.id", "=", "bookings.vender_id")
+                ->get([ 'customers.fname', 'customers.lname', 'venders.venders_name', 'localities.locality', 'listings.*', 'services.service', 'cities.city', 'packages.package', 'categories.category', 'bookings.*']);
+        return View::make('admin.pages.order_view', compact('orders_view'));
     }
 
 }

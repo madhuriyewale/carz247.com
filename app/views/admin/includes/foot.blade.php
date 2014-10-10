@@ -14,7 +14,7 @@
 <script>
 $(function() {
 
-    $('#listingTables').dataTable({
+    var dtable = $('#listingTables').dataTable({
         "bPaginate": true,
         "bLengthChange": false,
         "bFilter": false,
@@ -23,7 +23,28 @@ $(function() {
         "bAutoWidth": false,
         "aaSorting": []
     });
-});</script>
+
+    var oTable = $('#OrdersTables').dataTable({
+        "aaSorting": []
+    });
+
+    oTable.fnSetColumnVis(5, false);
+    oTable.fnSetColumnVis(7, false);
+    oTable.fnSetColumnVis(8, false);
+    oTable.fnSetColumnVis(9, false);
+    oTable.fnSetColumnVis(10, false);
+    oTable.fnSetColumnVis(12, false);
+    oTable.fnSetColumnVis(13, false);
+    oTable.fnSetColumnVis(14, false);
+    oTable.fnSetColumnVis(17, false);
+    oTable.fnSetColumnVis(18, false);
+    oTable.fnSetColumnVis(19, false);
+    oTable.fnSetColumnVis(20, false);
+    oTable.fnSetColumnVis(21, false);
+    oTable.fnSetColumnVis(22, false);
+    oTable.fnSetColumnVis(23, false);
+});
+</script>
 
 <script>
 
@@ -73,11 +94,11 @@ $(function() {
             var optValue = $.trim($("tr[data-tr='" + id + "'] td").eq(2).text());
             var chkValue = "Yes";
             if (optValue == chkValue) {
-               // alert("yes");
+                // alert("yes");
                 $('#serviceoptionsRadios1').parent('div').addClass('checked');
                 $('#serviceoptionsRadios2').parent('div').removeClass('checked');
             } else {
-              //  alert("no");
+                //  alert("no");
                 $('#serviceoptionsRadios1').parent('div').removeClass('checked');
                 $('#serviceoptionsRadios2').parent('div').addClass('checked');
             }

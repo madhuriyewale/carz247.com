@@ -99,7 +99,7 @@
 
                         <div class="row alignleft field_text omega">
                             <label class="label_title"><strong>Instructions</strong></label>
-                            <textarea cols="30" rows="10" name="instructions" class="textarea textarea_middle required validate[required]" ></textarea>
+                            <textarea cols="30" rows="10" name="instructions" class="textarea textarea_middle" ></textarea>
                         </div>
                         <div class="clear"></div> 
                         <div class="row rowSubmit clearfix">

@@ -19,7 +19,7 @@ class BookingController extends BaseController {
 
 
 
-        $localities = Locality::where("city_id", "=", Session::get('city_id'))->get();
+        $localities = Locality::where("city_id", "=", Session::get('city_id'))->orderBy('locality','asc')->get();
 
 
 
