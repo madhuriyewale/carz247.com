@@ -4,7 +4,9 @@ class PagesController extends BaseController {
 
     public function home() {
 
-        $categories = Category::leftJoin("listings", "listings.category_id", "=", "categories.id")->where("listings.city_id", "=", 815)->where("listings.service_id", "=", 1)->where("listings.package_id", "=", 1)->get(["categories.*", "listings.extra_km_cost"]);
+        $categories = Category::leftJoin("listings", "listings.category_id", "=", "categories.id")
+                ->orderBy('categories.category','asc')
+                ->where("listings.city_id", "=", 815)->where("listings.service_id", "=", 1)->where("listings.package_id", "=", 1)->get(["categories.*", "listings.extra_km_cost"]);
 
         /* Cities/packages for Local Listings */
 

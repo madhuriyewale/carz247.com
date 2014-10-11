@@ -6,6 +6,15 @@
         <h1>
             Order Master
         </h1>
+        <head>
+            <style>
+                //    td:nth-child(6),th:nth-child(6) {
+                //        display: none;
+                //    }`
+
+
+            </style>
+        </head>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
             <li><a href="#">Master</a></li>
@@ -48,13 +57,13 @@
                                 </select>
                             </div>
                             <div class="form-group ">
-                                <label >Start Date</label>
+                                <label  >Start Date</label>
                                 <input type="text" name="startDate" id="startDate" class="form-control datepicker" name="date" placeholder="Please Select" autocomplete="off" />
 
                             </div>
                             <div class="form-group">
                                 <label >End Date</label>
-                                <input type="text" name="endDate" id="endDate" class="form-control datepicker" name="date" placeholder="Please Select" autocomplete="off" />
+                                <input type="text" name="endDate" id="endDate" class="form-control datepicker " name="date" placeholder="Please Select" autocomplete="off" />
 
                             </div>
 
@@ -152,19 +161,19 @@
 
                             <div class="form-group start_km_div">
                                 <label class="labelStartKm"><strong>Start Km</strong></label>
-                                <input type="text" name="startKm" value="" class="form-control startkm" placeholder="Start Km"> 
+                                <input type="text" name="startKm[]" value="" class="form-control startkm" placeholder="Start Km"> 
                             </div>
 
                             <div class="form-group end_km_div">
                                 <label class="labelStartKm"><strong>End Km</strong></label>
-                                <input type="text" name="endKm" value="" class="form-control endkm" placeholder="End Km"> 
+                                <input type="text" name="endKm[]" value="" class="form-control endkm" placeholder="End Km"> 
                             </div>
 
 
 
                             <div class="form-group extras_div">
                                 <label class="labelExtras"><strong>Extras</strong></label>
-                                <input type="text" name="extras" value="" class="form-control extras" placeholder="Extras"> 
+                                <input type="text" name="extraHrs[]" value="" class="form-control extras" placeholder="Extras"> 
                             </div>
 
 
@@ -237,9 +246,9 @@
                                     <th>Order Upload</th>
                                     <th>Remark</th>
                                     <th>Extras</th>
+                                    <th>Readings</th>
                                     <th>Edit</th>
                                     <th>View</th>
-
                                     <th>Delete</th>
                                     <th>Invoice</th>
                                 </tr>
@@ -254,7 +263,7 @@
                                     <td>{{ $order->pickup_time }}</td>
                                     <td data-value="{{$order->id}}">{{ $order->instructions }}</td>
                                     <td>{{ $order->cost }}</td>
-                                    <td>{{ $order->mode }}</td>
+                                    <td data-value="{{$order->mode}}">{{ $order->mode }}</td>
                                     <td>{{ $order->txn_ref_no }}</td>
                                     <td>{{ $order->txn_status }}</td>
                                     <td>{{ $order->txn_msg }}</td>
@@ -272,13 +281,13 @@
                                         <?php $orderUpload = json_decode($order->upload, true); ?>
                                         <ol>
                                             @foreach ($orderUpload as $upload)
-
                                             <li>  <a href="{{ URL::to("/public/admin/uploads/order-uploads/". $upload) }}" target="_blank">{{ $upload }} </a></li>
                                             @endforeach
                                         </ol>
                                     </td>
                                     <td>{{ $order->remark }}</td>
-                                    <td>{{ $order->extras }}</td>                                    
+                                    <td>{{ $order->extras }}</td>  
+                                    <td>{{ $order->readings }}</td>
                                     <td><a href="javascript:void();" class="orderEdit" data-id="{{$order->id}}">Edit</a></td>
                                     <td>{{HTML::linkAction('order_view', 'View', $order->id) }}</td>
                                     <td>{{HTML::linkAction('order_delete', 'Delete', $order->id ,array('onClick' => 'return confirm(\' Are you sure you want to Delete this Entry? \')')) }}</td>
@@ -326,8 +335,8 @@
         $(".venderlabel").css("display", "none");
         $(".driverlabel").css("display", "none");
         $(".carlabel").css("display", "none");
-        $(".start_date_div").hide();
-        $(".end_date_div").hide();
+        $(".start_date_div").show();
+        $(".end_date_div").show();
         $(".start_km_div").hide();
         $(".end_km_div").hide();
         $(".discount_div").hide();
@@ -339,13 +348,18 @@
         $(document).on("click", ".orderEdit", function() {
             $("html, body").animate({scrollTop: 0}, "slow");
             var id = $(this).attr('data-id');
+
+          
             $("form#orderForm select[name='customer'] option[value='" + $("tr[data-tr='" + id + "'] td").eq(1).attr("data-value") + "']").prop('selected', true);
             $("form#orderForm select[name='listing'] option[value='" + $("tr[data-tr='" + id + "'] td").eq(2).attr("data-value") + "']").prop('selected', true);
             $("form#orderForm select[name='locality'] option[value='" + $("tr[data-tr='" + id + "'] td").eq(3).attr("data-value") + "']").prop('selected', true);
             $("form#orderForm input[name='pickuptime']").val($("tr[data-tr='" + id + "'] td").eq(4).text());
             $("form#orderForm textarea[name='instructions']").val($("tr[data-tr='" + id + "'] td").eq(5).text());
             $("form#orderForm input[name='cost']").val($("tr[data-tr='" + id + "'] td").eq(6).text());
-            $("form#orderForm input[name='mode']").val($("tr[data-tr='" + id + "'] td").eq(7).text());
+            $("form#orderForm select[name='mode'] option[value='" + $("tr[data-tr='" + id + "'] td").eq(7).attr("data-value") + "']").prop('selected', true);
+
+            //$("form#orderForm input[name='mode']").val($("tr[data-tr='" + id + "'] td").eq(7).text());
+
             $("form#orderForm input[name='txn_ref_no']").val($("tr[data-tr='" + id + "'] td").eq(8).text());
             $("form#orderForm input[name='txn_status']").val($("tr[data-tr='" + id + "'] td").eq(9).text());
             $("form#orderForm input[name='txn_msg']").val($("tr[data-tr='" + id + "'] td").eq(10).text());
@@ -389,16 +403,46 @@
                 $(".driverlabel").css("display", "block");
                 $(".carlabel").css("display", "block");
                 $(".completed").css("display", "block");
-                $(".start_date_div").show();
-                $(".end_date_div").show();
-                $(".start_km_div").show();
-                $(".end_km_div").show();
                 $(".discount_div").show();
                 $(".service_tax_div").show();
                 $(".upload_div").show();
                 $(".remark_div").show();
                 $(".extras_div").show();
-                //   $(".invoice").show();
+
+                if (/local/i.test($("select[name='listing'] option:selected").text()))
+                {
+                    var readings = jQuery.parseJSON($("tr[data-tr='" + id + "'] td").eq(24).text());
+
+               //     var start = $.trim($("tr[data-tr='" + id + "'] td").eq(15).text());
+               //     var end = $.trim($("tr[data-tr='" + id + "'] td").eq(16).text());
+               //     var diff =new  Date(end - start);
+                //    var days = diff / 1000 / 60 / 60 / 24;
+               //   alert(days);
+                    
+
+
+                    var days = 2;
+
+                    if (days > 1) {
+                        var j = 0;
+                        var cont = "";
+                        for (var i = 1; i <= days; i++) {
+
+                            cont += (' <div class="col-sm-4 start_km_div"><label class="labelStartKm"><strong>Start Km</strong></label><input type="text" name="startKm[]" value="' + readings[0].StartKm[j] + '" class="form-control startkm" placeholder="Start Km"></div><div class="col-sm-4 end_km_div"><label class="labelStartKm"><strong>End Km</strong></label><input type="text" name="endKm[]" value="' + readings[1].EndKm[j] + '" class="form-control endkm" placeholder="End Km"></div><div class="col-sm-4 end_km_div"><label class="labelStartKm"><strong>Extra Hours</strong></label><input type="text" name="extraHrs[]" value="' + readings[2].ExtraHrs[j] + '" class="form-control endkm" placeholder="Extra Hrs"></div>');
+                            j++;
+                        }
+                        $(cont).insertAfter("form .remark_div");
+                    } else {
+                        $(".start_km_div").show();
+                        $(".end_km_div").show();
+                    }
+                } else {
+                    $(".start_km_div").show();
+                    $(".end_km_div").show();
+                }
+
+
+
             }
             else {
                 $(".select_vender_name").css("display", "none");
@@ -443,6 +487,7 @@
                 $(".upload_div").show();
                 $(".remark_div").show();
                 $(".extras_div").show();
+
                 //   $(".invoice").show();
             } else {
                 $(".select_vender_name").css("display", "none");

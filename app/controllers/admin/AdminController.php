@@ -352,7 +352,7 @@ class AdminController extends BaseController {
         $orderUpdate->customer_id = Input::get("customer");
         $orderUpdate->listing_id = Input::get("listing");
         $orderUpdate->locality_id = Input::get("locality");
-        $orderUpdate->pickup_time = (Input::get('pickuphour') . ":" . Input::get('pickupmin'));
+        $orderUpdate->pickup_time = Input::get('pickuptime');
         $orderUpdate->instructions = Input::get('instructions');
         $orderUpdate->cost = Input::get("cost");
         $orderUpdate->mode = Input::get("mode");
@@ -365,22 +365,28 @@ class AdminController extends BaseController {
         $orderUpdate->cars = Input::get("vendersCars");
         $orderUpdate->start_date = Input::get("startDate");
         $orderUpdate->end_date = Input::get("endDate");
+        
+        
+        
 
-        //$statKM=Input::get('startKm');
-        // $readings = [];
-        // foreach ($statKM as $value) {
-        //  array_push($readings, $value[""]);
-        //  }
-
-
-
-        is_array(Input::get("startKm")) ? $orderUpdate->start_km = json_encode(Input::get('startKm')) : $orderUpdate->start_km = Input::get('startKm');
-        // $orderUpdate->end_km = Input::get("endKm");
-        is_array(Input::get("endKm")) ? $orderUpdate->end_km = json_encode(Input::get('endKm')) : $orderUpdate->end_km = Input::get('endKm');
+        $readings = [];
+        $startKMS = Input::get("startKm");
+        array_shift($startKMS);
+        
+        $endKMS = Input::get("endKm");
+        array_shift($endKMS);
+        
+        $extraHRS = Input::get("extraHrs");
+        array_shift($extraHRS);
+        
+        array_push($readings, ["StartKm" => $startKMS]);
+        array_push($readings, ["EndKm" => $endKMS]);
+        array_push($readings, ["ExtraHrs" => $extraHRS]);
+        $readings_data = json_encode($readings);
+        
+        $orderUpdate->readings = $readings_data;
         $orderUpdate->discount = Input::get("discount");
         $orderUpdate->remark = Input::get("remark");
-        // $orderUpdate->extras = Input::get("extras");
-        is_array(Input::get("extras")) ? $orderUpdate->extras = json_encode(Input::get('extras')) : $orderUpdate->end_km = Input::get('extras');
 
         $orderUpdate->service_tax = Input::get("serviceTax");
         $orderDocs = $orderUpdate->upload == "" ? array() : json_decode($orderUpdate->upload, true);
