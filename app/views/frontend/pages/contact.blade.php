@@ -44,7 +44,7 @@
 
                     <div class="row alignleft field_text">
 
-                        <label class="label_title"><strong>Name</strong></label>
+                        <label class="label_title"><strong>Name</strong><SPAN><B>*</B></SPAN></strong></label>
 
                         <input type="text" name="name" value="" id="name" class="inputtext_new input_middle required validate[required] text-input" >
 
@@ -54,7 +54,7 @@
 
                     <div class="row alignleft field_text omega">
 
-                        <label class="label_title"><strong>Email</strong> </label>
+                        <label class="label_title"><strong>Email </strong><SPAN><B>*</B></SPAN></strong> </label>
 
                         <input type="email" name="email" value="" id="email" class="inputtext_new input_middle required validate[required,custom[email]]" >
 
@@ -66,7 +66,7 @@
 
                     <div class="row alignleft field_text">
 
-                        <label class="label_title"><strong>Mobile</strong></label>
+                        <label class="label_title"><strong>Mobile </strong><SPAN><B>*</B></SPAN></strong></label>
 
                         <input type="text" name="mobile" value="" id="mobile" class="inputtext_new input_middle required validate[required] text-input" >
 
@@ -78,7 +78,7 @@
 
                     <div class="row alignleft field_text">
 
-                        <label class="label_title"><strong>Message</strong></label>
+                        <label class="label_title"><strong>Message </strong><SPAN><B>*</B></SPAN></strong></label>
 
                         <textarea cols="20" rows="10" name="message" id="msg" class="textarea textarea_middle required validate[required] text-input"></textarea>
 

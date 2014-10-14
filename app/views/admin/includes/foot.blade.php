@@ -25,24 +25,35 @@ $(function() {
     });
 
     var oTable = $('#OrdersTables').dataTable({
-        "aaSorting": []
+        "aaSorting": [],
+        "initComplete": function(settings, json) {
+
+        }
     });
 
-    oTable.fnSetColumnVis(5, false);
-    oTable.fnSetColumnVis(7, false);
-    oTable.fnSetColumnVis(8, false);
-    oTable.fnSetColumnVis(9, false);
-    oTable.fnSetColumnVis(10, false);
-    oTable.fnSetColumnVis(12, false);
-    oTable.fnSetColumnVis(13, false);
-    oTable.fnSetColumnVis(14, false);
-    oTable.fnSetColumnVis(17, false);
-    oTable.fnSetColumnVis(18, false);
-    oTable.fnSetColumnVis(19, false);
-    oTable.fnSetColumnVis(20, false);
-    oTable.fnSetColumnVis(21, false);
-    oTable.fnSetColumnVis(22, false);
-    oTable.fnSetColumnVis(23, false);
+    $("table th:nth-child(6),table td:nth-child(6)").hide();
+    $("table th:nth-child(8),table td:nth-child(8)").hide();
+    $("table th:nth-child(9),table td:nth-child(9)").hide();
+    $("table th:nth-child(10),table td:nth-child(10)").hide();
+    $("table th:nth-child(11),table td:nth-child(11)").hide();
+    $("table th:nth-child(13),table td:nth-child(13)").hide();
+    $("table th:nth-child(14),table td:nth-child(14)").hide();
+    $("table th:nth-child(15),table td:nth-child(15)").hide();
+    $("table th:nth-child(18),table td:nth-child(18)").hide();
+    $("table th:nth-child(19),table td:nth-child(19)").hide();
+    $("table th:nth-child(20),table td:nth-child(20)").hide();
+    $("table th:nth-child(21),table td:nth-child(21)").hide();
+    $("table th:nth-child(22),table td:nth-child(22)").hide();
+    $("table th:nth-child(23),table td:nth-child(23)").hide();
+    $("table th:nth-child(24),table td:nth-child(24)").hide();
+    $("table th:nth-child(25),table td:nth-child(25)").hide();
+
+    $("table th:nth-child(25),table td:nth-child(25)").hide();
+    $("table th:nth-child(26),table td:nth-child(26)").hide();
+    $("table th:nth-child(27),table td:nth-child(27)").hide();
+    $("table th:nth-child(28),table td:nth-child(28)").hide();
+
+
 });
 </script>
 

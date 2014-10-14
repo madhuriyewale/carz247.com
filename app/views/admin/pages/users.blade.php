@@ -20,7 +20,7 @@
                 <div class="box box-warning">
                     <div class="box-header">
                         <h3 class="box-title">Add New Users</h3>
-                         {{ View::make('admin.includes.addButton',array("name"=>"User")) }}
+                        {{ View::make('admin.includes.addButton',array("name"=>"User")) }}
                     </div><!-- /.box-header -->
                     <div class="box-body">
                         <form  id="userForm" role="form" method="post" action="{{ URL::route('save_user'); }}">
@@ -78,7 +78,7 @@
                                 <label>Zipcode </label>
                                 <input type="text" name="zipcode" class="form-control" placeholder="Zip code" required="true"/>
                             </div>
-
+                            <input type="hidden" name="fromOrder" value="{{ $fromOrder }}" />
 
                             <div class="box-footer">
                                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -140,4 +140,13 @@
 
     </section><!-- /.content -->
 </aside><!-- /.right-side -->
+<script>
+    $(document).ready(function(){
+    @if ($fromOrder == 1)
+            $("#userForm").show();
+            @endif
+    });
+
+
+</script>
 @stop          

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -68,7 +67,7 @@
     </head>
     <body>
         <a href="javascript:window.print()">Click to Print This Page</a>
-        <div id="wrapper" contenteditable="true">
+        <div id="wrapper" >
             <header>
                 {{ HTML::image('public/admin/img/carzInvoice.png') }}
             </header>
@@ -100,7 +99,7 @@
                         <td class="cnt">{{ $recieptCnt }}</td>
                         <td>{{ $recieptCont }}</td>
                         <td class="cnt">{{ number_format($kms) }}</td>
-                        <td class="cnt">{{ $hours }}</td>
+                        <td class="cnt">{{ @$hours }}</td>
                         <td class="cnt">{{ number_format($amount) }}</td>
                     </tr>
                     <tr>
@@ -108,35 +107,35 @@
                         <td>Extras</td>
                         <td></td>
                         <td></td>
-                        <td>{{ number_format($extra) }}</td>
+                        <td>{{ @number_format($extra) }}</td>
                     </tr>
                     <tr>
                         <td></td>
                         <td>Discount</td>
                         <td></td>
                         <td></td>
-                        <td> - {{ number_format($discount) }}</td>
+                        <td> - {{ @number_format($discount) }}</td>
                     </tr>
                     <tr>
                         <td></td>
                         <td>Service Tax</td>
                         <td></td>
                         <td></td>
-                        <td>{{ $st }}%</td>
+                        <td>{{ @$st }}%</td>
                     </tr>
                     <tr>
                         <td></td>
                         <td>Booking Amount</td>
                         <td></td>
                         <td></td>
-                        <td> - {{ number_format($prepaid) }}</td>
+                        <td> - {{ @number_format($prepaid) }}</td>
                     </tr>
                     <tr>
                         <td></td>
                         <td>Total</td>
                         <td></td>
                         <td></td>
-                        <td>{{ number_format($finalAmnt) }}</td>
+                        <td>{{ @number_format($finalAmnt) }}</td>
                     </tr>
                     <tr>
                         <td colspan="2">

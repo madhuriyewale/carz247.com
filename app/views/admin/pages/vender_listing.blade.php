@@ -9,7 +9,7 @@
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
             <li><a href="#">Master</a></li>
-            <li class="active">Vender Listing</li>
+            <li class="active">Vendor Listing</li>
         </ol>
     </section>
     <!-- Main content -->

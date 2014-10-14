@@ -94,29 +94,29 @@
 
                     <div class="row">
 
-                        <label class="label_title">Full Name:</label>
+                        <label class="label_title">Full Name:</strong><SPAN><B>*</B></SPAN></label>
 
                         <input name="contact_person" id="contact_person" type="text" class="sidebar_input  validate[required] text-input" >
 
                         <div class="clear"></div>
 
-                          <label class="label_title">Email:</label>
+                          <label class="label_title">Email: </strong><SPAN><B>*</B></SPAN></label>
 
                         <input name="email" id="email" type="email" class="sidebar_input validate[required,custom[email]]">
 
                         <div class="clear"></div>
 
-                        <label class="label_title">Mobile Number:</label>
+                        <label class="label_title">Mobile Number: </strong><SPAN><B>*</B></SPAN></label>
 
                         <input name="mobile" id="mobile" type="number" class="sidebar_input validate[required] text-input">
 
                         <div class="clear"></div>
 
-                         <label class="label_title">Upload your resume:</label>
+                         <label class="label_title">Upload your resume: </strong><SPAN><B>*</B></SPAN></label>
 
                          <input type="file" name="resume" id="userfile" class="validate[required] text-input">
 
-                       <label class="label_title">Remark:</label>
+                       <label class="label_title">Remark:</strong><SPAN><B>*</B></SPAN></label>
 
                         <input name="remarks" id="remark" type="text" class="sidebar_input validate[required] text-input" >
 

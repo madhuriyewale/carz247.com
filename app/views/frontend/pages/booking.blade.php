@@ -29,7 +29,7 @@
                     <form action="{{ URL::route('save_booking'); }}" method="post" id="pickupDetailsForm">
                         <input type="hidden" name="userId" value="{{ Session::get('customer_id');}}" />
                         <div class="row alignleft field_select">
-                            <label class="label_title"><strong> Pickup time</strong> </label>
+                            <label class="label_title"><strong> Pickup time </strong><SPAN><B>*</B></SPAN> </label>
                             <select class="select_styled validate[required]" id="pickuptime" name="hour">
                                 <option  value="" >Hours</option>
                                 <?php for ($i = 1; $i <= 24; $i++): ?>
@@ -51,13 +51,13 @@
                         </div>
                         <div class="clear"></div>
                         <div class="row alignleft field_text">
-                            <label class="label_title"><strong>Email</strong> </label>
+                            <label class="label_title"><strong>Email</strong> </strong><SPAN><B>*</B></SPAN> </label>
                             <input type="text" value="{{ Session::get('email'); }}" name="email" id="search_email" class="inputtext input_middle validate[required,custom[email]]" >
 
                         </div>
 
                         <div class="row alignleft field_text omega">
-                            <label class="label_title"><strong>Mobile</strong></label>
+                            <label class="label_title"><strong>Mobile</strong></strong><SPAN><B>*</B></SPAN></label>
                             <input type="text" name="phone" value="{{ Session::get('phone'); }}" class="inputtext input_middle required validate[required] text-input">
                         </div>
 
@@ -65,12 +65,12 @@
 
                         <div class="clear"></div>  
                         <div class="row alignleft field_text ">
-                            <label class="label_title"><strong>First Name</strong></label>
+                            <label class="label_title"><strong>First Name</strong> </strong><SPAN><B>*</B></SPAN></label>
                             <input type="text" name="firstname" value="{{ Session::get('fname'); }}" class="inputtext input_middle  validate[required] text-input">
                         </div>
 
                         <div class="row alignleft field_text omega">
-                            <label class="label_title"><strong>Last Name</strong></label>
+                            <label class="label_title"><strong>Last Name</strong> </strong><SPAN><B>*</B></SPAN></label>
                             <input type="text" name="lastname" value="{{ Session::get('lname'); }}" class="inputtext input_middle  validate[required] text-input">
                         </div>
 
@@ -79,21 +79,22 @@
                         <div class="clear"></div>  
 
                         <div class="row alignleft field_select">
-                            <label class="label_title"><strong>Locality</strong></label>
+                            <label class="label_title"><strong>Locality</strong> </strong><SPAN><B>*</B></SPAN></label>
                             <select class="select_styled validate[required] text-input" name="locality"  id="locality">
                                 <option value="">Please Select</option>
                                 @foreach ($localities as $city)
                                 <option value="{{ $city->id }}">{{ $city->locality }}</option>
                                 @endforeach
+                                   <option  value="0" >Other</option>
                             </select>
                         </div>
                         <div class="row alignleft field_text omega">
-                            <label class="label_title"><strong>Zipcode</strong></label>
+                            <label class="label_title"><strong>Zipcode</strong></strong><SPAN><B>*</B></SPAN></label>
                             <input type="text" name="zipcode" value="{{ Session::get('zipcode'); }}" class="inputtext input_middle required validate[required] text-input"> 
                         </div>
                         <div class="clear"></div> 
                         <div class="row alignleft field_text">
-                            <label class="label_title"><strong>Address</strong></label>
+                            <label class="label_title"><strong>Address</strong> </strong><SPAN><B>*</B></SPAN></label>
                             <textarea cols="30" rows="10" name="address" class="textarea textarea_middle required validate[required] text-input" >{{ Session::get('address'); }}</textarea>
                         </div>
 

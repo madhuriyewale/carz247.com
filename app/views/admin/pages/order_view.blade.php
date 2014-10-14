@@ -141,6 +141,25 @@
                                     <td>Extras</td>
                                     <td>{{ $orders_view[0]['extras']; }} </td>
                                 </tr>
+                                
+                                    <tr>
+                                    <td>Readings</td>
+                                    <td>{{ $orders_view[0]['readings']; }} </td>
+                                </tr>
+                                       <tr>
+                                    <td>Toll</td>
+                                    <td>{{ $orders_view[0]['toll']; }} </td>
+                                </tr>
+                                   <tr>
+                                    <td>Parking</td>
+                                    <td>{{ $orders_view[0]['parking']; }} </td>
+                                </tr>
+                                       <tr>
+                                    <td>Permit</td>
+                                    <td>{{ $orders_view[0]['permit']; }} </td>
+                                </tr>
+                                    
+                                
                                 <tr>
                                     <td>Remarks</td>
                                     <td>{{ $orders_view[0]['remarks']; }} </td>

@@ -30,7 +30,7 @@
 
                         <h2>Enter your Email ID</h2>
                         <form action="{{ URL::route('check_forgot_password'); }}" method="post" class="loginform">								
-                            <p><label>Email</label><br><input name="email" id="email" class="input validate[required] text-input"  size="20" tabindex="10" type="text" ></p>								
+                            <p><label>Email </strong><SPAN><B>*</B></SPAN></label><br><input name="email" id="email" class="input validate[required] text-input"  size="20" tabindex="10" type="text" ></p>								
 
 
                             <p class="submit">

@@ -201,9 +201,10 @@ class AdminController extends BaseController {
     }
 
     public function users() {
+        $fromOrder = isset($_GET["add"]) ? 1 : 0;
         $users = Customer::leftJoin("cities", "cities.id", "=", "customers.city_id")->get(['customers.*', 'cities.city']);
         $cities = City::all();
-        return View::make('admin.pages.users', compact('users', 'cities'));
+        return View::make('admin.pages.users', compact('users', 'cities', 'fromOrder'));
     }
 
     public function save_user() {
@@ -217,7 +218,12 @@ class AdminController extends BaseController {
         $saveUser->zipcode = Input::get('zipcode');
         $saveUser->email = Input::get('email');
         $saveUser->save();
-        return Redirect::route('users');
+
+        if (Input::get('fromOrder') == 0) {
+            return Redirect::route('users');
+        } else {
+            return Redirect::route('orders');
+        }
     }
 
     public function user_delete($id) {
@@ -290,7 +296,7 @@ class AdminController extends BaseController {
     }
 
     public function orders() {
-        $orders = Booking::orderBy("bookings.modified")
+        $orders = Booking::orderBy("bookings.created", "desc")
                 ->leftJoin("customers", "customers.id", "=", "bookings.customer_id")
                 ->leftJoin("localities", "localities.id", "=", "bookings.locality_id")
                 ->leftJoin("listings", "listings.id", "=", "bookings.listing_id")
@@ -305,7 +311,7 @@ class AdminController extends BaseController {
 
 
         $customers = Customer::all();
-        $localities = Locality::orderBy('locality')->get();
+        $localities = Locality::orderBy('locality', 'asc')->get();
         $venders = Vender::all();
         $listings = Listing::leftJoin("services", "services.id", "=", "listings.service_id")
                         ->leftJoin("cities", "cities.id", "=", "listings.city_id")
@@ -321,11 +327,15 @@ class AdminController extends BaseController {
         $order->customer_id = Input::get('customer');
         $order->listing_id = Input::get('listing');
         $order->locality_id = Input::get('locality');
-        $order->pickup_time = (Input::get('pickuphour') . ":" . Input::get('pickupmin'));
+        $order->pickup_time = Input::get('pickuptime');
         $order->instructions = Input::get('instructions');
         $order->cost = Input::get('cost');
         $order->mode = Input::get('mode');
         $order->upload = json_encode(array());
+
+
+        $order->start_date = Input::get("startDate")[0];
+        $order->end_date = Input::get("endDate")[0];
 
         $order->txn_ref_no = Input::get('txn_ref_no');
         $order->txn_status = Input::get('txn_status');
@@ -334,6 +344,10 @@ class AdminController extends BaseController {
         $order->vender_id = Input::get('vendersName');
         $order->drivers = Input::get('venderDrivers');
         $order->cars = Input::get('vendersCars');
+
+        $order->toll = Input::get('toll');
+        $order->permit = Input::get('permit');
+        $order->parking = Input::get('parking');
         $order->save();
         return Redirect::route('orders');
     }
@@ -363,27 +377,42 @@ class AdminController extends BaseController {
         $orderUpdate->vender_id = Input::get("vendersName");
         $orderUpdate->drivers = Input::get("venderDrivers");
         $orderUpdate->cars = Input::get("vendersCars");
-        $orderUpdate->start_date = Input::get("startDate");
-        $orderUpdate->end_date = Input::get("endDate");
-        
-        
-        
+        //  $orderUpdate->start_date = Input::get("startDate");
+        $orderUpdate->extras = Input::get("extraHrs")[0];
+        $orderUpdate->toll = Input::get('toll');
+        $orderUpdate->permit = Input::get('permit');
+        $orderUpdate->parking = Input::get('parking');
 
         $readings = [];
         $startKMS = Input::get("startKm");
         array_shift($startKMS);
-        
+
         $endKMS = Input::get("endKm");
         array_shift($endKMS);
-        
-        $extraHRS = Input::get("extraHrs");
-        array_shift($extraHRS);
-        
+
+        $start_DATE = Input::get("startDate");
+        array_shift($start_DATE);
+
+        $end_DATE = Input::get("endDate");
+        array_shift($end_DATE);
+
+//        $orderUpdate->start_km = json_encode(Input::get("startKm"));
+//        $orderUpdate->end_km = json_encode(Input::get("endKm"));
+//        $orderUpdate->extras = json_encode(Input::get("extraHrs"));
+
+        count(Input::get("startKm")) > 1 ? : $orderUpdate->start_km = Input::get("startKm")[0];
+        count(Input::get("endKm")) > 1 ? : $orderUpdate->end_km = Input::get("endKm")[0];
+        // count(Input::get("extraHrs")) > 1 ? : $orderUpdate->extras = Input::get("extraHrs")[0];
+        count(Input::get("startDate")) > 1 ? : $orderUpdate->start_date = Input::get("startDate")[0];
+        count(Input::get("endDate")) > 1 ? : $orderUpdate->end_date = Input::get("endDate")[0];
+
         array_push($readings, ["StartKm" => $startKMS]);
         array_push($readings, ["EndKm" => $endKMS]);
-        array_push($readings, ["ExtraHrs" => $extraHRS]);
+        array_push($readings, ["start_DATE" => $start_DATE]);
+        array_push($readings, ["end_DATE" => $end_DATE]);
+
         $readings_data = json_encode($readings);
-        
+
         $orderUpdate->readings = $readings_data;
         $orderUpdate->discount = Input::get("discount");
         $orderUpdate->remark = Input::get("remark");
@@ -584,16 +613,50 @@ class AdminController extends BaseController {
         $endDate = new DateTime($bookingData[0]["end_date"]);
         $interval = $fromDate->diff($endDate);
 
-        $kms = $bookingData[0]["end_km"] - $bookingData[0]["start_km"];
+
         $discount = $bookingData[0]["discount"];
         $st = $bookingData[0]["service_tax"];
         $prepaid = $bookingData[0]["cost"];
         $extra = $bookingData[0]["extras"];
-        if (preg_match("/local/i", $bookingData[0]["service"]) || preg_match("/airport/i", $bookingData[0]["service"])) {
+
+
+        if (preg_match("/local/i", $bookingData[0]["service"]) && ($interval->days + 1) > 1) {
+
+
+
+            $readings = json_decode($bookingData[0]["readings"], true);
+
+            $stCnt = count($readings[0]['StartKm']);
+            $amount = 0;
+            $kmz = 0;
+            for ($i = 0; $i < $stCnt; $i++) {
+                $kms = $readings[1]["EndKm"][$i] - $readings[0]["StartKm"][$i];
+
+                $kmz += $kms;
+
+                $kmsTravelled = $kms - $bookingData[0]["min_kms"];
+
+                $nfromDate = new DateTime($readings[2]["start_DATE"][$i]);
+                $nendDate = new DateTime($readings[3]["end_DATE"][$i]);
+                $ninterval = $nfromDate->diff($nendDate);
+
+                $hrsTravelled = ($ninterval->h + ($ninterval->m > 30 ? 1 : 0)) - $bookingData[0]["min_hrs"];
+                $amount += $bookingData[0]["base_cost"] + ( $kmsTravelled <= 0 ? : $kmsTravelled * $bookingData[0]["extra_km_cost"]) + ($hrsTravelled <= 0 ? : $hrsTravelled * $bookingData[0]["extra_hr_cost"]);
+            }
+            $kms = $kmz;
+
+            $hours = $interval->days + 1;
+
+            $recieptCnt = "<p>1</p><p>2</p><p>3</p>";
+            $recieptCont = "<p>" . ucwords($bookingData[0]['category']) . " Car Category</p>
+                            <p>Extra km above " . $bookingData[0]["min_kms"] . " @ Rs." . $bookingData[0]["extra_km_cost"] . "/-km </p>
+                            <p>Extra hrs above " . $bookingData[0]["min_hrs"] . " hrs @ Rs." . $bookingData[0]["extra_hr_cost"] . "/-hrs";
+        } elseif (preg_match("/local/i", $bookingData[0]["service"]) && preg_match("/airport/i", $bookingData[0]["service"])) {
 
             $hours = $interval->h;
             $hours = $hours + ($interval->days * 24);
 
+            $kms = $bookingData[0]["end_km"] - $bookingData[0]["start_km"];
             $kmsTravelled = $kms - $bookingData[0]["min_kms"];
             $hrsTravelled = $hours - $bookingData[0]["min_hrs"];
             $amount = $bookingData[0]["base_cost"] + ( $kmsTravelled <= 0 ? : $kmsTravelled * $bookingData[0]["extra_km_cost"]) + ($hrsTravelled <= 0 ? : $hrsTravelled * $bookingData[0]["extra_hr_cost"]);
@@ -605,6 +668,8 @@ class AdminController extends BaseController {
         } else {
 
             $days = $interval->days + 1;
+
+            $kms = $bookingData[0]["end_km"] - $bookingData[0]["start_km"];
             $kmsTravelled = $kms - $bookingData[0]["min_kms"] * $days;
             $amount = ($kmsTravelled <= 0 ? $bookingData[0]["min_kms"] * $days : $kms ) * $bookingData[0]["extra_km_cost"] + $days * $bookingData[0]["driver_cost"];
 
