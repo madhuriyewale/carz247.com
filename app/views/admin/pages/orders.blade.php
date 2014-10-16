@@ -23,7 +23,6 @@
     </section>
     <!-- Main content -->
     <section class="content">
-
         <div class="row">
             <div class="col-xs-12">
                 <div class="box box-warning">
@@ -34,198 +33,173 @@
                     <div class="box-body">
                         <form id="orderForm" role="form" method="post" action="{{ URL::route('save_order'); }}" enctype="multipart/form-data">
                             <!-- text input -->
-                            <div class="form-group">
-                                <label>Customer</label>
-                                <select class="form-control" name="customer" onchange="check(this);" required="true">
+                            <div class="bb od-1">
+                                <h4 class="box-title">Order Details</h4>
+                                <div class="form-group col-sm-3">
+                                    <label>Customer</label>
+                                    <select class="form-control" name="customer" onchange="check(this);" required="true">
 
-                                    <option value="">Please Select</option>
-                                    <option value="0">Add New Customer </option>
-                                    @foreach ($customers as $customer)
-                                    <option  value="{{ $customer->id }}" >{{ $customer->fname }} {{ $customer->lname }}</option>
-                                    @endforeach
-                                </select>
+                                        <option value="">Please Select</option>
+                                        <option value="0">Add New Customer </option>
+                                        @foreach ($customers as $customer)
+                                        <option  value="{{ $customer->id }}" >{{ $customer->fname }} {{ $customer->lname }}</option>
+                                        @endforeach
+                                    </select>
 
+                                </div>
+                                <div class="form-group col-sm-3">
+                                    <label>Listing</label>
+                                    <select class="form-control" name="listing" required="true">
+
+                                        <option value="">Please Select</option>
+                                        @foreach ($listings as $listing)
+                                        <option  value="{{ $listing->id }}" >{{ $listing->city }} {{ $listing->service }} {{ $listing->category }} {{ $listing->package }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group col-sm-3 start_DATE_div ">
+                                    <label  class="labelStart"  >Start Date</label>
+                                    <input type="text" name="startDate[]" id="startDate" class="form-control datepicker" placeholder="Please Select" autocomplete="off" required="true"/>
+
+                                </div>
+                                <div class="form-group col-sm-3 end_DATE_div">
+                                    <label  class="labelEnd" >End Date</label>
+                                    <input type="text" name="endDate[]" id="endDate" class="form-control datepicker "  placeholder="Please Select" autocomplete="off" required="true"/>
+
+                                </div>
+                                <div class="form-group col-sm-3">
+                                    <label>Locality</label>
+                                    <select class="form-control" name="locality" required="true">
+
+                                        <option value="">Please Select</option>
+                                        @foreach ($localities as $locality)
+                                        <option  value="{{ $locality->id }}" >{{ $locality->locality }}</option>
+                                        @endforeach
+                                        <option  value="0" >Other</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-sm-3">
+                                    <label class="label_title"><strong>Pickup time</strong></label>
+                                    <input type="text" name="pickuptime" value="" class="form-control" placeholder="Hours:Mins" required="true"> 
+                                </div>
+
+                                <div class="form-group col-sm-3">
+                                    <label class="label_title"><strong>Prepaid Booking Amount</strong></label>
+                                    <input type="text" name="cost" value="" class="form-control" placeholder="Cost"> 
+                                </div>
+
+                                <div class="form-group col-sm-3">
+                                    <label class="label_title"><strong>Payment Mode</strong></label>
+                                    <select name="mode" class="form-control" required="true">
+                                        <option value="">Please Select</option>
+                                        <option value="Cash">Cash</option>
+                                        <option value="Card">Card</option>
+                                        <option value="Bank Transfer">Bank Transfer</option>
+                                        <option value="Cheque">Cheque</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-sm-3">
+                                    <label class="label_title"><strong>Instructions</strong></label>
+                                    <input type="text" name="instructions" class="form-control" />
+                                </div>
+                                <div class="form-group col-sm-3  ">
+                                    <label>Booking Status</label>
+                                    <select class="form-control booking_status_select" id="bookingStatus" name="booking_status" placeholder="Please Select" required="true">
+                                        <option value="">Please Select</option>
+                                        <option value="0">Received</option>
+                                        <option value="1">Confirmed</option>
+                                        <option value="2">Allocated</option>
+                                        <option value="3" class="completed" >Completed</option>
+                                        <option value="4">Cancelled</option>
+                                    </select>
+                                </div>
                             </div>
-
-                            <div class="form-group">
-                                <label>Listing</label>
-                                <select class="form-control" name="listing" required="true">
-
-                                    <option value="">Please Select</option>
-                                    @foreach ($listings as $listing)
-                                    <option  value="{{ $listing->id }}" >{{ $listing->city }} {{ $listing->service }} {{ $listing->category }} {{ $listing->package }}</option>
-                                    @endforeach
-                                </select>
+                            <div class="clearfix"></div>
+                            <div class="bb od-2">
+                                <h4 class="box-title">Vendor Allocation Details</h4>
+                                <div class="form-group col-sm-3 ">
+                                    <label class="venderlabel" >Vendors </label>
+                                    <select class="form-control select_vender_name" id="vendersName" name="vendersName" placeholder="Please Select">
+                                        <option value="">Please Select</option>
+                                        @foreach($venders as $vender)
+                                        <option value="{{$vender->id}}">{{ $vender->venders_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group col-sm-3 venderListing_div ">
+                                    <label class="venderListinglabel" >Vendor Listing </label>
+                                    <select class="form-control select_venderListing" id="venderListing" name="venderListing" placeholder="Please Select">
+                                        <option></option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-sm-3 ">
+                                    <label class="driverlabel">Drivers </label>
+                                    <select class="form-control select_driver_name" id="venderDrivers" name="venderDrivers" placeholder="Please Select">
+                                        <option> </option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-sm-3 ">
+                                    <label class="carlabel">Cars </label>
+                                    <select class="form-control select_car_name" id="vendersCars" name="vendersCars" placeholder="Please Select">
+                                        <option> </option>
+                                    </select>
+                                </div>
                             </div>
-                            <div class="form-group start_DATE_div ">
-                                <label  class="labelStart"  >Start Date</label>
-                                <input type="text" name="startDate[]" id="startDate" class="form-control datepicker" placeholder="Please Select" autocomplete="off" required="true"/>
+                            <div class="clearfix"></div>
+                            <div class="bb od-3">
+                                <h4 class="box-title">Order Completion Summary</h4> 
 
+                                <div class="form-group col-sm-3 start_km_div">
+                                    <label class="labelStartKm"><strong>Start Km</strong></label>
+                                    <input type="text" name="startKm[]" value="" class="form-control startkm" placeholder="Start Km"> 
+                                </div>
+
+                                <div class="form-group col-sm-3 end_km_div">
+                                    <label class="labelStartKm"><strong>End Km</strong></label>
+                                    <input type="text" name="endKm[]" value="" class="form-control endkm" placeholder="End Km"> 
+                                </div>
+
+                                <div class="form-group col-sm-3 extras_div">
+                                    <label class="labelExtras"><strong>Extra Charges</strong></label>
+                                    <input type="text" name="extraHrs[]" value="" class="form-control extras" placeholder="Extra Charges"> 
+                                </div>
+
+                                <div class="form-group col-sm-3 discount_div">
+                                    <label class="labelDiscount"><strong>Discount</strong></label>
+                                    <input type="text" name="discount" required="true" value="" class="form-control discount" placeholder="Discount"> 
+                                </div>
+
+                                <div class="form-group col-sm-3 service_tax_div">
+                                    <label class="labelRemark"><strong>Service Tax</strong></label>
+                                    <input type="text" required="true" name="serviceTax" value="" class="form-control serviceTax" placeholder="Service Tax"> 
+                                </div>
+
+                                <div class="form-group col-sm-3 upload_div">
+                                    <label class="labelUpload"><strong>Order Documents</strong></label>
+                                    <input type="file" name="uploadFile[]" class="form-control uploadFile" multiple="multiple"> 
+                                </div>
+
+                                <div class="form-group col-sm-3 toll_div">
+                                    <label class="labelToll"><strong>Toll</strong></label>
+                                    <input type="text" required="true" name="toll" value="" class="form-control toll" placeholder="Toll"> 
+                                </div>
+
+                                <div class="form-group col-sm-3 parking_div">
+                                    <label class="labelParking"><strong>Parking</strong></label>
+                                    <input type="text" required="true" name="parking" value="" class="form-control Parking" placeholder="Parking"> 
+                                </div>
+
+                                <div class="form-group col-sm-3 permit_div ">
+                                    <label class="labelPermit"><strong>Permit</strong></label>
+                                    <input type="text" required="true" name="permit" value="" class="form-control permit" placeholder="Permit"> 
+                                </div>
+
+                                <div class="form-group col-sm-3 remark_div">
+                                    <label class="labelRemark"><strong>Remarks</strong></label>
+                                    <input type="text"  name="remark" value="" class="form-control remark" placeholder="Remark"> 
+                                </div>
                             </div>
-                            <div class="form-group end_DATE_div">
-                                <label  class="labelEnd" >End Date</label>
-                                <input type="text" name="endDate[]" id="endDate" class="form-control datepicker "  placeholder="Please Select" autocomplete="off" required="true"/>
-
-                            </div>
-
-
-                            <div class="form-group">
-                                <label>Locality</label>
-                                <select class="form-control" name="locality" required="true">
-
-                                    <option value="">Please Select</option>
-                                    @foreach ($localities as $locality)
-                                    <option  value="{{ $locality->id }}" >{{ $locality->locality }}</option>
-                                    @endforeach
-                                    <option  value="0" >Other</option>
-                                </select>
-                            </div>
-
-
-                            <div class="form-group">
-                                <label class="label_title"><strong>Pickup time</strong></label>
-                                <input type="text" name="pickuptime" value="" class="form-control" placeholder="Hours:Mins" required="true"> 
-                            </div>
-
-                            <div class="form-group">
-                                <label class="label_title"><strong>Prepaid Booking Amount</strong></label>
-                                <input type="text" name="cost" value="" class="form-control" placeholder="Cost"> 
-                            </div>
-
-                            <div class="form-group">
-                                <label class="label_title"><strong>Payment Mode</strong></label>
-                                <select name="mode" class="form-control" required="true">
-                                    <option value="">Please Select</option>
-                                    <option value="Cash">Cash</option>
-                                    <option value="Card">Card</option>
-                                    <option value="Bank Transfer">Bank Transfer</option>
-                                    <option value="Cheque">Cheque</option>
-                                </select>
-                            </div>
-
-                            <!--
-                            <div class="form-group">
-                                                            <label class="label_title"><strong>txn ref no</strong></label>
-                                                            <input type="text" name="txn_ref_no" value=""class="form-control" placeholder="txn ref no"> 
-                                                        </div>
-                            -->
-
-                            <!--                            <div class="form-group">
-                                                            <label class="label_title"><strong>txn status</strong></label>
-                                                            <input type="text" name="txn_status" value="" class="form-control" placeholder="txn status""> 
-                                                        </div>
-                            
-                                                        <div class="form-group">
-                                                            <label class="label_title"><strong>txn Message</strong></label>
-                                                            <input type="text" name="txn_msg" value="" class="form-control" placeholder="txn  Message"> 
-                                                        </div>-->
-                            <div class="form-group">
-                                <label class="label_title"><strong>Instructions</strong></label>
-                                <textarea cols="30" rows="1" name="instructions" class="form-control" style="width: 449px; height: 33px;" ></textarea>
-                            </div>
-                            <div class="form-group  ">
-                                <label>Booking Status</label>
-                                <select class="form-control booking_status_select" id="bookingStatus" name="booking_status" placeholder="Please Select" required="true">
-                                    <option value="">Please Select</option>
-                                    <option value="0">Received</option>
-                                    <option value="1">Confirmed</option>
-                                    <option value="2">Allocated</option>
-                                    <option value="3" class="completed" >Completed</option>
-                                    <option value="4">Cancelled</option>
-                                </select>
-
-                            </div>
-
-
-
-
-                            <div class="form-group ">
-                                <label class="venderlabel" >Venders </label>
-                                <select class="form-control select_vender_name" id="vendersName" name="vendersName" placeholder="Please Select">
-                                    <option value="">Please Select</option>
-                                    @foreach($venders as $vender)
-                                    <option value="{{$vender->id}}">{{ $vender->venders_name }}</option>
-                                    @endforeach
-                                </select>
-
-                            </div>
-
-
-
-                            <div class="form-group ">
-                                <label class="driverlabel">Drivers </label>
-                                <select class="form-control select_driver_name" id="venderDrivers" name="venderDrivers" placeholder="Please Select">
-                                    <option> </option>
-                                </select>
-                            </div>
-                            <div class="form-group ">
-                                <label class="carlabel">Cars </label>
-                                <select class="form-control select_car_name" id="vendersCars" name="vendersCars" placeholder="Please Select">
-                                    <option> </option>
-                                </select>
-                            </div>
-
-
-
-                            <div class="form-group start_km_div">
-                                <label class="labelStartKm"><strong>Start Km</strong></label>
-                                <input type="text" name="startKm[]" value="" class="form-control startkm" placeholder="Start Km"> 
-                            </div>
-
-                            <div class="form-group end_km_div">
-                                <label class="labelStartKm"><strong>End Km</strong></label>
-                                <input type="text" name="endKm[]" value="" class="form-control endkm" placeholder="End Km"> 
-                            </div>
-
-
-
-                            <div class="form-group extras_div">
-                                <label class="labelExtras"><strong>Extras</strong></label>
-                                <input type="text" name="extraHrs[]" value="" class="form-control extras" placeholder="Extras"> 
-                            </div>
-
-
-
-                            <div class="form-group discount_div">
-                                <label class="labelDiscount"><strong>Discount</strong></label>
-                                <input type="text" name="discount" value="" class="form-control discount" placeholder="Discount"> 
-                            </div>
-
-
-
-                            <div class="form-group service_tax_div">
-                                <label class="labelRemark"><strong>Service Tax</strong></label>
-                                <input type="text" name="serviceTax" value="" class="form-control serviceTax" placeholder="Service Tax"> 
-                            </div>
-
-                            <div class="form-group upload_div">
-                                <label class="labelUpload"><strong>Order Documents</strong></label>
-                                <input type="file" name="uploadFile[]" class="form-control uploadFile" multiple="multiple"> 
-                            </div>
-
-
-
-                            <div class="form-group remark_div">
-                                <label class="labelRemark"><strong>Remark</strong></label>
-                                <input type="text" name="remark" value="" class="form-control remark" placeholder="Remark"> 
-                            </div>
-                            
-                            
-                            <div class="col-sm-4 toll_div">
-                                <label class="labelToll"><strong>Toll</strong></label>
-                                <input type="text" name="toll" value="" class="form-control toll" placeholder="Toll"> 
-                            </div>
-
-                            <div class="col-sm-4 parking_div">
-                                <label class="labelParking"><strong>Parking</strong></label>
-                                <input type="text" name="parking" value="" class="form-control Parking" placeholder="Parking"> 
-                            </div>
-
-                            <div class="col-sm-4 permit_div ">
-                                <label class="labelPermit"><strong>Parmit</strong></label>
-                                <input type="text" name="permit" value="" class="form-control permit" placeholder="Permit"> 
-                            </div>
-
+                            <div class="clearfix"></div>
 
                             <div class="box-footer">
                                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -258,7 +232,7 @@
                                     <th>txn status</th>
                                     <th>txn msg</th>
                                     <th>Booking status</th>
-                                    <th>Venders Name</th>
+                                    <th>Vendors Name</th>
                                     <th>Drivers</th>
                                     <th>Cars</th>
                                     <th>Start Date</th>
@@ -274,6 +248,7 @@
                                     <th>Toll</th>
                                     <th>Parking</th>
                                     <th>Permit</th>
+                                    <th>vendor listing</th>
                                     <th>Edit</th>
                                     <th>View</th>
                                     <th>Delete</th>
@@ -322,12 +297,19 @@
                                     <td>{{ $order->toll }}</td>
                                     <td>{{ $order->parking }}</td>
                                     <td>{{ $order->permit }}</td>
+
+                                    <td data-value="{{$order->vender_listing_id}}">{{$order->vender_listing_id}}</td>
+
+
                                     <td><a href="javascript:void();" class="orderEdit" data-id="{{$order->id}}">Edit</a></td>
                                     <td>{{HTML::linkAction('order_view', 'View', $order->id) }}</td>
                                     <td>{{HTML::linkAction('order_delete', 'Delete', $order->id ,array('onClick' => 'return confirm(\' Are you sure you want to Delete this Entry? \')')) }}</td>
                                     <td>
                                         @if($order->booking_status == 3)
-                                        {{HTML::linkAction('invoice', 'Generate Invoice', $order->id ,array('target' => '_blank')) }}</td>
+                                        {{HTML::linkAction('invoice', 'Generate Invoice', $order->id ,array('target' => '_blank')) }} <br/>
+                                        {{HTML::linkAction('sale_invoice', 'Sale Invoice', $order->id ,array('target' => '_blank')) }} 
+
+                                    </td>
                                     @endif
                                 </tr>
                                 @endforeach
@@ -372,7 +354,7 @@
         $(".select_vender_name").css("display", "none");
         $(".select_driver_name").css("display", "none");
         $(".select_car_name").css("display", "none");
-        $(".completed").css("display", "none");
+        $(".completed").css("display", "block");
         $(".venderlabel").css("display", "none");
         $(".driverlabel").css("display", "none");
         $(".carlabel").css("display", "none");
@@ -388,6 +370,7 @@
         $(".toll_div").hide();
         $(".permit_div").hide();
         $(".parking_div").hide();
+        $(".venderListing_div").hide();
 
 
         $(document).on("click", ".orderEdit", function() {
@@ -414,6 +397,7 @@
             //  $("form#orderForm select[name='booking_status']").val($("tr[data-tr='" + id + "'] td").eq(11).attr("data-value").prop('selected', true));
 
             $("form#orderForm select[name='vendersName'] option[value='" + $("tr[data-tr='" + id + "'] td").eq(12).attr("data-value") + "']").prop('selected', true);
+            $("form#orderForm select[name='venderListing'] option[value='" + $("tr[data-tr='" + id + "'] td").eq(28).attr("data-value") + "']").prop('selected', true);
 
             //  alert($("tr[data-tr='" + id + "'] td").eq(15).attr("data-value"));
 
@@ -440,13 +424,15 @@
             $(".select_vender_name").css("display", "none");
             $(".select_driver_name").css("display", "none");
             $(".select_car_name").css("display", "none");
-            $(".completed").css("display", "none");
+            $(".completed").css("display", "block");
             $(".venderlabel").css("display", "none");
             $(".driverlabel").css("display", "none");
             $(".carlabel").css("display", "none");
             if ($("tr[data-tr='" + id + "'] td").eq(11).text() == "Confirmed") {
                 $(".select_vender_name").css("display", "block");
                 $(".venderlabel").css("display", "block");
+                $(".venderListing_div").show();
+
             } else if ($("tr[data-tr='" + id + "'] td").eq(11).text() == "Allocated") {
                 $(".select_vender_name").css("display", "block");
                 $(".select_driver_name").css("display", "block");
@@ -455,6 +441,8 @@
                 $(".venderlabel").css("display", "block");
                 $(".driverlabel").css("display", "block");
                 $(".carlabel").css("display", "block");
+                $(".venderListing_div").show();
+
             } else if ($("tr[data-tr='" + id + "'] td").eq(11).text() == "Completed") {
                 $(".select_vender_name").css("display", "block");
                 $(".venderlabel").css("display", "block");
@@ -468,6 +456,8 @@
                 $(".upload_div").show();
                 $(".remark_div").show();
                 $(".extras_div").show();
+                $(".venderListing_div").show();
+
 
                 $(".parking_div").show();
                 $(".toll_div").show();
@@ -479,8 +469,8 @@
                 {
                     var readings = jQuery.parseJSON($("tr[data-tr='" + id + "'] td").eq(24).text());
 
-                    var start = stringToDate($("tr[data-tr='" + id + "'] td").eq(15).attr("data-value"));
-                    var end = stringToDate($("tr[data-tr='" + id + "'] td").eq(16).attr("data-value"));
+                    var start = stringToDate($("#startDate").val());
+                    var end = stringToDate($("#endDate").val());
 
 
                     var days = ((end - start) / 1000 / 60 / 60 / 24) + 1;
@@ -490,7 +480,7 @@
                         var cont = "";
                         for (var i = 1; i <= days; i++) {
 
-                            cont += (' <div class="col-sm-3 start_km_div"><label class="labelStartKm"><strong>Start Km</strong></label><input type="text" name="startKm[]" value="' + (typeof readings[0].StartKm[j] === "undefined" ? "" : readings[0].StartKm[j]) + '" class="form-control startkm" placeholder="Start Km"></div><div class="col-sm-3 end_km_div"><label class="labelStartKm"><strong>End Km</strong></label><input type="text" name="endKm[]" value="' + (typeof readings[1].EndKm[j] === "undefined" ? "" : readings[1].EndKm[j]) + '" class="form-control endkm" placeholder="End Km"></div><div class="col-sm-3 start_DATE_div"><label class="labelStart"><strong>Start Date</strong></label><input type="text" name="startDate[]" value="' + (typeof readings[2].start_DATE[j] === "undefined" ? "" : readings[2].start_DATE[j]) + '" class="form-control endkm datepickerz"  placeholder="Start Km" autocomplete="off"></div><div class="col-sm-3 end_DATE_div"><label class="labelEnd"><strong>End Date</strong></label><input type="text" name="endDate[]" value="' + (typeof readings[3].end_DATE[j] === "undefined" ? "" : readings[3].end_DATE[j]) + '" class="form-control endkm datepickerz"  placeholder="End Km" autocomplete="off"></div>');
+                            cont += (' <div class="form-group col-sm-2 start_km_div"><label class="labelStartKm"><strong>Start Km</strong></label><input type="text" required="true" name="startKm[]" value="' + (typeof readings[0].StartKm[j] === "undefined" ? "" : readings[0].StartKm[j]) + '" class="form-control startkm" placeholder="Start Km"></div><div class="form-group col-sm-2 end_km_div"><label class="labelStartKm"><strong>End Km</strong></label><input type="text" required="true" name="endKm[]" value="' + (typeof readings[1].EndKm[j] === "undefined" ? "" : readings[1].EndKm[j]) + '" class="form-control endkm" placeholder="End Km"></div><div class="form-group col-sm-2 start_DATE_div"><label class="labelStart"><strong>Actual start time</strong></label><input type="text" required="true" name="startDate[]" value="' + (typeof readings[2].start_DATE[j] === "undefined" ? "" : readings[2].start_DATE[j]) + '" class="form-control endkm datepickerz"  placeholder="Actual start time" autocomplete="off"></div><div class="form-group col-sm-2 end_DATE_div"><label class="labelEnd"><strong>Actual end time</strong></label><input type="text" required="true" name="endDate[]" value="' + (typeof readings[3].end_DATE[j] === "undefined" ? "" : readings[3].end_DATE[j]) + '" class="form-control endkm datepickerz"  placeholder="Actual end time" autocomplete="off"></div><div class="clearfix"></div>');
                             j++;
                         }
                         $(cont).insertAfter("form .remark_div");
@@ -510,7 +500,7 @@
                 $(".venderlabel").css("display", "none");
                 $(".driverlabel").css("display", "none");
                 $(".carlabel").css("display", "none");
-                $(".completed").css("display", "none");
+                $(".completed").css("display", "block");
             }
             $("form#orderForm").append("<input type='hidden' name='id' value='" + $("tr[data-tr='" + id + "'] td").eq(0).text() + "'>")
             $("form#orderForm").attr("action", "{{ URL::route('order_edit') }}");
@@ -521,6 +511,7 @@
             if (value == "1") {
                 $(".select_vender_name").css("display", "block");
                 $(".venderlabel").css("display", "block");
+                $(".venderListing_div").show();
             } else
             if (value == "2") {
                 $(".select_vender_name").css("display", "block");
@@ -529,7 +520,7 @@
                 $(".select_car_name").css("display", "block");
                 $(".driverlabel").css("display", "block");
                 $(".carlabel").css("display", "block");
-
+                $(".venderListing_div").show();
 
             } else if (value == "3") {
                 $(".select_vender_name").css("display", "block");
@@ -547,7 +538,7 @@
                 $(".remark_div").show();
                 $(".extras_div").show();
 
-
+                $(".venderListing_div").show();
                 $(".parking_div").show();
                 $(".toll_div").show();
                 $(".permit_div").show();
@@ -555,11 +546,14 @@
 
                 if (/local/i.test($("select[name='listing'] option:selected").text()))
                 {
-
-                    var readings = jQuery.parseJSON($("tr[data-tr='" + id + "'] td").eq(24).text());
-
-                    var start = stringToDate($("tr[data-tr='" + id + "'] td").eq(15).attr("data-value"));
-                    var end = stringToDate($("tr[data-tr='" + id + "'] td").eq(16).attr("data-value"));
+                    var readings = "";
+                    try {
+                        readings = jQuery.parseJSON($("tr[data-tr='" + id + "'] td").eq(24).text());
+                    } catch (e) {
+                        console.log(e);
+                    }
+                    var start = stringToDate($("#startDate").val());
+                    var end = stringToDate($("#endDate").val());
 
 
                     var days = ((end - start) / 1000 / 60 / 60 / 24) + 1;
@@ -569,7 +563,7 @@
                         var cont = "";
                         for (var i = 1; i <= days; i++) {
 
-                            cont += (' <div class="col-sm-3 start_km_div"><label class="labelStartKm"><strong>Start Km</strong></label><input type="text" name="startKm[]" value="' + (typeof readings[0].StartKm[j] === "undefined" ? "" : readings[0].StartKm[j]) + '" class="form-control startkm" placeholder="Start Km"></div><div class="col-sm-3 end_km_div"><label class="labelStartKm"><strong>End Km</strong></label><input type="text" name="endKm[]" value="' + (typeof readings[1].EndKm[j] === "undefined" ? "" : readings[1].EndKm[j]) + '" class="form-control endkm" placeholder="End Km"></div><div class="col-sm-3 start_DATE_div"><label class="labelStart"><strong>Start Date</strong></label><input type="text" name="startDate[]" value="' + (typeof readings[2].start_DATE[j] === "undefined" ? "" : readings[2].start_DATE[j]) + '" class="form-control endkm datepickerz"  placeholder="Start Km" autocomplete="off"></div><div class="col-sm-3 end_DATE_div"><label class="labelEnd"><strong>End Date</strong></label><input type="text" name="endDate[]" value="' + (typeof readings[3].end_DATE[j] === "undefined" ? "" : readings[3].end_DATE[j]) + '" class="form-control endkm datepickerz"  placeholder="End Km" autocomplete="off"></div>');
+                            cont += (' <div class="form-group col-sm-2 start_km_div"><label class="labelStartKm"><strong>Start Km</strong></label><input type="text" required="true" name="startKm[]" value="" class="form-control startkm" placeholder="Start Km"></div><div class="form-group col-sm-2 end_km_div"><label class="labelStartKm"><strong>End Km</strong></label><input type="text" required="true" name="endKm[]" value="" class="form-control endkm" placeholder="End Km"></div><div class="form-group col-sm-2 start_DATE_div"><label class="labelStart"><strong>Actual start time</strong></label><input type="text" required="true" name="startDate[]" value="" class="form-control endkm datepickerz"  placeholder="Actual start time" autocomplete="off"></div><div class="form-group col-sm-2 end_DATE_div"><label class="labelEnd"><strong>Actual end time</strong></label><input type="text" required="true" name="endDate[]" value="" class="form-control endkm datepickerz"  placeholder="Actual end time" autocomplete="off"></div><div class="clearfix"></div>');
                             j++;
                         }
                         $(cont).insertAfter("form .remark_div");
@@ -588,6 +582,7 @@
                 $(".venderlabel").css("display", "none");
                 $(".driverlabel").css("display", "none");
                 $(".carlabel").css("display", "none");
+                $(".venderListing_div").hide();
             }
         });
 
@@ -639,5 +634,21 @@
         }
 
     }
+
+
+    $(document).on("change", "#vendersName", function() {
+        var value = $(this).val();
+        $.get(document.location.origin + "/admin/vendor_listing_dropdown/" + value, function(data) {
+
+            $("#venderListing").empty().append(data);
+        });
+    });
+
+
+
+
+
+
+
 </script>
 @stop
