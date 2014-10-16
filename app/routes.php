@@ -163,12 +163,17 @@ Route::group(array('prefix' => 'admin'), function() {
         Route::get('/master/contact_enquiries', array('as' => 'contact_enquiries', 'uses' => 'AdminController@contact_enquiries'));
         Route::get('/master/career_requests', array('as' => 'career_requests', 'uses' => 'AdminController@career_requests'));
         Route::get('/master/partners_with_us', array('as' => 'partners_with_us', 'uses' => 'AdminController@partners_with_us'));
-        Route::get('/master/invoice/{id}', array('as' => 'invoice', 'uses' => 'AdminController@invoice'));
-        
+        Route::get('/master/invoice/{id}', array('as' => 'invoice', 'uses' => 'InvoiceController@invoice'));
+
+        Route::get('/master/purchase_invoice/{id}', array('as' => 'purchase_invoice', 'uses' => 'InvoiceController@purchase_invoice'));
+
+
         Route::get('/drivers_dropdown/{id}', 'AdminController@drivers_dropdown');
+       Route::get('/vendor_listing_dropdown/{id}', 'AdminController@vendor_listing_dropdown');
+
+        
         Route::get('/sales-summary', array('as' => 'sales', 'uses' => 'AdminController@sales'));
         Route::get('/orders/order_view/{id}', array('as' => 'order_view', 'uses' => 'AdminController@order_view'));
-
     });
 });
 

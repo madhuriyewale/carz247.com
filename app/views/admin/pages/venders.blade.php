@@ -9,7 +9,7 @@
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
             <li><a href="#">Master</a></li>
-            <li class="active">Vender</li>
+            <li class="active">Vendor</li>
         </ol>
     </section>
     <!-- Main content -->
@@ -28,7 +28,7 @@
 
 
                             <div class="form-group">
-                                <label>Vender Name</label>
+                                <label>Vendor Name</label>
                                 <input type="text" name="vendersName" class="form-control" placeholder="Vendor Name" required="true"/>
                             </div>
 

@@ -59,7 +59,7 @@
                 }
             }
 
-            td:nth-child(4) {text-align: right;}
+            td:nth-child(5) {text-align: right;}
 
             [contenteditable="true"]:hover { outline: 2px dashed #0090D2; }
 
@@ -80,13 +80,14 @@
                     </p>
                 </div>
                 <div id="ltInfo">
-                    <p>Invoice No: {{ $bookingData[0]['id'];  }}</p>
+                    <p>Sale Invoice No: {{ $bookingData[0]['id'];  }}</p>
                     <p>Date: <?php echo date('d-m-Y'); ?></p>
                 </div>
             </div>
             <table>
                 <thead>
                     <tr>
+                        <th>Sr. No.</th>
                         <th>Particulars</th>
                         <th>KMS</th>
                         <th>HOURS/DAYS</th>
@@ -94,64 +95,25 @@
                     </tr>
                 </thead>
                 <tbody>
-
-                    {{ $recieptCont }}
                     <tr>
-                        <td>Toll Charges</td>
+                        <td class="cnt">{{ $recieptCnt }}</td>
+                        <td>{{ $recieptCont }}</td>
+                        <td class="cnt">{{ number_format($kms) }}</td>
+                        <td class="cnt">{{ @$hours }}</td>
+                        <td class="cnt">{{ number_format($amount) }}</td>
+                    </tr>
+                  
+                    
+                 
+                    <tr>
+                        <td></td>
+                        <td>Total</td>
                         <td></td>
                         <td></td>
-                        <td>{{ @number_format($toll) }}</td>
+                        <td>{{ @number_format($finalAmnt) }}</td>
                     </tr>
                     <tr>
-                        <td>Permit Charges</td>
-                        <td></td>
-                        <td></td>
-                        <td>{{ @number_format($permit) }}</td>
-                    </tr>
-                    <tr>
-                        <td>Parking Charges</td>
-                        <td></td>
-                        <td></td>
-                        <td>{{ @number_format($parking) }}</td>
-                    </tr>
-                    <tr>
-                        <td>Extras</td>
-                        <td></td>
-                        <td></td>
-                        <td>{{ @number_format($extra) }}</td>
-                    </tr>
-                    <tr>
-                        <td>Discount</td>
-                        <td></td>
-                        <td></td>
-                        <td> - {{ @number_format($discount) }}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Total</strong></td>
-                        <td></td>
-                        <td></td>
-                        <td><strong>{{ @number_format($finalAmntNoST) }}</strong></td>
-                    </tr>
-                    <tr>
-                        <td>Service Tax</td>
-                        <td></td>
-                        <td></td>
-                        <td>{{ @$st }}%</td>
-                    </tr>
-                    <tr>
-                        <td>Booking Amount</td>
-                        <td></td>
-                        <td></td>
-                        <td> - {{ @number_format($prepaid) }}</td>
-                    </tr>
-                     <tr>
-                        <td><strong>Grand Total</strong></td>
-                        <td></td>
-                        <td></td>
-                        <td><strong>{{ @number_format($finalAmnt) }}</strong></td>
-                    </tr>
-                    <tr>
-                        <td>
+                        <td colspan="2">
                             <p>
                                 No disputes or objections will be entertained if not brought <br />
                                 to our notice within Three days from now here of subject to <br />
@@ -164,7 +126,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td colspan="2">
                             <p>
                                 Service Tax and Education Cess Leviable as per Regulation.  
                             </p>

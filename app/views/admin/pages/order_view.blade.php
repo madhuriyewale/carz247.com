@@ -96,7 +96,7 @@
 
 
                                 <tr>
-                                    <td>Venders Name</td>
+                                    <td>Vendors Name</td>
                                     <td>{{ $orders_view[0]['venders_name']; }} </td>
                                 </tr>
                                 <tr>
@@ -144,7 +144,9 @@
                                 
                                     <tr>
                                     <td>Readings</td>
-                                    <td>{{ $orders_view[0]['readings']; }} </td>
+                                    <td>{{$orders_view[0]['readings'];}}
+                                     
+                                        </td>
                                 </tr>
                                        <tr>
                                     <td>Toll</td>

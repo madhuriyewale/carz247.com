@@ -29,7 +29,7 @@
 
 
                             <div class="form-group">
-                                <label>Vender Name</label>
+                                <label>Vendor Name</label>
                                 <select class="form-control" name="vender_name">
 
                                     <option value="">Please Select</option>
@@ -133,7 +133,7 @@
                             <thead>
                                 <tr>
                                     <th>Sr No.</th>
-                                    <th>Vender Name</th>
+                                    <th>Vendor Name</th>
                                     <th>City</th> 
                                     <th>Service</th>  
                                     <th>Category</th>  

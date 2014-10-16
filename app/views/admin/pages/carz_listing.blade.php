@@ -28,7 +28,7 @@
 
                             <div class="form-group">
                                 <label>City</label>
-                                <select class="form-control" name="city">
+                                <select class="form-control" name="city" required="true">
 
                                     <option value="">Please Select</option>
                                     @foreach ($cities as $city)
@@ -39,7 +39,7 @@
 
                             <div class="form-group">
                                 <label>Service</label>
-                                <select class="form-control" name="service"  >
+                                <select class="form-control" name="service" required="true" >
                                     <option value="">Please Select</option>
                                     @foreach ($services as $service)
                                     <option   value="{{ $service->id }}" >{{ $service->service }}</option>
@@ -50,7 +50,7 @@
                             <div class="form-group">
                                 <label>Category</label>
 
-                                <select class="form-control" name="category">
+                                <select class="form-control" name="category" required="true">
                                     <option value="">Please Select</option>
                                     @foreach ($categories as $category)
                                     <option   value="{{ $category->id }}" >{{ $category->category }}</option>
@@ -61,7 +61,7 @@
 
                             <div class="form-group">
                                 <label>Package</label>
-                                <select class="form-control"  name="package">
+                                <select class="form-control"  name="package" required="true">
                                     <option value="">Please Select</option>
                                     @foreach ($packages as $package)
                                     <option value="{{ $package->id }}" >{{ $package->package }}</option>

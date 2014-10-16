@@ -100,7 +100,7 @@
                                 </div>
                                 <div class="form-group col-sm-3">
                                     <label class="label_title"><strong>Instructions</strong></label>
-                                    <input type="text" name="instructions" class="form-control" />
+                                    <input type="text" name="instructions" class="form-control" placeholder="Instructions" />
                                 </div>
                                 <div class="form-group col-sm-3  ">
                                     <label>Booking Status</label>
@@ -119,7 +119,7 @@
                                 <h4 class="box-title">Vendor Allocation Details</h4>
                                 <div class="form-group col-sm-3 ">
                                     <label class="venderlabel" >Vendors </label>
-                                    <select class="form-control select_vender_name" id="vendersName" name="vendersName" placeholder="Please Select">
+                                    <select class="form-control select_vender_name"  required="true" id="vendersName" name="vendersName" placeholder="Please Select">
                                         <option value="">Please Select</option>
                                         @foreach($venders as $vender)
                                         <option value="{{$vender->id}}">{{ $vender->venders_name }}</option>
@@ -128,7 +128,7 @@
                                 </div>
                                 <div class="form-group col-sm-3 venderListing_div ">
                                     <label class="venderListinglabel" >Vendor Listing </label>
-                                    <select class="form-control select_venderListing" id="venderListing" name="venderListing" placeholder="Please Select">
+                                    <select class="form-control select_venderListing"  required="true" id="venderListing" name="venderListing" placeholder="Please Select">
                                         <option></option>
                                     </select>
                                 </div>
@@ -151,12 +151,12 @@
 
                                 <div class="form-group col-sm-3 start_km_div">
                                     <label class="labelStartKm"><strong>Start Km</strong></label>
-                                    <input type="text" name="startKm[]" value="" class="form-control startkm" placeholder="Start Km"> 
+                                    <input type="text" name="startKm[]" value=""  required="true" class="form-control startkm" placeholder="Start Km"> 
                                 </div>
 
                                 <div class="form-group col-sm-3 end_km_div">
                                     <label class="labelStartKm"><strong>End Km</strong></label>
-                                    <input type="text" name="endKm[]" value="" class="form-control endkm" placeholder="End Km"> 
+                                    <input type="text" name="endKm[]"  required="true" value="" class="form-control endkm" placeholder="End Km"> 
                                 </div>
 
                                 <div class="form-group col-sm-3 extras_div">
@@ -198,8 +198,10 @@
                                     <label class="labelRemark"><strong>Remarks</strong></label>
                                     <input type="text"  name="remark" value="" class="form-control remark" placeholder="Remark"> 
                                 </div>
+                                <div class="clearfix "></div>
+                                <div class="readingz"></div>
                             </div>
-                            <div class="clearfix"></div>
+                            <div class="clearfix "></div>
 
                             <div class="box-footer">
                                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -249,10 +251,8 @@
                                     <th>Parking</th>
                                     <th>Permit</th>
                                     <th>vendor listing</th>
-                                    <th>Edit</th>
-                                    <th>View</th>
-                                    <th>Delete</th>
-                                    <th>Invoice</th>
+                                    <th></th>
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -301,13 +301,14 @@
                                     <td data-value="{{$order->vender_listing_id}}">{{$order->vender_listing_id}}</td>
 
 
-                                    <td><a href="javascript:void();" class="orderEdit" data-id="{{$order->id}}">Edit</a></td>
-                                    <td>{{HTML::linkAction('order_view', 'View', $order->id) }}</td>
-                                    <td>{{HTML::linkAction('order_delete', 'Delete', $order->id ,array('onClick' => 'return confirm(\' Are you sure you want to Delete this Entry? \')')) }}</td>
                                     <td>
+                                        <a href="javascript:void();" class="orderEdit" data-id="{{$order->id}}" title="Edit Order Details" ><i class="fa fa-edit"> </i></a>
+                                        {{HTML::linkAction('order_view', '', $order->id, array("title"=>"View Order Details","class"=>"fa fa-calendar-o")) }}
+                                        {{HTML::linkAction('order_delete', '', $order->id ,array('class'=>'fa fa-trash','title'=> 'Delete Order', 'onClick' => 'return confirm(\' Are you sure you want to Delete this Entry? \')')) }}
+
                                         @if($order->booking_status == 3)
-                                        {{HTML::linkAction('invoice', 'Generate Invoice', $order->id ,array('target' => '_blank')) }} <br/>
-                                        {{HTML::linkAction('sale_invoice', 'Sale Invoice', $order->id ,array('target' => '_blank')) }} 
+                                        {{HTML::linkAction('invoice', '', $order->id ,array('class'=>'fa fa-line-chart','title'=> 'Print Sales Invoice', 'target' => '_blank')) }} 
+                                        {{HTML::linkAction('purchase_invoice', '', $order->id ,array('class'=>'fa fa-shopping-cart','title'=> 'Print Purchase Invoice', 'target' => '_blank')) }} 
 
                                     </td>
                                     @endif
@@ -351,29 +352,12 @@
                 $("#startDate").datepicker("option", "maxDate", selectedDate);
             }
         });
-        $(".select_vender_name").css("display", "none");
-        $(".select_driver_name").css("display", "none");
-        $(".select_car_name").css("display", "none");
-        $(".completed").css("display", "block");
-        $(".venderlabel").css("display", "none");
-        $(".driverlabel").css("display", "none");
-        $(".carlabel").css("display", "none");
-        $(".start_date_div").show();
-        $(".end_date_div").show();
-        $(".start_km_div").hide();
-        $(".end_km_div").hide();
-        $(".discount_div").hide();
-        $(".service_tax_div").hide();
-        $(".upload_div").hide();
-        $(".remark_div").hide();
-        $(".extras_div").hide();
-        $(".toll_div").hide();
-        $(".permit_div").hide();
-        $(".parking_div").hide();
-        $(".venderListing_div").hide();
-
+        $(".od-2").hide();
+        $(".od-3").hide();
 
         $(document).on("click", ".orderEdit", function() {
+            $("#orderForm").show();
+            $(".readingz").html("");
             $("html, body").animate({scrollTop: 0}, "slow");
             id = $(this).attr('data-id');
 
@@ -385,85 +369,42 @@
             $("form#orderForm textarea[name='instructions']").val($("tr[data-tr='" + id + "'] td").eq(5).text());
             $("form#orderForm input[name='cost']").val($("tr[data-tr='" + id + "'] td").eq(6).text());
             $("form#orderForm select[name='mode'] option[value='" + $("tr[data-tr='" + id + "'] td").eq(7).attr("data-value") + "']").prop('selected', true);
-
-            //$("form#orderForm input[name='mode']").val($("tr[data-tr='" + id + "'] td").eq(7).text());
-
             $("form#orderForm input[name='txn_ref_no']").val($("tr[data-tr='" + id + "'] td").eq(8).text());
             $("form#orderForm input[name='txn_status']").val($("tr[data-tr='" + id + "'] td").eq(9).text());
             $("form#orderForm input[name='txn_msg']").val($("tr[data-tr='" + id + "'] td").eq(10).text());
-
             $("form#orderForm select[name='booking_status'] option[value='" + $("tr[data-tr='" + id + "'] td").eq(11).attr("data-value") + "']").prop('selected', true);
-
-            //  $("form#orderForm select[name='booking_status']").val($("tr[data-tr='" + id + "'] td").eq(11).attr("data-value").prop('selected', true));
-
             $("form#orderForm select[name='vendersName'] option[value='" + $("tr[data-tr='" + id + "'] td").eq(12).attr("data-value") + "']").prop('selected', true);
             $("form#orderForm select[name='venderListing'] option[value='" + $("tr[data-tr='" + id + "'] td").eq(28).attr("data-value") + "']").prop('selected', true);
-
-            //  alert($("tr[data-tr='" + id + "'] td").eq(15).attr("data-value"));
-
             $("form#orderForm input[name='startDate[]']").val($("tr[data-tr='" + id + "'] td").eq(15).attr("data-value"));
             $("form#orderForm input[name='endDate[]']").val($("tr[data-tr='" + id + "'] td").eq(16).attr("data-value"));
-
             $("form#orderForm input[name='startKm[]']").val($("tr[data-tr='" + id + "'] td").eq(17).text());
             $("form#orderForm input[name='endKm[]']").val($("tr[data-tr='" + id + "'] td").eq(18).text());
-
             $("form#orderForm input[name='discount']").val($("tr[data-tr='" + id + "'] td").eq(19).text());
             $("form#orderForm input[name='serviceTax']").val($("tr[data-tr='" + id + "'] td").eq(20).text());
             $("form#orderForm input[name='remark']").val($("tr[data-tr='" + id + "'] td").eq(22).text());
             $("form#orderForm input[name='extraHrs[]']").val($("tr[data-tr='" + id + "'] td").eq(23).text());
-
-
             $("form#orderForm input[name='toll']").val($("tr[data-tr='" + id + "'] td").eq(25).text());
             $("form#orderForm input[name='parking']").val($("tr[data-tr='" + id + "'] td").eq(26).text());
             $("form#orderForm input[name='permit']").val($("tr[data-tr='" + id + "'] td").eq(27).text());
-
-
+            if ($("tr[data-tr='" + id + "'] td").eq(28).attr("data-value") != "") {
+                getVendorListing($("tr[data-tr='" + id + "'] td").eq(28).attr("data-value"), $("tr[data-tr='" + id + "'] td").eq(12).attr("data-value"));
+            }
             if ($("tr[data-tr='" + id + "'] td").eq(12).attr("data-value") != "") {
                 getVendorDetails($("tr[data-tr='" + id + "'] td").eq(12).attr("data-value"), id);
             }
-            $(".select_vender_name").css("display", "none");
-            $(".select_driver_name").css("display", "none");
-            $(".select_car_name").css("display", "none");
-            $(".completed").css("display", "block");
-            $(".venderlabel").css("display", "none");
-            $(".driverlabel").css("display", "none");
-            $(".carlabel").css("display", "none");
+
+            $(".od-2").hide();
+            $(".od-3").hide();
+
             if ($("tr[data-tr='" + id + "'] td").eq(11).text() == "Confirmed") {
-                $(".select_vender_name").css("display", "block");
-                $(".venderlabel").css("display", "block");
-                $(".venderListing_div").show();
-
+                $(".od-2").show();
+                $(".od-3").hide();
             } else if ($("tr[data-tr='" + id + "'] td").eq(11).text() == "Allocated") {
-                $(".select_vender_name").css("display", "block");
-                $(".select_driver_name").css("display", "block");
-                $(".select_car_name").css("display", "block");
-                $(".completed").css("display", "block");
-                $(".venderlabel").css("display", "block");
-                $(".driverlabel").css("display", "block");
-                $(".carlabel").css("display", "block");
-                $(".venderListing_div").show();
-
+                $(".od-2").show();
+                $(".od-3").hide();
             } else if ($("tr[data-tr='" + id + "'] td").eq(11).text() == "Completed") {
-                $(".select_vender_name").css("display", "block");
-                $(".venderlabel").css("display", "block");
-                $(".select_driver_name").css("display", "block");
-                $(".select_car_name").css("display", "block");
-                $(".driverlabel").css("display", "block");
-                $(".carlabel").css("display", "block");
-                $(".completed").css("display", "block");
-                $(".discount_div").show();
-                $(".service_tax_div").show();
-                $(".upload_div").show();
-                $(".remark_div").show();
-                $(".extras_div").show();
-                $(".venderListing_div").show();
-
-
-                $(".parking_div").show();
-                $(".toll_div").show();
-                $(".permit_div").show();
-
-
+                $(".od-2").show();
+                $(".od-3").show();
 
                 if (/local/i.test($("select[name='listing'] option:selected").text()))
                 {
@@ -476,14 +417,20 @@
                     var days = ((end - start) / 1000 / 60 / 60 / 24) + 1;
 
                     if (days >= 2) {
+                        $(".start_km_div").hide();
+                        $(".end_km_div").hide();
+
                         var j = 0;
                         var cont = "";
                         for (var i = 1; i <= days; i++) {
+                            var nDate = start.getDate() + "-" + (start.getMonth() + 1) + "-" + start.getFullYear();
 
-                            cont += (' <div class="form-group col-sm-2 start_km_div"><label class="labelStartKm"><strong>Start Km</strong></label><input type="text" required="true" name="startKm[]" value="' + (typeof readings[0].StartKm[j] === "undefined" ? "" : readings[0].StartKm[j]) + '" class="form-control startkm" placeholder="Start Km"></div><div class="form-group col-sm-2 end_km_div"><label class="labelStartKm"><strong>End Km</strong></label><input type="text" required="true" name="endKm[]" value="' + (typeof readings[1].EndKm[j] === "undefined" ? "" : readings[1].EndKm[j]) + '" class="form-control endkm" placeholder="End Km"></div><div class="form-group col-sm-2 start_DATE_div"><label class="labelStart"><strong>Actual start time</strong></label><input type="text" required="true" name="startDate[]" value="' + (typeof readings[2].start_DATE[j] === "undefined" ? "" : readings[2].start_DATE[j]) + '" class="form-control endkm datepickerz"  placeholder="Actual start time" autocomplete="off"></div><div class="form-group col-sm-2 end_DATE_div"><label class="labelEnd"><strong>Actual end time</strong></label><input type="text" required="true" name="endDate[]" value="' + (typeof readings[3].end_DATE[j] === "undefined" ? "" : readings[3].end_DATE[j]) + '" class="form-control endkm datepickerz"  placeholder="Actual end time" autocomplete="off"></div><div class="clearfix"></div>');
+
+                            cont += ('<div class="form-group col-sm-2 days_div"><p><strong> ' + nDate + ' </strong></p></div> <div class="form-group col-sm-2 start_km_div"><label class="labelStartKm"><strong>Start Km</strong></label><input type="text" required="true" name="startKm[]" value="" class="form-control startkm" placeholder="Start Km"></div><div class="form-group col-sm-2 end_km_div"><label class="labelStartKm"><strong>End Km</strong></label><input type="text" required="true" name="endKm[]" value="" class="form-control endkm" placeholder="End Km"></div><div class="form-group col-sm-2 start_DATE_div"><label class="labelStart"><strong>Actual start time</strong></label><input type="text" required="true" name="startDate[]" value="" class="form-control endkm datepickerz"  placeholder="Actual start time" autocomplete="off"></div><div class="form-group col-sm-2 end_DATE_div"><label class="labelEnd"><strong>Actual end time</strong></label><input type="text" required="true" name="endDate[]" value="" class="form-control endkm datepickerz"  placeholder="Actual end time" autocomplete="off"></div><div class="clearfix"></div>');
                             j++;
+                            start.setDate(start.getDate() + 1);
                         }
-                        $(cont).insertAfter("form .remark_div");
+                        $(".readingz").html(cont);
                     } else {
                         $(".start_km_div").show();
                         $(".end_km_div").show();
@@ -509,39 +456,17 @@
         $(document).on("change", ".booking_status_select", function() {
             var value = $(this).val();
             if (value == "1") {
-                $(".select_vender_name").css("display", "block");
-                $(".venderlabel").css("display", "block");
-                $(".venderListing_div").show();
+
+                $(".od-3").hide();
+                $(".od-2").show();
             } else
             if (value == "2") {
-                $(".select_vender_name").css("display", "block");
-                $(".venderlabel").css("display", "block");
-                $(".select_driver_name").css("display", "block");
-                $(".select_car_name").css("display", "block");
-                $(".driverlabel").css("display", "block");
-                $(".carlabel").css("display", "block");
-                $(".venderListing_div").show();
+                $(".od-3").hide();
+                $(".od-2").show();
 
             } else if (value == "3") {
-                $(".select_vender_name").css("display", "block");
-                $(".venderlabel").css("display", "block");
-                $(".select_driver_name").css("display", "block");
-                $(".select_car_name").css("display", "block");
-                $(".driverlabel").css("display", "block");
-                $(".carlabel").css("display", "block");
-                $(".completed").css("display", "block");
-                $(".start_date_div").show();
-                $(".end_date_div").show();
-                $(".discount_div").show();
-                $(".service_tax_div").show();
-                $(".upload_div").show();
-                $(".remark_div").show();
-                $(".extras_div").show();
-
-                $(".venderListing_div").show();
-                $(".parking_div").show();
-                $(".toll_div").show();
-                $(".permit_div").show();
+                $(".od-3").show();
+                $(".od-2").show();
 
 
                 if (/local/i.test($("select[name='listing'] option:selected").text()))
@@ -550,7 +475,7 @@
                     try {
                         readings = jQuery.parseJSON($("tr[data-tr='" + id + "'] td").eq(24).text());
                     } catch (e) {
-                        console.log(e);
+                        // console.log(e);
                     }
                     var start = stringToDate($("#startDate").val());
                     var end = stringToDate($("#endDate").val());
@@ -563,10 +488,18 @@
                         var cont = "";
                         for (var i = 1; i <= days; i++) {
 
-                            cont += (' <div class="form-group col-sm-2 start_km_div"><label class="labelStartKm"><strong>Start Km</strong></label><input type="text" required="true" name="startKm[]" value="" class="form-control startkm" placeholder="Start Km"></div><div class="form-group col-sm-2 end_km_div"><label class="labelStartKm"><strong>End Km</strong></label><input type="text" required="true" name="endKm[]" value="" class="form-control endkm" placeholder="End Km"></div><div class="form-group col-sm-2 start_DATE_div"><label class="labelStart"><strong>Actual start time</strong></label><input type="text" required="true" name="startDate[]" value="" class="form-control endkm datepickerz"  placeholder="Actual start time" autocomplete="off"></div><div class="form-group col-sm-2 end_DATE_div"><label class="labelEnd"><strong>Actual end time</strong></label><input type="text" required="true" name="endDate[]" value="" class="form-control endkm datepickerz"  placeholder="Actual end time" autocomplete="off"></div><div class="clearfix"></div>');
+                            var nDate = start.getDate() + "-" + (start.getMonth() + 1) + "-" + start.getFullYear();
+
+                            cont += ('<div class="form-group col-sm-2 days_div"><p><strong> ' + nDate + ' </strong></p></div> <div class="form-group col-sm-2 start_km_div"><label class="labelStartKm"><strong>Start Km</strong></label><input type="text" required="true" name="startKm[]" value="" class="form-control startkm" placeholder="Start Km"></div><div class="form-group col-sm-2 end_km_div"><label class="labelStartKm"><strong>End Km</strong></label><input type="text" required="true" name="endKm[]" value="" class="form-control endkm" placeholder="End Km"></div><div class="form-group col-sm-2 start_DATE_div"><label class="labelStart"><strong>Actual start time</strong></label><input type="text" required="true" name="startDate[]" value="" class="form-control endkm datepickerz"  placeholder="Actual start time" autocomplete="off"></div><div class="form-group col-sm-2 end_DATE_div"><label class="labelEnd"><strong>Actual end time</strong></label><input type="text" required="true" name="endDate[]" value="" class="form-control endkm datepickerz"  placeholder="Actual end time" autocomplete="off"></div><div class="clearfix"></div>');
                             j++;
+                            start.setDate(start.getDate() + 1);
                         }
-                        $(cont).insertAfter("form .remark_div");
+                        $(".start_km_div").hide();
+                        $(".end_km_div").hide();
+
+                        if ($(".readingz").html() == "") {
+                            $(".readingz").html(cont);
+                        }
                     } else {
                         $(".start_km_div").show();
                         $(".end_km_div").show();
@@ -576,13 +509,8 @@
                     $(".end_km_div").show();
                 }
             } else {
-                $(".select_vender_name").css("display", "none");
-                $(".select_driver_name").css("display", "none");
-                $(".select_car_name").css("display", "none");
-                $(".venderlabel").css("display", "none");
-                $(".driverlabel").css("display", "none");
-                $(".carlabel").css("display", "none");
-                $(".venderListing_div").hide();
+                $(".od-3").hide();
+                $(".od-2").hide();
             }
         });
 
@@ -637,12 +565,22 @@
 
 
     $(document).on("change", "#vendersName", function() {
-        var value = $(this).val();
-        $.get(document.location.origin + "/admin/vendor_listing_dropdown/" + value, function(data) {
+        var vid = $(this).val();
+        getVendorListing("", vid);
+
+    });
+
+
+    function getVendorListing(vlid, vid) {
+        $.get(document.location.origin + "/admin/vendor_listing_dropdown/" + vid, function(data) {
 
             $("#venderListing").empty().append(data);
+
+            if (vid != "") {
+                $(".select_venderListing option[value='" + $("tr[data-tr='" + id + "'] td").eq(28).text() + "']").prop('selected', true);
+            }
         });
-    });
+    }
 
 
 

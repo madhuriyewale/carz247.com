@@ -1,8 +1,8 @@
 <!-- jQuery 2.0.2 -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-
-<!-- Bootstrap -->
 {{ HTML::script('public/admin/js/bootstrap.min.js'); }}
+<!-- Bootstrap -->
+{{ HTML::script('public/admin/js/jquery.validate.js'); }}
 <!-- Datatables -->
 {{ HTML::script('public/admin/js/plugins/datatables/jquery.dataTables.js'); }}
 {{ HTML::script('public/admin/js/plugins/datatables/dataTables.bootstrap.js'); }}
@@ -13,6 +13,8 @@
 
 <script>
 $(function() {
+
+    $("form").validate();
 
     var dtable = $('#listingTables').dataTable({
         "bPaginate": true,
@@ -31,27 +33,27 @@ $(function() {
         }
     });
 
-    $("table th:nth-child(6),table td:nth-child(6)").hide();
-    $("table th:nth-child(8),table td:nth-child(8)").hide();
-    $("table th:nth-child(9),table td:nth-child(9)").hide();
-    $("table th:nth-child(10),table td:nth-child(10)").hide();
-    $("table th:nth-child(11),table td:nth-child(11)").hide();
-    $("table th:nth-child(13),table td:nth-child(13)").hide();
-    $("table th:nth-child(14),table td:nth-child(14)").hide();
-    $("table th:nth-child(15),table td:nth-child(15)").hide();
-    $("table th:nth-child(18),table td:nth-child(18)").hide();
-    $("table th:nth-child(19),table td:nth-child(19)").hide();
-    $("table th:nth-child(20),table td:nth-child(20)").hide();
-    $("table th:nth-child(21),table td:nth-child(21)").hide();
-    $("table th:nth-child(22),table td:nth-child(22)").hide();
-    $("table th:nth-child(23),table td:nth-child(23)").hide();
-    $("table th:nth-child(24),table td:nth-child(24)").hide();
-    $("table th:nth-child(25),table td:nth-child(25)").hide();
+    $("table#OrdersTables th:nth-child(6),table#OrdersTables td:nth-child(6)").hide();
+    $("table#OrdersTables th:nth-child(8),table#OrdersTables td:nth-child(8)").hide();
+    $("table#OrdersTables th:nth-child(9),table#OrdersTables td:nth-child(9)").hide();
+    $("table#OrdersTables th:nth-child(10),table#OrdersTables td:nth-child(10)").hide();
+    $("table#OrdersTables th:nth-child(11),table#OrdersTables td:nth-child(11)").hide();
+    $("table#OrdersTables th:nth-child(13),table#OrdersTables td:nth-child(13)").hide();
+    $("table#OrdersTables th:nth-child(14),table#OrdersTables td:nth-child(14)").hide();
+    $("table#OrdersTables th:nth-child(15),table#OrdersTables td:nth-child(15)").hide();
+    $("table#OrdersTables th:nth-child(18),table#OrdersTables td:nth-child(18)").hide();
+    $("table#OrdersTables th:nth-child(19),table#OrdersTables td:nth-child(19)").hide();
+    $("table#OrdersTables th:nth-child(20),table#OrdersTables td:nth-child(20)").hide();
+    $("table#OrdersTables th:nth-child(21),table#OrdersTables td:nth-child(21)").hide();
+    $("table#OrdersTables th:nth-child(22),table#OrdersTables td:nth-child(22)").hide();
+    $("table#OrdersTables th:nth-child(23),table#OrdersTables td:nth-child(23)").hide();
+    $("table#OrdersTables th:nth-child(24),table#OrdersTables td:nth-child(24)").hide();
+    $("table#OrdersTables th:nth-child(25),table#OrdersTables td:nth-child(25)").hide();
+    $("table#OrdersTables th:nth-child(26),table#OrdersTables td:nth-child(26)").hide();
+    $("table#OrdersTables th:nth-child(27),table#OrdersTables td:nth-child(27)").hide();
+    $("table#OrdersTables th:nth-child(28),table#OrdersTables td:nth-child(28)").hide();
+    $("table#OrdersTables th:nth-child(29),table#OrdersTables td:nth-child(29)").hide();
 
-    $("table th:nth-child(25),table td:nth-child(25)").hide();
-    $("table th:nth-child(26),table td:nth-child(26)").hide();
-    $("table th:nth-child(27),table td:nth-child(27)").hide();
-    $("table th:nth-child(28),table td:nth-child(28)").hide();
 
 
 });

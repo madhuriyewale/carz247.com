@@ -33,7 +33,7 @@
 
                             <div class="form-group">
                                 <label>Last Name</label>
-                                <input type="text" name="lname" class="form-control" placeholder="Last Name" required="true"/>
+                                <input type="text" name="lname" class="form-control" placeholder="Last Name" />
                             </div>
 
 
@@ -44,12 +44,12 @@
 
                             <div class="form-group">
                                 <label>Email</label>
-                                <input type="email" name="email" class="form-control" placeholder="Email" required="true"/>
+                                <input type="email" name="email" class="form-control" placeholder="Email" />
                             </div>
 
                             <div class="form-group">
                                 <label>Address</label>
-                                <textarea cols="150" rows="2" name="address" id="address" class="form-control" required="true"></textarea>
+                                <textarea cols="150" rows="2" name="address" id="address" class="form-control" ></textarea>
                             </div>
 
 
@@ -57,7 +57,7 @@
 
                                 <label>City</label>
 
-                                <select class="form-control" name="city">
+                                <select class="form-control" name="city" required="true" >
 
 
 
@@ -76,7 +76,7 @@
 
                             <div class="form-group">
                                 <label>Zipcode </label>
-                                <input type="text" name="zipcode" class="form-control" placeholder="Zip code" required="true"/>
+                                <input type="text" name="zipcode" class="form-control" placeholder="Zip code"/>
                             </div>
                             <input type="hidden" name="fromOrder" value="{{ $fromOrder }}" />
 

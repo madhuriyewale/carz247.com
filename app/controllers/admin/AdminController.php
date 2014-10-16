@@ -331,6 +331,12 @@ class AdminController extends BaseController {
 
     public function save_order() {
 
+        $getOrderId = DB::table('bookings')->max('order_no');
+        $nextOrderId = $getOrderId + 1;
+
+        $getInvoiceId = DB::table('bookings')->max('invoice_no');
+        $nextInvoiceId = $getInvoiceId + 1;
+
         $order = new Booking();
 
         $order->customer_id = Input::get('customer');
@@ -340,11 +346,39 @@ class AdminController extends BaseController {
         $order->instructions = Input::get('instructions');
         $order->cost = Input::get('cost');
         $order->mode = Input::get('mode');
+        $order->order_no = $nextOrderId;
         $order->upload = json_encode(array());
-
 
         $order->start_date = Input::get("startDate")[0];
         $order->end_date = Input::get("endDate")[0];
+
+        Input::get('booking_status') == 3 ? ($order->invoice_no = $nextInvoiceId ) : '';
+
+        $readings = [];
+        $startKMS = Input::get("startKm");
+        array_shift($startKMS);
+
+        $endKMS = Input::get("endKm");
+        array_shift($endKMS);
+
+        $start_DATE = Input::get("startDate");
+        array_shift($start_DATE);
+
+        $end_DATE = Input::get("endDate");
+        array_shift($end_DATE);
+
+        count(Input::get("startKm")) > 1 ? : $order->start_km = Input::get("startKm")[0];
+        count(Input::get("endKm")) > 1 ? : $order->end_km = Input::get("endKm")[0];
+        count(Input::get("startDate")) > 1 ? : $order->start_date = Input::get("startDate")[0];
+        count(Input::get("endDate")) > 1 ? : $order->end_date = Input::get("endDate")[0];
+
+        array_push($readings, ["StartKm" => $startKMS]);
+        array_push($readings, ["EndKm" => $endKMS]);
+        array_push($readings, ["start_DATE" => $start_DATE]);
+        array_push($readings, ["end_DATE" => $end_DATE]);
+
+        $readings_data = json_encode($readings);
+        $order->readings = $readings_data;
 
         $order->txn_ref_no = Input::get('txn_ref_no');
         $order->txn_status = Input::get('txn_status');
@@ -355,10 +389,34 @@ class AdminController extends BaseController {
 
         $order->drivers = Input::get('venderDrivers');
         $order->cars = Input::get('vendersCars');
-
+        $order->extras = Input::get("extraHrs")[0];
         $order->toll = Input::get('toll');
         $order->permit = Input::get('permit');
         $order->parking = Input::get('parking');
+
+
+        $order->discount = Input::get("discount");
+        $order->remark = Input::get("remark");
+
+        $order->service_tax = Input::get("serviceTax");
+        $orderDocs = $order->upload == "" ? array() : json_decode($order->upload, true);
+        $destinationPath = public_path() . '/admin/uploads/order-uploads/';
+        if (Input::hasFile('uploadFile')) {
+            $i = 1;
+            foreach (Input::file("uploadFile") as $file) {
+                $fileName = date("YmdHis") . "-$i" . "." . $file->getClientOriginalExtension();
+                $upload_success = $file->move($destinationPath, $fileName);
+                if ($upload_success) {
+                    array_push($orderDocs, $fileName);
+                    $i++;
+                } else {
+                    
+                }
+            }
+        }
+
+        $order->upload = json_encode($orderDocs);
+
         $order->save();
         return Redirect::route('orders');
     }
@@ -370,9 +428,10 @@ class AdminController extends BaseController {
 
     public function order_edit() {
 
-        // $all_data=Input::get('endKm');
-        //  echo is_array($all_data) ? 'Array ' : 'not an Array';
-        // dd($all_data);
+
+        $getInvoiceId = DB::table('bookings')->max('invoice_no');
+        $nextInvoiceId = $getInvoiceId + 1;
+
         $orderUpdate = Booking::find(Input::get("id"));
         $orderUpdate->customer_id = Input::get("customer");
         $orderUpdate->listing_id = Input::get("listing");
@@ -391,11 +450,12 @@ class AdminController extends BaseController {
 
         $orderUpdate->drivers = Input::get("venderDrivers");
         $orderUpdate->cars = Input::get("vendersCars");
-        //  $orderUpdate->start_date = Input::get("startDate");
         $orderUpdate->extras = Input::get("extraHrs")[0];
         $orderUpdate->toll = Input::get('toll');
         $orderUpdate->permit = Input::get('permit');
         $orderUpdate->parking = Input::get('parking');
+
+
 
         $readings = [];
         $startKMS = Input::get("startKm");
@@ -410,13 +470,8 @@ class AdminController extends BaseController {
         $end_DATE = Input::get("endDate");
         array_shift($end_DATE);
 
-//        $orderUpdate->start_km = json_encode(Input::get("startKm"));
-//        $orderUpdate->end_km = json_encode(Input::get("endKm"));
-//        $orderUpdate->extras = json_encode(Input::get("extraHrs"));
-
         count(Input::get("startKm")) > 1 ? : $orderUpdate->start_km = Input::get("startKm")[0];
         count(Input::get("endKm")) > 1 ? : $orderUpdate->end_km = Input::get("endKm")[0];
-        // count(Input::get("extraHrs")) > 1 ? : $orderUpdate->extras = Input::get("extraHrs")[0];
         count(Input::get("startDate")) > 1 ? : $orderUpdate->start_date = Input::get("startDate")[0];
         count(Input::get("endDate")) > 1 ? : $orderUpdate->end_date = Input::get("endDate")[0];
 
@@ -447,6 +502,7 @@ class AdminController extends BaseController {
                 }
             }
         }
+        (Input::get('booking_status') == 3 && $orderUpdate->invoice_no == '') ? $orderUpdate->invoice_no = $nextInvoiceId : '';
 
         $orderUpdate->upload = json_encode($orderDocs);
         $orderUpdate->update();
