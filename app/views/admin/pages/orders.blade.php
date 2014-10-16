@@ -426,7 +426,7 @@
                             var nDate = start.getDate() + "-" + (start.getMonth() + 1) + "-" + start.getFullYear();
 
 
-                            cont += ('<div class="form-group col-sm-2 days_div"><p><strong> ' + nDate + ' </strong></p></div> <div class="form-group col-sm-2 start_km_div"><label class="labelStartKm"><strong>Start Km</strong></label><input type="text" required="true" name="startKm[]" value="" class="form-control startkm" placeholder="Start Km"></div><div class="form-group col-sm-2 end_km_div"><label class="labelStartKm"><strong>End Km</strong></label><input type="text" required="true" name="endKm[]" value="" class="form-control endkm" placeholder="End Km"></div><div class="form-group col-sm-2 start_DATE_div"><label class="labelStart"><strong>Actual start time</strong></label><input type="text" required="true" name="startDate[]" value="" class="form-control endkm datepickerz"  placeholder="Actual start time" autocomplete="off"></div><div class="form-group col-sm-2 end_DATE_div"><label class="labelEnd"><strong>Actual end time</strong></label><input type="text" required="true" name="endDate[]" value="" class="form-control endkm datepickerz"  placeholder="Actual end time" autocomplete="off"></div><div class="clearfix"></div>');
+  cont += ('<div class="form-group col-sm-2 days_div"><p><strong> ' + nDate + ' </strong></p></div>  <div class="form-group col-sm-2 start_km_div"><label class="labelStartKm"><strong>Start Km</strong></label><input type="text" required="true" name="startKm[]" value="' + (typeof readings[0].StartKm[j] === "undefined" ? "" : readings[0].StartKm[j]) + '" class="form-control startkm" placeholder="Start Km"></div><div class="form-group col-sm-2 end_km_div"><label class="labelStartKm"><strong>End Km</strong></label><input type="text" required="true" name="endKm[]" value="' + (typeof readings[1].EndKm[j] === "undefined" ? "" : readings[1].EndKm[j]) + '" class="form-control endkm" placeholder="End Km"></div><div class="form-group col-sm-2 start_DATE_div"><label class="labelStart"><strong>Actual start time</strong></label><input type="text" required="true" name="startDate[]" value="' + (typeof readings[2].start_DATE[j] === "undefined" ? "" : readings[2].start_DATE[j]) + '" class="form-control endkm datepickerz"  placeholder="Actual start time" autocomplete="off"></div><div class="form-group col-sm-2 end_DATE_div"><label class="labelEnd"><strong>Actual end time</strong></label><input type="text" required="true" name="endDate[]" value="' + (typeof readings[3].end_DATE[j] === "undefined" ? "" : readings[3].end_DATE[j]) + '" class="form-control endkm datepickerz"  placeholder="Actual end time" autocomplete="off"></div><div class="clearfix"></div>');
                             j++;
                             start.setDate(start.getDate() + 1);
                         }
@@ -441,13 +441,8 @@
                 }
             }
             else {
-                $(".select_vender_name").css("display", "none");
-                $(".select_vender_name").css("display", "none");
-                $(".select_driver_name").css("display", "none");
-                $(".venderlabel").css("display", "none");
-                $(".driverlabel").css("display", "none");
-                $(".carlabel").css("display", "none");
-                $(".completed").css("display", "block");
+            $(".start_km_div").hide();
+            $(".end_km_div").hide();
             }
             $("form#orderForm").append("<input type='hidden' name='id' value='" + $("tr[data-tr='" + id + "'] td").eq(0).text() + "'>")
             $("form#orderForm").attr("action", "{{ URL::route('order_edit') }}");
