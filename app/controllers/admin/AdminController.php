@@ -309,6 +309,15 @@ class AdminController extends BaseController {
 
         $listings_data = Listing::all();
 
+        $vender_listing_data = VenderListing::leftJoin("cities", "cities.id", "=", "vender_listings.city_id")
+                ->leftJoin("packages", "packages.id", "=", "vender_listings.package_id")
+                ->leftJoin("categories", "categories.id", "=", "vender_listings.category_id")
+                ->leftJoin("services", "services.id", "=", "vender_listings.service_id")
+                ->leftJoin("venders", "venders.id", "=", "vender_listings.vender_id")
+                ->get(['vender_listings.*', 'packages.package', 'categories.category', 'cities.city', 'services.service', 'venders.venders_name']);
+
+
+
 
         $customers = Customer::all();
         $localities = Locality::orderBy('locality', 'asc')->get();
@@ -317,7 +326,7 @@ class AdminController extends BaseController {
                         ->leftJoin("cities", "cities.id", "=", "listings.city_id")
                         ->leftJoin("packages", "packages.id", "=", "listings.package_id")
                         ->leftJoin("categories", "categories.id", "=", "listings.category_id")->get(['listings.*', 'cities.city', 'packages.package', 'services.service', 'categories.category']);
-        return View::make('admin.pages.orders', compact('orders', 'customers', 'listings', 'localities', 'venders', 'listings_data'));
+        return View::make('admin.pages.orders', compact('orders', 'customers', 'listings', 'localities', 'venders', 'listings_data', 'vender_listing_data'));
     }
 
     public function save_order() {
@@ -342,6 +351,8 @@ class AdminController extends BaseController {
         $order->txn_msg = Input::get('txn_msg');
         $order->booking_status = Input::get('booking_status');
         $order->vender_id = Input::get('vendersName');
+        $order->vender_listing_id = Input::get('venderListing');
+
         $order->drivers = Input::get('venderDrivers');
         $order->cars = Input::get('vendersCars');
 
@@ -375,6 +386,9 @@ class AdminController extends BaseController {
         $orderUpdate->txn_msg = Input::get("txn_msg");
         $orderUpdate->booking_status = Input::get("booking_status");
         $orderUpdate->vender_id = Input::get("vendersName");
+        $orderUpdate->vender_listing_id = Input::get('venderListing');
+
+
         $orderUpdate->drivers = Input::get("venderDrivers");
         $orderUpdate->cars = Input::get("vendersCars");
         //  $orderUpdate->start_date = Input::get("startDate");
@@ -505,6 +519,23 @@ class AdminController extends BaseController {
         echo $drivers[0]['cars'];
     }
 
+    public function vendor_listing_dropdown($input) {
+        $venderlisting_option_data = VenderListing::where("vender_id", "=", $input)
+                ->leftJoin("services", "services.id", "=", "vender_listings.service_id")
+                ->leftJoin("cities", "cities.id", "=", "vender_listings.city_id")
+                ->leftJoin("packages", "packages.id", "=", "vender_listings.package_id")
+                ->leftJoin("categories", "categories.id", "=", "vender_listings.category_id")
+                ->leftJoin("venders", "venders.id", "=", "vender_listings.vender_id")
+                ->get(['packages.package', 'cities.city', 'categories.category', 'services.service', 'venders.venders_name', 'vender_listings.id'])
+                ->toArray();
+
+
+        echo "<option value=''>Please Select</option>";
+        foreach ($venderlisting_option_data as $venderListingoption) {
+            echo "<option value='$venderListingoption[id]'>" . $venderListingoption['city'] . " " . $venderListingoption['service'] . " " . $venderListingoption['category'] . " " . $venderListingoption['package'] . "</option>";
+        }
+    }
+
     public function save_vender() {
         $venders = new Vender();
         $venders->venders_name = Input::get('vendersName');
@@ -549,10 +580,10 @@ class AdminController extends BaseController {
                 ->leftJoin("categories", "categories.id", "=", "vender_listings.category_id")
                 ->leftJoin("venders", "venders.id", "=", "vender_listings.vender_id")
                 ->get(['vender_listings.*', 'packages.package', 'cities.city', 'categories.category', 'services.service', 'venders.venders_name']);
-        $cities = City::all();
+        $cities = City::where("status", "=", 1)->get();
         $venders = Vender::all();
-        $services = Service::all();
-        $packages = Package::all();
+        $services = Service::where("status", "=", 1)->get();
+        $packages = Package::where("status", "=", 1)->get();
         $categories = Category::all();
         return View::make('admin.pages.vender_listing', compact('vender_listings', 'cities', 'services', 'categories', 'venders', 'packages'));
     }
@@ -594,108 +625,6 @@ class AdminController extends BaseController {
     public function vender_listing_delete($id) {
         VenderListing::find($id)->delete();
         return Redirect::route('vender_listings');
-    }
-
-    public function invoice($id) {
-
-        $bookingData = Booking::leftJoin("customers", "customers.id", "=", "bookings.customer_id")
-                        ->leftJoin("localities", "localities.id", "=", "bookings.locality_id")
-                        ->leftJoin("listings", "listings.id", "=", "bookings.listing_id")
-                        ->leftJoin("services", "services.id", "=", "listings.service_id")
-                        ->leftJoin("cities", "cities.id", "=", "listings.city_id")
-                        ->leftJoin("packages", "packages.id", "=", "listings.package_id")
-                        ->leftJoin("categories", "categories.id", "=", "listings.category_id")
-                        ->leftJoin("venders", "venders.id", "=", "bookings.vender_id")
-                        ->where("bookings.id", "=", $id)
-                        ->get([ 'customers.fname', 'customers.lname', 'venders.venders_name', 'localities.locality', 'listings.*', 'services.service', 'cities.city', 'packages.package', 'categories.category', 'bookings.*'])->toArray();
-
-        $fromDate = new DateTime($bookingData[0]["start_date"]);
-        $endDate = new DateTime($bookingData[0]["end_date"]);
-        $interval = $fromDate->diff($endDate);
-
-
-        $discount = $bookingData[0]["discount"];
-        $st = $bookingData[0]["service_tax"];
-        $prepaid = $bookingData[0]["cost"];
-        $extra = $bookingData[0]["extras"];
-
-
-        if (preg_match("/local/i", $bookingData[0]["service"]) && ($interval->days + 1) > 1) {
-
-
-
-            $readings = json_decode($bookingData[0]["readings"], true);
-
-            $stCnt = count($readings[0]['StartKm']);
-            $amount = 0;
-            $kmz = 0;
-            for ($i = 0; $i < $stCnt; $i++) {
-                $kms = $readings[1]["EndKm"][$i] - $readings[0]["StartKm"][$i];
-
-                $kmz += $kms;
-
-                $kmsTravelled = $kms - $bookingData[0]["min_kms"];
-
-                $nfromDate = new DateTime($readings[2]["start_DATE"][$i]);
-                $nendDate = new DateTime($readings[3]["end_DATE"][$i]);
-                $ninterval = $nfromDate->diff($nendDate);
-
-                $hrsTravelled = ($ninterval->h + ($ninterval->m > 30 ? 1 : 0)) - $bookingData[0]["min_hrs"];
-                $amount += $bookingData[0]["base_cost"] + ( $kmsTravelled <= 0 ? : $kmsTravelled * $bookingData[0]["extra_km_cost"]) + ($hrsTravelled <= 0 ? : $hrsTravelled * $bookingData[0]["extra_hr_cost"]);
-            }
-            $kms = $kmz;
-
-            $hours = $interval->days + 1;
-
-            $recieptCnt = "<p>1</p><p>2</p><p>3</p>";
-            $recieptCont = "<p>" . ucwords($bookingData[0]['category']) . " Car Category</p>
-                            <p>Extra km above " . $bookingData[0]["min_kms"] . " @ Rs." . $bookingData[0]["extra_km_cost"] . "/-km </p>
-                            <p>Extra hrs above " . $bookingData[0]["min_hrs"] . " hrs @ Rs." . $bookingData[0]["extra_hr_cost"] . "/-hrs";
-        } elseif (preg_match("/local/i", $bookingData[0]["service"]) && preg_match("/airport/i", $bookingData[0]["service"])) {
-
-            $hours = $interval->h;
-            $hours = $hours + ($interval->days * 24);
-
-            $kms = $bookingData[0]["end_km"] - $bookingData[0]["start_km"];
-            $kmsTravelled = $kms - $bookingData[0]["min_kms"];
-            $hrsTravelled = $hours - $bookingData[0]["min_hrs"];
-            $amount = $bookingData[0]["base_cost"] + ( $kmsTravelled <= 0 ? : $kmsTravelled * $bookingData[0]["extra_km_cost"]) + ($hrsTravelled <= 0 ? : $hrsTravelled * $bookingData[0]["extra_hr_cost"]);
-
-            $recieptCnt = "<p>1</p><p>2</p><p>3</p>";
-            $recieptCont = "<p>" . ucwords($bookingData[0]['category']) . " Car Category</p>
-                            <p>Extra km above " . $bookingData[0]["min_kms"] . " @ Rs." . $bookingData[0]["extra_km_cost"] . "/-km </p>
-                            <p>Extra hrs above " . $bookingData[0]["min_hrs"] . " hrs @ Rs." . $bookingData[0]["extra_hr_cost"] . "/-hrs";
-        } else {
-
-            $days = $interval->days + 1;
-
-            $kms = $bookingData[0]["end_km"] - $bookingData[0]["start_km"];
-            $kmsTravelled = $kms - $bookingData[0]["min_kms"] * $days;
-            $amount = ($kmsTravelled <= 0 ? $bookingData[0]["min_kms"] * $days : $kms ) * $bookingData[0]["extra_km_cost"] + $days * $bookingData[0]["driver_cost"];
-
-            $recieptCnt = "<p>1</p><p>2</p><p>3</p>";
-            $recieptCont = "<p>" . ucwords($bookingData[0]['category']) . " Car Category</p>
-                            <p>Extra km above " . $bookingData[0]["min_kms"] * $days . " @ Rs." . $bookingData[0]["extra_km_cost"] . "/-km </p>
-                            <p>Driver Allowance " . $bookingData[0]["driver_cost"] . "/-Day";
-
-
-
-
-            $hours = $days;
-        }
-
-
-        $finalAmnt = ($amount + $extra - $discount);
-        $finalAmnt = $finalAmnt + ($finalAmnt * ($st / 100)) - $prepaid;
-
-        $bookingUpdate = Booking::find($id);
-        $bookingUpdate->final_amt = ($finalAmnt + $prepaid);
-        $bookingUpdate->update();
-        return View::make('admin.pages.invoice', compact('bookingData', 'recieptCnt', 'recieptCont', 'kms', 'hours', 'amount', 'discount', 'extra', 'st', 'prepaid', 'finalAmnt'));
-    }
-
-    public function sales() {
-        return View::make('admin.pages.sales');
     }
 
     public function order_view($id) {
