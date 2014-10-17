@@ -114,39 +114,9 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="clearfix"></div>
-                            <div class="bb od-2">
-                                <h4 class="box-title">Vendor Allocation Details</h4>
-                                <div class="form-group col-sm-3 ">
-                                    <label class="venderlabel" >Vendors </label>
-                                    <select class="form-control select_vender_name"  required="true" id="vendersName" name="vendersName" placeholder="Please Select">
-                                        <option value="">Please Select</option>
-                                        @foreach($venders as $vender)
-                                        <option value="{{$vender->id}}">{{ $vender->venders_name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-group col-sm-3 venderListing_div ">
-                                    <label class="venderListinglabel" >Vendor Listing </label>
-                                    <select class="form-control select_venderListing"  required="true" id="venderListing" name="venderListing" placeholder="Please Select">
-                                        <option></option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-sm-3 ">
-                                    <label class="driverlabel">Drivers </label>
-                                    <select class="form-control select_driver_name" id="venderDrivers" name="venderDrivers" placeholder="Please Select">
-                                        <option> </option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-sm-3 ">
-                                    <label class="carlabel">Cars </label>
-                                    <select class="form-control select_car_name" id="vendersCars" name="vendersCars" placeholder="Please Select">
-                                        <option> </option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
-                            <div class="bb od-3">
+                            
+                             <div class="clearfix"></div>
+                               <div class="bb od-3">
                                 <h4 class="box-title">Order Completion Summary</h4> 
 
                                 <div class="form-group col-sm-3 start_km_div">
@@ -201,6 +171,39 @@
                                 <div class="clearfix "></div>
                                 <div class="readingz"></div>
                             </div>
+                            <div class="clearfix"></div>
+                            <div class="bb od-2">
+                                <h4 class="box-title">Vendor Allocation Details</h4>
+                                <div class="form-group col-sm-3 ">
+                                    <label class="venderlabel" >Vendors </label>
+                                    <select class="form-control select_vender_name"  required="true" id="vendersName" name="vendersName" placeholder="Please Select">
+                                        <option value="">Please Select</option>
+                                        @foreach($venders as $vender)
+                                        <option value="{{$vender->id}}">{{ $vender->venders_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group col-sm-3 venderListing_div ">
+                                    <label class="venderListinglabel" >Vendor Listing </label>
+                                    <select class="form-control select_venderListing"  required="true" id="venderListing" name="venderListing" placeholder="Please Select">
+                                        <option></option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-sm-3 ">
+                                    <label class="driverlabel">Drivers </label>
+                                    <select class="form-control select_driver_name" id="venderDrivers" name="venderDrivers" placeholder="Please Select">
+                                        <option> </option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-sm-3 ">
+                                    <label class="carlabel">Cars </label>
+                                    <select class="form-control select_car_name" id="vendersCars" name="vendersCars" placeholder="Please Select">
+                                        <option> </option>
+                                    </select>
+                                </div>
+                            </div>
+                           
+                         
                             <div class="clearfix "></div>
 
                             <div class="box-footer">

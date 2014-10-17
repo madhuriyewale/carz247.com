@@ -19,7 +19,7 @@ class BookingController extends BaseController {
 
 
 
-        $localities = Locality::where("city_id", "=", Session::get('city_id'))->orderBy('locality','asc')->get();
+        $localities = Locality::where("city_id", "=", Session::get('city_id'))->orderBy('locality', 'asc')->get();
 
 
 
@@ -98,11 +98,15 @@ class BookingController extends BaseController {
 
         $response_data = Input::all();
         if ($response_data['TxStatus'] == 'SUCCESS') {
+            $getOrderId = DB::table('bookings')->max('order_no');
+            $nextOrderId = $getOrderId + 1;
+
             $bookingUpdate = Booking::find(Session::get('booking_id'));
             $bookingUpdate->mode = @$response_data['paymentMode'];
             $bookingUpdate->txn_ref_no = $response_data['TxRefNo'];
             $bookingUpdate->txn_status = $response_data['TxStatus'];
             $bookingUpdate->txn_msg = $response_data['TxMsg'];
+            $bookingUpdate->order_no = $nextOrderId;
             $bookingUpdate->update();
             $contactEmail = "bookings@carz247.com";
             $contactName = '';
