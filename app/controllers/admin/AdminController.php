@@ -696,6 +696,11 @@ class AdminController extends BaseController {
         return Redirect::route('vender_listings');
     }
 
+       public function sales() {
+        return View::make('admin.pages.sales');
+    }
+
+    
     public function order_view($id) {
         $orders_view = Booking::where("bookings.id", "=", $id)
                 ->leftJoin("customers", "customers.id", "=", "bookings.customer_id")
