@@ -497,8 +497,8 @@
                             j++;
                             start.setDate(start.getDate() + 1);
                         }
-                        $(".start_km_div").hide();
-                        $(".end_km_div").hide();
+                     //   $(".start_km_div").hide();
+                      //  $(".end_km_div").hide();
 
                         if ($(".readingz").html() == "") {
                             $(".readingz").html(cont);
