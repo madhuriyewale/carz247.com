@@ -170,6 +170,7 @@ Route::group(array('prefix' => 'admin'), function() {
 
         Route::get('/drivers_dropdown/{id}', 'AdminController@drivers_dropdown');
        Route::get('/vendor_listing_dropdown/{id}', 'AdminController@vendor_listing_dropdown');
+       Route::get('/locality_dropdown/{id}', 'AdminController@locality_dropdown');
 
         
         Route::get('/sales-summary', array('as' => 'sales', 'uses' => 'AdminController@sales'));

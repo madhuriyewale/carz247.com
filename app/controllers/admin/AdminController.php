@@ -47,6 +47,17 @@ class AdminController extends BaseController {
         return Redirect::route('localities');
     }
 
+    public function locality_dropdown($id) {
+        $listing_id = Listing::where("id", "=", $id)->get(['city_id'])->toArray();
+
+        $localities = Locality::where("city_id", "=", $listing_id[0]['city_id'])->get(['id','locality'])->toArray();
+
+        echo "<option value=''>Please Select</option>";
+        foreach ($localities as $locality) {
+            echo "<option value='$locality[id]'>" . $locality['locality'] . "</option>";
+        }
+    }
+
     public function locality_delete($id) {
         Locality::find($id)->delete();
         return Redirect::route('localities');

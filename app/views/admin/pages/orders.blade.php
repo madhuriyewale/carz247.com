@@ -49,7 +49,7 @@
                                 </div>
                                 <div class="form-group col-sm-3">
                                     <label>Listing</label>
-                                    <select class="form-control" name="listing" required="true">
+                                    <select class="form-control listing_class" name="listing"  required="true">
 
                                         <option value="">Please Select</option>
                                         @foreach ($listings as $listing)
@@ -69,13 +69,9 @@
                                 </div>
                                 <div class="form-group col-sm-3">
                                     <label>Locality</label>
-                                    <select class="form-control" name="locality" required="true">
+                                    <select class="form-control locality_class" id="locality_id" name="locality" required="true">
 
-                                        <option value="">Please Select</option>
-                                        @foreach ($localities as $locality)
-                                        <option  value="{{ $locality->id }}" >{{ $locality->locality }}</option>
-                                        @endforeach
-                                        <option  value="0" >Other</option>
+                                        <option ></option>
                                     </select>
                                 </div>
                                 <div class="form-group col-sm-3">
@@ -114,9 +110,9 @@
                                     </select>
                                 </div>
                             </div>
-                            
-                             <div class="clearfix"></div>
-                               <div class="bb od-3">
+
+                            <div class="clearfix"></div>
+                            <div class="bb od-3">
                                 <h4 class="box-title">Order Completion Summary</h4> 
 
                                 <div class="form-group col-sm-3 start_km_div">
@@ -202,8 +198,8 @@
                                     </select>
                                 </div>
                             </div>
-                           
-                         
+
+
                             <div class="clearfix "></div>
 
                             <div class="box-footer">
@@ -367,7 +363,7 @@
 
             $("form#orderForm select[name='customer'] option[value='" + $("tr[data-tr='" + id + "'] td").eq(1).attr("data-value") + "']").prop('selected', true);
             $("form#orderForm select[name='listing'] option[value='" + $("tr[data-tr='" + id + "'] td").eq(2).attr("data-value") + "']").prop('selected', true);
-            $("form#orderForm select[name='locality'] option[value='" + $("tr[data-tr='" + id + "'] td").eq(3).attr("data-value") + "']").prop('selected', true);
+            // $("form#orderForm select[name='locality'] option[value='" + $("tr[data-tr='" + id + "'] td").eq(3).attr("data-value") + "']").prop('selected', true);
             $("form#orderForm input[name='pickuptime']").val($("tr[data-tr='" + id + "'] td").eq(4).text());
             $("form#orderForm textarea[name='instructions']").val($("tr[data-tr='" + id + "'] td").eq(5).text());
             $("form#orderForm input[name='cost']").val($("tr[data-tr='" + id + "'] td").eq(6).text());
@@ -394,6 +390,10 @@
             }
             if ($("tr[data-tr='" + id + "'] td").eq(12).attr("data-value") != "") {
                 getVendorDetails($("tr[data-tr='" + id + "'] td").eq(12).attr("data-value"), id);
+            }
+
+            if ($("tr[data-tr='" + id + "'] td").eq(3).attr("data-value") != "") {
+                getLocality($("tr[data-tr='" + id + "'] td").eq(2).attr("data-value"), id);
             }
 
             $(".od-2").hide();
@@ -429,7 +429,7 @@
                             var nDate = start.getDate() + "-" + (start.getMonth() + 1) + "-" + start.getFullYear();
 
 
-  cont += ('<div class="form-group col-sm-2 days_div"><p><strong> ' + nDate + ' </strong></p></div>  <div class="form-group col-sm-2 start_km_div"><label class="labelStartKm"><strong>Start Km</strong></label><input type="text" required="true" name="startKm[]" value="' + (typeof readings[0].StartKm[j] === "undefined" ? "" : readings[0].StartKm[j]) + '" class="form-control startkm" placeholder="Start Km"></div><div class="form-group col-sm-2 end_km_div"><label class="labelStartKm"><strong>End Km</strong></label><input type="text" required="true" name="endKm[]" value="' + (typeof readings[1].EndKm[j] === "undefined" ? "" : readings[1].EndKm[j]) + '" class="form-control endkm" placeholder="End Km"></div><div class="form-group col-sm-2 start_DATE_div"><label class="labelStart"><strong>Actual start time</strong></label><input type="text" required="true" name="startDate[]" value="' + (typeof readings[2].start_DATE[j] === "undefined" ? "" : readings[2].start_DATE[j]) + '" class="form-control endkm datepickerz"  placeholder="Actual start time" autocomplete="off"></div><div class="form-group col-sm-2 end_DATE_div"><label class="labelEnd"><strong>Actual end time</strong></label><input type="text" required="true" name="endDate[]" value="' + (typeof readings[3].end_DATE[j] === "undefined" ? "" : readings[3].end_DATE[j]) + '" class="form-control endkm datepickerz"  placeholder="Actual end time" autocomplete="off"></div><div class="clearfix"></div>');
+                            cont += ('<div class="form-group col-sm-2 days_div"><p><strong> ' + nDate + ' </strong></p></div>  <div class="form-group col-sm-2 start_km_div"><label class="labelStartKm"><strong>Start Km</strong></label><input type="text" required="true" name="startKm[]" value="' + (typeof readings[0].StartKm[j] === "undefined" ? "" : readings[0].StartKm[j]) + '" class="form-control startkm" placeholder="Start Km"></div><div class="form-group col-sm-2 end_km_div"><label class="labelStartKm"><strong>End Km</strong></label><input type="text" required="true" name="endKm[]" value="' + (typeof readings[1].EndKm[j] === "undefined" ? "" : readings[1].EndKm[j]) + '" class="form-control endkm" placeholder="End Km"></div><div class="form-group col-sm-2 start_DATE_div"><label class="labelStart"><strong>Actual start time</strong></label><input type="text" required="true" name="startDate[]" value="' + (typeof readings[2].start_DATE[j] === "undefined" ? "" : readings[2].start_DATE[j]) + '" class="form-control endkm datepickerz"  placeholder="Actual start time" autocomplete="off"></div><div class="form-group col-sm-2 end_DATE_div"><label class="labelEnd"><strong>Actual end time</strong></label><input type="text" required="true" name="endDate[]" value="' + (typeof readings[3].end_DATE[j] === "undefined" ? "" : readings[3].end_DATE[j]) + '" class="form-control endkm datepickerz"  placeholder="Actual end time" autocomplete="off"></div><div class="clearfix"></div>');
                             j++;
                             start.setDate(start.getDate() + 1);
                         }
@@ -444,8 +444,8 @@
                 }
             }
             else {
-            $(".start_km_div").hide();
-            $(".end_km_div").hide();
+                $(".start_km_div").hide();
+                $(".end_km_div").hide();
             }
             $("form#orderForm").append("<input type='hidden' name='id' value='" + $("tr[data-tr='" + id + "'] td").eq(0).text() + "'>")
             $("form#orderForm").attr("action", "{{ URL::route('order_edit') }}");
@@ -581,10 +581,22 @@
     }
 
 
+    $(document).on("change", ".listing_class", function() {
+        var lid = $(this).val();
+        getLocality(lid, "");
 
+    });
 
+    function getLocality(lid, eid) {
+        $.get(document.location.origin + "/admin/locality_dropdown/" + lid, function(data) {
+            $("#locality_id").empty().append(data);
 
+            if (lid != "") {
+                $("form#orderForm select[name='locality'] option[value='" + $("tr[data-tr='" + id + "'] td").eq(3).attr("data-value") + "']").prop('selected', true);
+            }
 
+        });
+    }
 
 </script>
 @stop
