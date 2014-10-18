@@ -213,7 +213,9 @@ class AdminController extends BaseController {
 
     public function users() {
         $fromOrder = isset($_GET["add"]) ? 1 : 0;
-        $users = Customer::leftJoin("cities", "cities.id", "=", "customers.city_id")->get(['customers.*', 'cities.city']);
+        $users = Customer::leftJoin("cities", "cities.id", "=", "customers.city_id")
+                ->where("email","!=","admin@carz247.com")
+                ->get(['customers.*', 'cities.city']);
         $cities = City::all();
         return View::make('admin.pages.users', compact('users', 'cities', 'fromOrder'));
     }

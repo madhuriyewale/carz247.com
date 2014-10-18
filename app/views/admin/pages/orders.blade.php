@@ -102,7 +102,7 @@
                                     <label>Booking Status</label>
                                     <select class="form-control booking_status_select" id="bookingStatus" name="booking_status" placeholder="Please Select" required="true">
                                         <option value="">Please Select</option>
-                                        <option value="0">Received</option>
+                                        <option value="0" selected="selected">Received</option>
                                         <option value="1">Confirmed</option>
                                         <option value="2">Allocated</option>
                                         <option value="3" class="completed" >Completed</option>
@@ -112,6 +112,41 @@
                             </div>
 
                             <div class="clearfix"></div>
+
+                            <div class="bb od-2">
+                                <h4 class="box-title">Vendor Allocation Details</h4>
+                                <div class="form-group col-sm-3 ">
+                                    <label class="venderlabel" >Vendors </label>
+                                    <select class="form-control select_vender_name"  required="true" id="vendersName" name="vendersName" placeholder="Please Select">
+                                        <option value="">Please Select</option>
+                                        @foreach($venders as $vender)
+                                        <option value="{{$vender->id}}">{{ $vender->venders_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group col-sm-3 venderListing_div ">
+                                    <label class="venderListinglabel" >Vendor Listing </label>
+                                    <select class="form-control select_venderListing"  required="true" id="venderListing" name="venderListing" placeholder="Please Select">
+                                        <option></option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-sm-3 ">
+                                    <label class="driverlabel">Drivers </label>
+                                    <select class="form-control select_driver_name" id="venderDrivers" name="venderDrivers" placeholder="Please Select">
+                                        <option> </option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-sm-3 ">
+                                    <label class="carlabel">Cars </label>
+                                    <select class="form-control select_car_name" id="vendersCars" name="vendersCars" placeholder="Please Select">
+                                        <option> </option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="clearfix "></div>
+
                             <div class="bb od-3">
                                 <h4 class="box-title">Order Completion Summary</h4> 
 
@@ -168,39 +203,7 @@
                                 <div class="readingz"></div>
                             </div>
                             <div class="clearfix"></div>
-                            <div class="bb od-2">
-                                <h4 class="box-title">Vendor Allocation Details</h4>
-                                <div class="form-group col-sm-3 ">
-                                    <label class="venderlabel" >Vendors </label>
-                                    <select class="form-control select_vender_name"  required="true" id="vendersName" name="vendersName" placeholder="Please Select">
-                                        <option value="">Please Select</option>
-                                        @foreach($venders as $vender)
-                                        <option value="{{$vender->id}}">{{ $vender->venders_name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-group col-sm-3 venderListing_div ">
-                                    <label class="venderListinglabel" >Vendor Listing </label>
-                                    <select class="form-control select_venderListing"  required="true" id="venderListing" name="venderListing" placeholder="Please Select">
-                                        <option></option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-sm-3 ">
-                                    <label class="driverlabel">Drivers </label>
-                                    <select class="form-control select_driver_name" id="venderDrivers" name="venderDrivers" placeholder="Please Select">
-                                        <option> </option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-sm-3 ">
-                                    <label class="carlabel">Cars </label>
-                                    <select class="form-control select_car_name" id="vendersCars" name="vendersCars" placeholder="Please Select">
-                                        <option> </option>
-                                    </select>
-                                </div>
-                            </div>
 
-
-                            <div class="clearfix "></div>
 
                             <div class="box-footer">
                                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -272,11 +275,11 @@
                                     <td data-value="{{$order->vender_id}}">{{ $order->venders_name }}</td>
                                     <td >{{ $order->drivers }}</td>
                                     <td>{{ $order->cars }}</td>
-                                    <?php $start_date = date("d-M-Y h:i a", strtotime($order->start_date)); ?>
+                                    <?php $start_date = date("d-M-Y", strtotime($order->start_date)); ?>
 
                                     <td data-value="{{$order->start_date}}">{{ $start_date }}</td>
 
-                                    <?php $end_date = date("d-M-Y h:i a", strtotime($order->end_date)); ?>
+                                    <?php $end_date = date("d-M-Y", strtotime($order->end_date)); ?>
                                     <td data-value="{{$order->end_date}}">{{$end_date }}</td>
                                     <td>{{ $order->start_km }}</td>
                                     <td>{{ $order->end_km }}</td>
@@ -365,7 +368,7 @@
             $("form#orderForm select[name='listing'] option[value='" + $("tr[data-tr='" + id + "'] td").eq(2).attr("data-value") + "']").prop('selected', true);
             // $("form#orderForm select[name='locality'] option[value='" + $("tr[data-tr='" + id + "'] td").eq(3).attr("data-value") + "']").prop('selected', true);
             $("form#orderForm input[name='pickuptime']").val($("tr[data-tr='" + id + "'] td").eq(4).text());
-            $("form#orderForm textarea[name='instructions']").val($("tr[data-tr='" + id + "'] td").eq(5).text());
+            $("form#orderForm input[name='instructions']").val($("tr[data-tr='" + id + "'] td").eq(5).text());
             $("form#orderForm input[name='cost']").val($("tr[data-tr='" + id + "'] td").eq(6).text());
             $("form#orderForm select[name='mode'] option[value='" + $("tr[data-tr='" + id + "'] td").eq(7).attr("data-value") + "']").prop('selected', true);
             $("form#orderForm input[name='txn_ref_no']").val($("tr[data-tr='" + id + "'] td").eq(8).text());
@@ -488,7 +491,9 @@
 
                             var nDate = start.getDate() + "-" + (start.getMonth() + 1) + "-" + start.getFullYear();
 
-                            cont += ('<div class="form-group col-sm-2 days_div"><p><strong> ' + nDate + ' </strong></p></div> <div class="form-group col-sm-2 start_km_div"><label class="labelStartKm"><strong>Start Km</strong></label><input type="text" required="true" name="startKm[]" value="" class="form-control startkm" placeholder="Start Km"></div><div class="form-group col-sm-2 end_km_div"><label class="labelStartKm"><strong>End Km</strong></label><input type="text" required="true" name="endKm[]" value="" class="form-control endkm" placeholder="End Km"></div><div class="form-group col-sm-2 start_DATE_div"><label class="labelStart"><strong>Actual start time</strong></label><input type="text" required="true" name="startDate[]" value="" class="form-control endkm datepickerz"  placeholder="Actual start time" autocomplete="off"></div><div class="form-group col-sm-2 end_DATE_div"><label class="labelEnd"><strong>Actual end time</strong></label><input type="text" required="true" name="endDate[]" value="" class="form-control endkm datepickerz"  placeholder="Actual end time" autocomplete="off"></div><div class="clearfix"></div>');
+                            var ActulaDateTimePopulate = start.getFullYear() + "-" + (start.getMonth() + 1) + "-" + start.getDate();
+
+                            cont += ('<div class="form-group col-sm-2 days_div"><p><strong> ' + nDate + ' </strong></p></div> <div class="form-group col-sm-2 start_km_div"><label class="labelStartKm"><strong>Start Km</strong></label><input type="text" required="true" name="startKm[]" value="" class="form-control startkm" placeholder="Start Km"></div><div class="form-group col-sm-2 end_km_div"><label class="labelStartKm"><strong>End Km</strong></label><input type="text" required="true" name="endKm[]" value="" class="form-control endkm" placeholder="End Km"></div><div class="form-group col-sm-2 start_DATE_div"><label class="labelStart"><strong>Actual start time</strong></label><input type="text" required="true" name="startDate[]" value="' + ActulaDateTimePopulate + '" class="form-control endkm datepickerz"  placeholder="Actual start time" autocomplete="off"></div><div class="form-group col-sm-2 end_DATE_div"><label class="labelEnd"><strong>Actual end time</strong></label><input type="text" required="true" name="endDate[]" value="' + ActulaDateTimePopulate + '" class="form-control endkm datepickerz"  placeholder="Actual end time" autocomplete="off"></div><div class="clearfix"></div>');
                             j++;
                             start.setDate(start.getDate() + 1);
                         }

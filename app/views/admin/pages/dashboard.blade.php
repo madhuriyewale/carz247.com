@@ -47,7 +47,7 @@
                             {{ Helper::all_venders() }}<sup style="font-size: 20px"></sup>
                         </h3>
                         <p>
-                            Venders
+                            Vendors
                         </p>
                     </div>
                     <div class="icon">
