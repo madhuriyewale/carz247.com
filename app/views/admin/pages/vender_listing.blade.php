@@ -4,7 +4,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Vender Listing Master
+            Vendor Listing Master
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -20,7 +20,7 @@
                 <div class="box box-warning">
                     <div class="box-header">
                         <h3 class="box-title">Add New Vendor Listing <?php  Config::get('constants.ADMIN_NAME'); ?></h3>
-                          {{ View::make('admin.includes.addButton',array("name"=>"venderListing")) }}
+                          {{ View::make('admin.includes.addButton',array("name"=>"vendorListing")) }}
 
                     </div><!-- /.box-header -->
                     <div class="box-body">
@@ -30,7 +30,7 @@
 
                             <div class="form-group">
                                 <label>Vendor Name</label>
-                                <select class="form-control" name="vender_name">
+                                <select class="form-control" name="vender_name" required="true">
 
                                     <option value="">Please Select</option>
                                     @foreach ($venders as $vender)
@@ -41,7 +41,7 @@
 
                             <div class="form-group">
                                 <label>City</label>
-                                <select class="form-control" name="city">
+                                <select class="form-control" name="city" required="true">
 
                                     <option value="">Please Select</option>
                                     @foreach ($cities as $city)
@@ -52,7 +52,7 @@
 
                             <div class="form-group">
                                 <label>Service</label>
-                                <select class="form-control" name="service"  >
+                                <select class="form-control" name="service" required="true" >
                                     <option value="">Please Select</option>
                                     @foreach ($services as $service)
                                     <option   value="{{ $service->id }}" >{{ $service->service }}</option>
@@ -63,7 +63,7 @@
                             <div class="form-group">
                                 <label>Category</label>
 
-                                <select class="form-control" name="category">
+                                <select class="form-control" name="category" required="true">
                                     <option value="">Please Select</option>
                                     @foreach ($categories as $category)
                                     <option   value="{{ $category->id }}" >{{ $category->category }}</option>
@@ -74,7 +74,7 @@
 
                             <div class="form-group">
                                 <label>Package</label>
-                                <select class="form-control"  name="package">
+                                <select class="form-control"  name="package" required="true">
                                     <option value="">Please Select</option>
                                     @foreach ($packages as $package)
                                     <option value="{{ $package->id }}" >{{ $package->package }}</option>
@@ -84,13 +84,13 @@
 
                             <div class="form-group">
                                 <label>Min kms</label>
-                                <input type="text" name="min_kms" class="form-control" placeholder="Min Kms" required="true"/>
+                                <input type="text" name="min_kms" class="form-control" placeholder="Min Kms"  />
                             </div>
 
 
                             <div class="form-group">
                                 <label>Min hrs</label>
-                                <input type="text" name="min_hrs" class="form-control" placeholder="Min Hrs" required="true"/>
+                                <input type="text" name="min_hrs" class="form-control" placeholder="Min Hrs" />
                             </div>
 
 
@@ -101,14 +101,14 @@
 
                             <div class="form-group">
                                 <label>Driver cost</label>
-                                <input type="text" name="driver_cost" class="form-control" placeholder="Driver Kms" required="true"/>
+                                <input type="text" name="driver_cost" class="form-control" placeholder="Driver Kms" />
 
                             </div>
 
 
                             <div class="form-group">
                                 <label>Extra Km Cost</label>
-                                <input type="text" name="extra_km_cost" class="form-control" placeholder="Extra Km Kms" required="true"/>
+                                <input type="text" name="extra_km_cost" class="form-control" placeholder="Extra Km Kms" />
                             </div>
 
                             <div class="form-group">
