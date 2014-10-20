@@ -50,7 +50,7 @@ class AdminController extends BaseController {
     public function locality_dropdown($id) {
         $listing_id = Listing::where("id", "=", $id)->get(['city_id'])->toArray();
 
-        $localities = Locality::where("city_id", "=", $listing_id[0]['city_id'])->get(['id','locality'])->toArray();
+        $localities = Locality::where("city_id", "=", $listing_id[0]['city_id'])->get(['id', 'locality'])->toArray();
 
         echo "<option value=''>Please Select</option>";
         foreach ($localities as $locality) {
@@ -214,7 +214,7 @@ class AdminController extends BaseController {
     public function users() {
         $fromOrder = isset($_GET["add"]) ? 1 : 0;
         $users = Customer::leftJoin("cities", "cities.id", "=", "customers.city_id")
-                ->where("email","!=","admin@carz247.com")
+                ->where("email", "!=", "admin@carz247.com")
                 ->get(['customers.*', 'cities.city']);
         $cities = City::all();
         return View::make('admin.pages.users', compact('users', 'cities', 'fromOrder'));
@@ -365,20 +365,31 @@ class AdminController extends BaseController {
         $order->start_date = Input::get("startDate")[0];
         $order->end_date = Input::get("endDate")[0];
 
+       // dd(Input::get("startKm"));
+
         Input::get('booking_status') == 3 ? ($order->invoice_no = $nextInvoiceId ) : '';
+
+      //  $get_service = Listing::where("listings.id", "=", Input::get('listing'))->get()->first();
+//
+//        if ($get_service->service_id == "1") {
+//            $chkCOUNT = "0";
+//        } else {
+//            $chkCOUNT = "1";
+//        }
+
 
         $readings = [];
         $startKMS = Input::get("startKm");
-        array_shift($startKMS);
+        array_filter($startKMS);
 
         $endKMS = Input::get("endKm");
-        array_shift($endKMS);
+        array_filter($endKMS);
 
         $start_DATE = Input::get("startDate");
-        array_shift($start_DATE);
+        array_filter($start_DATE);
 
         $end_DATE = Input::get("endDate");
-        array_shift($end_DATE);
+        array_filter($end_DATE);
 
         count(Input::get("startKm")) > 1 ? : $order->start_km = Input::get("startKm")[0];
         count(Input::get("endKm")) > 1 ? : $order->end_km = Input::get("endKm")[0];
@@ -467,21 +478,29 @@ class AdminController extends BaseController {
         $orderUpdate->toll = Input::get('toll');
         $orderUpdate->permit = Input::get('permit');
         $orderUpdate->parking = Input::get('parking');
+      //  $get_service = Listing::where("listings.id", "=", Input::get('listing'))->get()->first();
+
+
+//        if ($get_service->service_id == "1") {
+//            $chkCOUNT = "0";
+//        } else {
+//            $chkCOUNT = "1";
+//        }
 
 
 
         $readings = [];
         $startKMS = Input::get("startKm");
-        array_shift($startKMS);
+        array_filter($startKMS);
 
         $endKMS = Input::get("endKm");
-        array_shift($endKMS);
+        array_filter($endKMS);
 
         $start_DATE = Input::get("startDate");
-        array_shift($start_DATE);
+        array_filter($start_DATE);
 
         $end_DATE = Input::get("endDate");
-        array_shift($end_DATE);
+        array_filter($end_DATE);
 
         count(Input::get("startKm")) > 1 ? : $orderUpdate->start_km = Input::get("startKm")[0];
         count(Input::get("endKm")) > 1 ? : $orderUpdate->end_km = Input::get("endKm")[0];
@@ -696,11 +715,10 @@ class AdminController extends BaseController {
         return Redirect::route('vender_listings');
     }
 
-       public function sales() {
+    public function sales() {
         return View::make('admin.pages.sales');
     }
 
-    
     public function order_view($id) {
         $orders_view = Booking::where("bookings.id", "=", $id)
                 ->leftJoin("customers", "customers.id", "=", "bookings.customer_id")
@@ -712,18 +730,18 @@ class AdminController extends BaseController {
                 ->leftJoin("categories", "categories.id", "=", "listings.category_id")
                 ->leftJoin("venders", "venders.id", "=", "bookings.vender_id")
                 ->get([ 'customers.fname', 'customers.lname', 'venders.venders_name', 'localities.locality', 'listings.*', 'services.service', 'cities.city', 'packages.package', 'categories.category', 'bookings.*']);
-        
-        
-        $vender_listing_data=Booking::where("bookings.id","=",$id)
-                ->leftJoin("vender_listings","vender_listings.id","=","bookings.vender_listing_id")
-                ->leftJoin("services","services.id","=","vender_listings.service_id")
-                ->leftJoin("categories","categories.id","=","vender_listings.category_id")
-                ->leftJoin("cities","cities.id","=","vender_listings.city_id")
-                ->leftJoin("packages","packages.id","=","vender_listings.package_id")
-                ->get(['vender_listings.id','categories.category','packages.package','cities.city','services.service']);
-        
-       // dd($vender_listing_data);
-        return View::make('admin.pages.order_view', compact('orders_view','vender_listing_data'));
+
+
+        $vender_listing_data = Booking::where("bookings.id", "=", $id)
+                ->leftJoin("vender_listings", "vender_listings.id", "=", "bookings.vender_listing_id")
+                ->leftJoin("services", "services.id", "=", "vender_listings.service_id")
+                ->leftJoin("categories", "categories.id", "=", "vender_listings.category_id")
+                ->leftJoin("cities", "cities.id", "=", "vender_listings.city_id")
+                ->leftJoin("packages", "packages.id", "=", "vender_listings.package_id")
+                ->get(['vender_listings.id', 'categories.category', 'packages.package', 'cities.city', 'services.service']);
+
+        // dd($vender_listing_data);
+        return View::make('admin.pages.order_view', compact('orders_view', 'vender_listing_data'));
     }
 
 }

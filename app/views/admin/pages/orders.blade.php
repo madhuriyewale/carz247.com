@@ -432,7 +432,7 @@
 
                     var days = ((end - start) / 1000 / 60 / 60 / 24) + 1;
 
-                    if (days >= 2) {
+                    if (days >= 1) {
                         $(".startkm1div").hide();
                         $(".endkm1div").hide();
 
