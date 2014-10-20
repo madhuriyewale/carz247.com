@@ -4,7 +4,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-           Order Details View 
+            Order Details View 
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i>  </a></li>
@@ -23,7 +23,7 @@
                         <h3 class="box-title"> </h3>
                     </div><!-- /.box-header -->
                     <div class="box-body">
-                          <input type="button" value="GO BACK" class="btn btn-submit m10" onclick="window.history.go(-1);" >   
+                        <input type="button" value="GO BACK" class="btn btn-submit m10" onclick="window.history.go(-1);" >   
 
                     </div><!-- /.box-body -->
                 </div><!-- /.box -->
@@ -36,14 +36,16 @@
                 <div class="box">
                     <div class="box-body table-responsive">
                         <table id="listingTables" class="table table-bordered table-striped">
-
                             <tbody>
-
-                                <tr >
+                                <tr>
+                                    <th> Order No.</th>
+                                    <th>{{ $orders_view[0]['order_no']; }} </th>
+                                </tr>
+                                <tr>
                                     <td>id</td>
                                     <td>{{ $orders_view[0]['id']; }} </td>
                                 </tr>
-                                <tr >
+                                <tr>
                                     <td>Customer</td>
                                     <td>{{ $orders_view[0]['fname']; }} {{ $orders_view[0]['lname']; }} </td>
                                 </tr>
@@ -88,84 +90,136 @@
                                     <td>Txn Message</td>
                                     <td>{{ $orders_view[0]['txn_message']; }} </td>
                                 </tr>
-
                                 <tr>
                                     <td>Booking Status</td>
                                     <td data-value="{{ $orders_view[0]['booking_status']; }}">{{ Helper::booking_status($orders_view[0]['booking_status']) }}</td>
                                 </tr>
 
+                                <tr>
 
-                                <tr>
-                                    <td>Vendors Name</td>
-                                    <td>{{ $orders_view[0]['venders_name']; }} </td>
-                                </tr>
-                                <tr>
-                                    <td>Drivers</td>
-                                    <td>{{ $orders_view[0]['drivers']; }} </td>
-                                </tr>
+                                    <td>Uploads</td>
+                                    <td>
+                                        <?php $upload_data = json_decode($orders_view[0]['upload'], true); ?>
+                                        <ol>
+                                            @foreach($upload_data as $upload_order_files)
+                                            <li>
+                                                <a href="/public/admin/uploads/order-uploads/<?php echo $upload_order_files ?>" target="_blank"> {{$upload_order_files }}</a></li>
 
-                                <tr>
-                                    <td>Cars</td>
-                                    <td>{{ $orders_view[0]['cars']; }} </td>
-                                </tr>
+                                            @endforeach
+                                        </ol>
+                                    </td>
+                                </tr> 
+                            <td>Vendors Name</td>
+                            <td>{{ $orders_view[0]['venders_name']; }} </td>
+                            </tr>
+                            <tr>
+                            <tr>
+                                <td>Vendors Listing Name</td>
+                                <td>{{ $vender_listing_data[0]['city']; }}  {{ $vender_listing_data[0]['service']; }} {{ $vender_listing_data[0]['category']; }} {{ $vender_listing_data[0]['package']; }}</td>
+                            </tr>
+                            <tr>  
 
-                                <tr>
-                                    <td>Start Date</td>
-                                    <td>{{ $orders_view[0]['start_date']; }} </td>
-                                </tr>
+                                <td>Drivers</td>
+                                <td>{{ $orders_view[0]['drivers']; }} </td>
+                            </tr>
 
-                                <tr>
-                                    <td>End Date</td>
-                                    <td>{{ $orders_view[0]['end_date']; }} </td>
-                                </tr>
+                            <tr>
+                                <td>Cars</td>
+                                <td>{{ $orders_view[0]['cars']; }} </td>
+                            </tr>
 
-                                <tr>
-                                    <td>Start Km</td>
-                                    <td>{{ $orders_view[0]['stat_km']; }} </td>
-                                </tr>
+                            <tr>
+                                <td>Start Date</td>
+                                <td>{{ $orders_view[0]['start_date']; }} </td>
+                            </tr>
 
-                                <tr>
-                                    <td>End Km</td>
-                                    <td>{{ $orders_view[0]['end_km']; }} </td>
-                                </tr>
+                            <tr>
+                                <td>End Date</td>
+                                <td>{{ $orders_view[0]['end_date']; }} </td>
+                            </tr>
 
-                                <tr>
-                                    <td>Discount</td>
-                                    <td>{{ $orders_view[0]['discount']; }} </td>
-                                </tr>
-                                <tr>
-                                    <td>Service tax</td>
-                                    <td>{{ $orders_view[0]['service_tax']; }} </td>
-                                </tr>
-                                <tr>
-                                    <td>Extras</td>
-                                    <td>{{ $orders_view[0]['extras']; }} </td>
-                                </tr>
-                                
-                                    <tr>
-                                    <td>Readings</td>
-                                    <td>{{$orders_view[0]['readings'];}}
-                                     
-                                        </td>
-                                </tr>
-                                       <tr>
-                                    <td>Toll</td>
-                                    <td>{{ $orders_view[0]['toll']; }} </td>
-                                </tr>
-                                   <tr>
-                                    <td>Parking</td>
-                                    <td>{{ $orders_view[0]['parking']; }} </td>
-                                </tr>
-                                       <tr>
-                                    <td>Permit</td>
-                                    <td>{{ $orders_view[0]['permit']; }} </td>
-                                </tr>
-                                    
-                                
-                                <tr>
-                                    <td>Remarks</td>
-                                    <td>{{ $orders_view[0]['remarks']; }} </td>
-                                </tr>
+                            <tr>
+                                <td>Start Km</td>
+                                <td>{{ $orders_view[0]['start_km']; }} </td>
+                            </tr>
+
+                            <tr>
+                                <td>End Km</td>
+                                <td>{{ $orders_view[0]['end_km']; }} </td>
+                            </tr>
+
+                            <tr>
+                                <td>Discount</td>
+                                <td>{{ $orders_view[0]['discount']; }} </td>
+                            </tr>
+                            <tr>
+                                <td>Service tax</td>
+                                <td>{{ $orders_view[0]['service_tax']; }} </td>
+                            </tr>
+                            <tr>
+                                <td>Extras</td>
+                                <td>{{ $orders_view[0]['extras']; }} </td>
+                            </tr>
+
+                            <tr>
+                                <td>Readings</td>
+                                <td>
+                                    <?php
+                                    $readingz = json_decode($orders_view[0]['readings'], true);
+                                    //  print_r($readingz);
+                                    $startKmData = $readingz[0]['StartKm'];
+                                    $endKmData = $readingz[1]['EndKm'];
+                                    $START_DATE = $readingz[2]['start_DATE'];
+                                    $END_DATE = $readingz[3]['end_DATE'];
+                                    ?>
+                                    <table>
+                                        <tr>
+                                            @foreach($startKmData as $startKmData1)
+
+                                            <td> Start Km :- {{ $startKmData1 }}  </td>
+                                            <td></td>
+
+                                            @endforeach
+                                        </tr><tr>
+                                            @foreach($endKmData as $endKmData1)
+                                            <td>   End Km :- {{ $endKmData1 }}</td>
+                                            <td></td>
+
+                                            @endforeach
+
+                                        </tr><tr>
+
+                                            @foreach($START_DATE as $START_DATE1)
+
+                                            <td> Start Date:- {{ $START_DATE1 }} </td>
+                                            <td></td>
+                                            @endforeach
+                                        </tr><tr>
+                                            @foreach($END_DATE as $END_DATE1)
+
+                                            <td>End Date:- {{ $END_DATE1 }} </td>
+                                            <td></td>
+                                            @endforeach
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Toll</td>
+                                <td>{{ $orders_view[0]['toll']; }} </td>
+                            </tr>
+                            <tr>
+                                <td>Permit</td>
+                                <td>{{ $orders_view[0]['permit']; }} </td>
+                            </tr>
+                            <tr>
+                                <td>Parking</td>
+                                <td>{{ $orders_view[0]['parking']; }} </td>
+                            </tr>
+                            <tr>
+                                <td>Remarks</td>
+                                <td>{{ $orders_view[0]['remarks']; }} </td>
+                            </tr>
                             </tbody>
 
                         </table>

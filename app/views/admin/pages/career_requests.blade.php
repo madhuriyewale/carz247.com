@@ -52,7 +52,6 @@ Careers      </h1>
                                     <td>{{ $career->email }}</td>
                                     <td>{{ $career->mobile }}</td>
          <td><a href="/public/frontend/resume-uploads/{{$career->resume}}" target="_blank"> {{ $career->resume }}</a></td>
-                                    
                                      <td>{{ $career->remarks }}</td>
                                 </tr>
                                 @endforeach

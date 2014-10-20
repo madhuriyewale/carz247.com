@@ -150,7 +150,7 @@ class InvoiceController extends BaseController {
 
             $recieptCont .= "<tr>
 
-                                <td>Extra km above " . $bookingData[0]["min_kms"] . " kms /- Day @ Rs." . $bookingData[0]["extra_km_cost"] . " / -km </td>
+                                <td>Extra km above " . $bookingData[0]["min_kms"] . " kms /- Day @ Rs." . $bookingData[0]["extra_km_cost"] . " / km </td>
 
                                 <td class = 'cnt'>$kmz</td>
 
@@ -208,7 +208,7 @@ class InvoiceController extends BaseController {
 
             $recieptCont .= "<tr>
 
-                                <td>Extra km above " . $bookingData[0]["min_kms"] . " kms @ Rs." . $bookingData[0]["extra_km_cost"] . " / -km </td>
+                                <td>Extra km above " . $bookingData[0]["min_kms"] . " kms @ Rs." . $bookingData[0]["extra_km_cost"] . " / km </td>
 
                                 <td class = 'cnt'>" . ($kmsTravelled > 0 ? $kmsTravelled : 0) . "</td>
 
@@ -280,7 +280,7 @@ class InvoiceController extends BaseController {
 
             $recieptCont .= "<tr>
 
-                                <td>Extra km above " . $bookingData[0]["min_kms"] . " kms /- Day @ Rs." . $bookingData[0]["extra_km_cost"] . " / -km </td>
+                                <td>Extra km above " . $bookingData[0]["min_kms"] . " kms /- Day @ Rs." . $bookingData[0]["extra_km_cost"] . " / km </td>
 
                                 <td class = 'cnt'>" . ($kmsTravelled > 0 ? $kmsTravelled : 0) . "</td>
 
@@ -474,7 +474,7 @@ class InvoiceController extends BaseController {
 
             $recieptCont .= "<tr>
 
-                                <td>Extra km above " . $bookingData[0]["min_kms"] . " kms /- Day @ Rs." . $bookingData[0]["extra_km_cost"] . " / -km </td>
+                                <td>Extra km above " . $bookingData[0]["min_kms"] . " kms /- Day @ Rs." . $bookingData[0]["extra_km_cost"] . " / km </td>
 
                                 <td class = 'cnt'>$kmz</td>
 
@@ -532,7 +532,7 @@ class InvoiceController extends BaseController {
 
             $recieptCont .= "<tr>
 
-                                <td>Extra km above " . $bookingData[0]["min_kms"] . " kms @ Rs." . $bookingData[0]["extra_km_cost"] . " / -km </td>
+                                <td>Extra km above " . $bookingData[0]["min_kms"] . " kms @ Rs." . $bookingData[0]["extra_km_cost"] . " / km </td>
 
                                 <td class = 'cnt'>" . ($kmsTravelled > 0 ? $kmsTravelled : 0) . "</td>
 
@@ -604,7 +604,7 @@ class InvoiceController extends BaseController {
 
             $recieptCont .= "<tr>
 
-                                <td>Extra km above " . $bookingData[0]["min_kms"] . " kms /- Day @ Rs." . $bookingData[0]["extra_km_cost"] . " / -km </td>
+                                <td>Extra km above " . $bookingData[0]["min_kms"] . " kms /- Day @ Rs." . $bookingData[0]["extra_km_cost"] . " / km </td>
 
                                 <td class = 'cnt'>" . ($kmsTravelled > 0 ? $kmsTravelled : 0) . "</td>
 

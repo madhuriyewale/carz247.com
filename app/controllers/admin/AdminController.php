@@ -712,7 +712,18 @@ class AdminController extends BaseController {
                 ->leftJoin("categories", "categories.id", "=", "listings.category_id")
                 ->leftJoin("venders", "venders.id", "=", "bookings.vender_id")
                 ->get([ 'customers.fname', 'customers.lname', 'venders.venders_name', 'localities.locality', 'listings.*', 'services.service', 'cities.city', 'packages.package', 'categories.category', 'bookings.*']);
-        return View::make('admin.pages.order_view', compact('orders_view'));
+        
+        
+        $vender_listing_data=Booking::where("bookings.id","=",$id)
+                ->leftJoin("vender_listings","vender_listings.id","=","bookings.vender_listing_id")
+                ->leftJoin("services","services.id","=","vender_listings.service_id")
+                ->leftJoin("categories","categories.id","=","vender_listings.category_id")
+                ->leftJoin("cities","cities.id","=","vender_listings.city_id")
+                ->leftJoin("packages","packages.id","=","vender_listings.package_id")
+                ->get(['vender_listings.id','categories.category','packages.package','cities.city','services.service']);
+        
+       // dd($vender_listing_data);
+        return View::make('admin.pages.order_view', compact('orders_view','vender_listing_data'));
     }
 
 }

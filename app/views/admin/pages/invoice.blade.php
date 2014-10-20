@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-    <head>
+    <head> 
         <title></title>
         <style>
             p{
@@ -115,7 +115,7 @@
                         <td>{{ @number_format($parking) }}</td>
                     </tr>
                     <tr>
-                        <td>Extras</td>
+                        <td>Extra Charges</td>
                         <td></td>
                         <td></td>
                         <td>{{ @number_format($extra) }}</td>

@@ -136,7 +136,7 @@
                                         <option> </option>
                                     </select>
                                 </div>
-                                <div class="form-group col-sm-3 ">
+                                <div class="form-group col-sm-3 cardiv ">
                                     <label class="carlabel">Cars </label>
                                     <select class="form-control select_car_name" id="vendersCars" name="vendersCars" placeholder="Please Select">
                                         <option> </option>
@@ -145,19 +145,41 @@
                             </div>
 
 
+
+
                             <div class="clearfix "></div>
 
                             <div class="bb od-3">
                                 <h4 class="box-title">Order Completion Summary</h4> 
 
-                                <div class="form-group col-sm-3 start_km_div">
+                                <div class="readingz"></div>
+
+
+                                <div class="form-group col-sm-6  startkm1div">
                                     <label class="labelStartKm"><strong>Start Km</strong></label>
                                     <input type="text" name="startKm[]" value=""  required="true" class="form-control startkm" placeholder="Start Km"> 
                                 </div>
 
-                                <div class="form-group col-sm-3 end_km_div">
+                                <div class="form-group col-sm-6  endkm1div">
                                     <label class="labelStartKm"><strong>End Km</strong></label>
                                     <input type="text" name="endKm[]"  required="true" value="" class="form-control endkm" placeholder="End Km"> 
+                                </div>
+                                <div class="clearfix "></div>
+
+
+                                <div class="form-group col-sm-3 toll_div">
+                                    <label class="labelToll"><strong>Toll</strong></label>
+                                    <input type="text" required="true" name="toll" value="" class="form-control toll" placeholder="Toll"> 
+                                </div>
+
+                                <div class="form-group col-sm-3 permit_div ">
+                                    <label class="labelPermit"><strong>Permit</strong></label>
+                                    <input type="text" required="true" name="permit" value="" class="form-control permit" placeholder="Permit"> 
+                                </div>
+
+                                <div class="form-group col-sm-3 parking_div">
+                                    <label class="labelParking"><strong>Parking</strong></label>
+                                    <input type="text" required="true" name="parking" value="" class="form-control Parking" placeholder="Parking"> 
                                 </div>
 
                                 <div class="form-group col-sm-3 extras_div">
@@ -166,12 +188,12 @@
                                 </div>
 
                                 <div class="form-group col-sm-3 discount_div">
-                                    <label class="labelDiscount"><strong>Discount</strong></label>
+                                    <label class="labelDiscount"><strong>Discount(Value in Rs.)</strong></label>
                                     <input type="text" name="discount" required="true" value="" class="form-control discount" placeholder="Discount"> 
                                 </div>
 
                                 <div class="form-group col-sm-3 service_tax_div">
-                                    <label class="labelRemark"><strong>Service Tax</strong></label>
+                                    <label class="labelRemark"><strong>Service Tax(%)</strong></label>
                                     <input type="text" required="true" name="serviceTax" value="" class="form-control serviceTax" placeholder="Service Tax"> 
                                 </div>
 
@@ -180,27 +202,13 @@
                                     <input type="file" name="uploadFile[]" class="form-control uploadFile" multiple="multiple"> 
                                 </div>
 
-                                <div class="form-group col-sm-3 toll_div">
-                                    <label class="labelToll"><strong>Toll</strong></label>
-                                    <input type="text" required="true" name="toll" value="" class="form-control toll" placeholder="Toll"> 
-                                </div>
-
-                                <div class="form-group col-sm-3 parking_div">
-                                    <label class="labelParking"><strong>Parking</strong></label>
-                                    <input type="text" required="true" name="parking" value="" class="form-control Parking" placeholder="Parking"> 
-                                </div>
-
-                                <div class="form-group col-sm-3 permit_div ">
-                                    <label class="labelPermit"><strong>Permit</strong></label>
-                                    <input type="text" required="true" name="permit" value="" class="form-control permit" placeholder="Permit"> 
-                                </div>
 
                                 <div class="form-group col-sm-3 remark_div">
                                     <label class="labelRemark"><strong>Remarks</strong></label>
                                     <input type="text"  name="remark" value="" class="form-control remark" placeholder="Remark"> 
                                 </div>
                                 <div class="clearfix "></div>
-                                <div class="readingz"></div>
+
                             </div>
                             <div class="clearfix"></div>
 
@@ -357,6 +365,9 @@
         $(".od-2").hide();
         $(".od-3").hide();
 
+        $(".startkm1div").show();
+        $(".endkm1div").show();
+
         $(document).on("click", ".orderEdit", function() {
             $("#orderForm").show();
             $(".readingz").html("");
@@ -366,7 +377,6 @@
 
             $("form#orderForm select[name='customer'] option[value='" + $("tr[data-tr='" + id + "'] td").eq(1).attr("data-value") + "']").prop('selected', true);
             $("form#orderForm select[name='listing'] option[value='" + $("tr[data-tr='" + id + "'] td").eq(2).attr("data-value") + "']").prop('selected', true);
-            // $("form#orderForm select[name='locality'] option[value='" + $("tr[data-tr='" + id + "'] td").eq(3).attr("data-value") + "']").prop('selected', true);
             $("form#orderForm input[name='pickuptime']").val($("tr[data-tr='" + id + "'] td").eq(4).text());
             $("form#orderForm input[name='instructions']").val($("tr[data-tr='" + id + "'] td").eq(5).text());
             $("form#orderForm input[name='cost']").val($("tr[data-tr='" + id + "'] td").eq(6).text());
@@ -423,8 +433,8 @@
                     var days = ((end - start) / 1000 / 60 / 60 / 24) + 1;
 
                     if (days >= 2) {
-                        $(".start_km_div").hide();
-                        $(".end_km_div").hide();
+                        $(".startkm1div").hide();
+                        $(".endkm1div").hide();
 
                         var j = 0;
                         var cont = "";
@@ -447,8 +457,8 @@
                 }
             }
             else {
-                $(".start_km_div").hide();
-                $(".end_km_div").hide();
+                $(".start_km_div").show();
+                $(".end_km_div").show();
             }
             $("form#orderForm").append("<input type='hidden' name='id' value='" + $("tr[data-tr='" + id + "'] td").eq(0).text() + "'>")
             $("form#orderForm").attr("action", "{{ URL::route('order_edit') }}");
@@ -480,11 +490,11 @@
                     }
                     var start = stringToDate($("#startDate").val());
                     var end = stringToDate($("#endDate").val());
-
-
                     var days = ((end - start) / 1000 / 60 / 60 / 24) + 1;
 
-                    if (days >= 2) {
+                    if (days >= 1) {
+                        $(".startkm1div").hide();
+                        $(".endkm1div").hide();
                         var j = 0;
                         var cont = "";
                         for (var i = 1; i <= days; i++) {
@@ -497,8 +507,8 @@
                             j++;
                             start.setDate(start.getDate() + 1);
                         }
-                     //   $(".start_km_div").hide();
-                      //  $(".end_km_div").hide();
+                        $(".start_km_div").show();
+                        $(".end_km_div").show();
 
                         if ($(".readingz").html() == "") {
                             $(".readingz").html(cont);
@@ -507,9 +517,6 @@
                         $(".start_km_div").show();
                         $(".end_km_div").show();
                     }
-                } else {
-                    $(".start_km_div").show();
-                    $(".end_km_div").show();
                 }
             } else {
                 $(".od-3").hide();
@@ -566,14 +573,11 @@
 
     }
 
-
     $(document).on("change", "#vendersName", function() {
         var vid = $(this).val();
         getVendorListing("", vid);
 
     });
-
-
     function getVendorListing(vlid, vid) {
         $.get(document.location.origin + "/admin/vendor_listing_dropdown/" + vid, function(data) {
 
@@ -584,7 +588,6 @@
             }
         });
     }
-
 
     $(document).on("change", ".listing_class", function() {
         var lid = $(this).val();

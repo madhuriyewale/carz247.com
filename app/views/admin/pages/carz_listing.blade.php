@@ -26,7 +26,7 @@
                         <form id="listingForm" id="listingForm" role="form" method="post" action="{{ URL::route('save_listing'); }}">
                             <!-- text input -->
 
-                            <div class="form-group">
+                            <div class="form-group col-sm-3">
                                 <label>City</label>
                                 <select class="form-control" name="city" required="true">
 
@@ -37,7 +37,7 @@
                                 </select>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group col-sm-3">
                                 <label>Service</label>
                                 <select class="form-control" name="service" required="true" >
                                     <option value="">Please Select</option>
@@ -47,7 +47,7 @@
                                 </select>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group col-sm-3">
                                 <label>Category</label>
 
                                 <select class="form-control" name="category" required="true">
@@ -59,7 +59,7 @@
                             </div>
 
 
-                            <div class="form-group">
+                            <div class="form-group col-sm-3">
                                 <label>Package</label>
                                 <select class="form-control"  name="package" required="true">
                                     <option value="">Please Select</option>
@@ -70,36 +70,36 @@
                             </div>
 
 
-                            <div class="form-group">
+                            <div class="form-group col-sm-3">
                                 <label>Min kms</label>
                                 <input type="text" name="min_kms" class="form-control" placeholder="Min Kms" required="true"/>
                             </div>
                             
                             
-                             <div class="form-group">
+                             <div class="form-group col-sm-3">
                                 <label>Min hrs</label>
-                                <input type="text" name="min_hrs" class="form-control" placeholder="Min Hrs" required="true"/>
+                                <input type="text" name="min_hrs" class="form-control" placeholder="Min Hrs" />
                             </div>
 
 
-                            <div class="form-group">
+                            <div class="form-group col-sm-3">
                                 <label>Base cost</label>
                                 <input type="text" name="base_cost" class="form-control" placeholder="Base cost" />
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group col-sm-3">
                                 <label>Driver cost</label>
-                                <input type="text" name="driver_cost" class="form-control" placeholder="Driver Kms" required="true"/>
+                                <input type="text" name="driver_cost" class="form-control" placeholder="Driver Kms" />
 
                             </div>
 
 
-                            <div class="form-group">
+                            <div class="form-group col-sm-3">
                                 <label>Extra Km Cost</label>
                                 <input type="text" name="extra_km_cost" class="form-control" placeholder="Extra Km Kms" required="true"/>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group col-sm-3">
                                 <label>Extra Hr Cost</label>
                                 <input type="text" name="extra_hr_cost" class="form-control" placeholder="Extra Hr Kms" />
                             </div>
