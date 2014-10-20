@@ -365,17 +365,17 @@ class AdminController extends BaseController {
         $order->start_date = Input::get("startDate")[0];
         $order->end_date = Input::get("endDate")[0];
 
-       // dd(Input::get("startKm"));
+        // dd(Input::get("startKm"));
 
         Input::get('booking_status') == 3 ? ($order->invoice_no = $nextInvoiceId ) : '';
 
-      //  $get_service = Listing::where("listings.id", "=", Input::get('listing'))->get()->first();
-//
-//        if ($get_service->service_id == "1") {
-//            $chkCOUNT = "0";
-//        } else {
-//            $chkCOUNT = "1";
-//        }
+        $get_service = Listing::where("listings.id", "=", Input::get('listing'))->get()->first();
+
+        if ($get_service->service_id == "1") {
+            $chkCOUNT = "0";
+        } else {
+            $chkCOUNT = "1";
+        }
 
 
         $readings = [];
@@ -391,10 +391,10 @@ class AdminController extends BaseController {
         $end_DATE = Input::get("endDate");
         array_filter($end_DATE);
 
-        count(Input::get("startKm")) > 1 ? : $order->start_km = Input::get("startKm")[0];
-        count(Input::get("endKm")) > 1 ? : $order->end_km = Input::get("endKm")[0];
-        count(Input::get("startDate")) > 1 ? : $order->start_date = Input::get("startDate")[0];
-        count(Input::get("endDate")) > 1 ? : $order->end_date = Input::get("endDate")[0];
+        count(Input::get("startKm")) > $chkCOUNT ? : $order->start_km = Input::get("startKm")[0];
+        count(Input::get("endKm")) > $chkCOUNT ? : $order->end_km = Input::get("endKm")[0];
+        count(Input::get("startDate")) > $chkCOUNT ? : $order->start_date = Input::get("startDate")[0];
+        count(Input::get("endDate")) > $chkCOUNT ? : $order->end_date = Input::get("endDate")[0];
 
         array_push($readings, ["StartKm" => $startKMS]);
         array_push($readings, ["EndKm" => $endKMS]);
@@ -452,7 +452,6 @@ class AdminController extends BaseController {
 
     public function order_edit() {
 
-
         $getInvoiceId = DB::table('bookings')->max('invoice_no');
         $nextInvoiceId = $getInvoiceId + 1;
 
@@ -471,21 +470,19 @@ class AdminController extends BaseController {
         $orderUpdate->vender_id = Input::get("vendersName");
         $orderUpdate->vender_listing_id = Input::get('venderListing');
 
-
         $orderUpdate->drivers = Input::get("venderDrivers");
         $orderUpdate->cars = Input::get("vendersCars");
         $orderUpdate->extras = Input::get("extraHrs")[0];
         $orderUpdate->toll = Input::get('toll');
         $orderUpdate->permit = Input::get('permit');
         $orderUpdate->parking = Input::get('parking');
-      //  $get_service = Listing::where("listings.id", "=", Input::get('listing'))->get()->first();
+        $get_service = Listing::where("listings.id", "=", Input::get('listing'))->get()->first();
 
-
-//        if ($get_service->service_id == "1") {
-//            $chkCOUNT = "0";
-//        } else {
-//            $chkCOUNT = "1";
-//        }
+        if ($get_service->service_id == "1") {
+            $chkCOUNT = "0";
+        } else {
+            $chkCOUNT = "1";
+        }
 
 
 
