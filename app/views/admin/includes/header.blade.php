@@ -106,12 +106,7 @@
                                 </a>
                             </li>
                             
-                            
-           
-                            
-                            
-                            
-                            
+                      
                             <li>
                                 <a href="#">
                                     <i class="fa fa-warning danger"></i> Very long description here that may not fit into the page and may cause design problems
@@ -228,7 +223,7 @@
                     <!-- Menu Footer-->
                     <li class="user-footer">
                       
-                        <div class="pull-right">
+                        <div align="center">
                             <a href="{{URL::route('admin_logout'); }}" class="btn btn-default btn-flat">Sign out</a>
                         </div>
                     </li>

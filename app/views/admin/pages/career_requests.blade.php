@@ -41,7 +41,6 @@ Careers      </h1>
                                     <th>Mobile</th>
                                     <th>Resume</th>
                                     <th>Remarks</th>
-                                  
                                 </tr>
                             </thead>
                             <tbody>
@@ -55,7 +54,6 @@ Careers      </h1>
                                      <td>{{ $career->remarks }}</td>
                                 </tr>
                                 @endforeach
-
                             </tbody>
 
                         </table>

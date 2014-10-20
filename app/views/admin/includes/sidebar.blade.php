@@ -75,8 +75,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="{{ URL::route('testimonials'); }}"><i class="fa fa-angle-double-right"></i>Testimonials</a> </li>
-                    <li><a href="#"><i class="fa fa-angle-double-right"></i>Meta Tags</a> </li>
-                    <li><a href="#"><i class="fa fa-angle-double-right"></i>Carz Info</a> </li>
+                   
                 </ul>
             </li>
             <li class="treeview">
