@@ -308,6 +308,18 @@ class AdminController extends BaseController {
         return Redirect::route('carz_listing');
     }
 
+    public function carz_listing_details($id) {
+
+        $carzListingDetails = Listing::where("id", "=", $id)->get(['min_kms', 'min_hrs', 'base_cost', 'driver_cost', 'extra_km_cost', 'extra_hr_cost'])->toArray();
+
+        echo json_encode($carzListingDetails);
+    }
+
+    public function vendor_listing_details($id) {
+        $vendorListingDetails = VenderListing::where("id", "=", $id)->get(['min_kms', 'min_hrs', 'base_cost', 'driver_cost', 'extra_km_cost', 'extra_hr_cost'])->toArray();
+        echo json_encode($vendorListingDetails);
+    }
+
     public function orders() {
         $orders = Booking::orderBy("bookings.created", "desc")
                 ->leftJoin("customers", "customers.id", "=", "bookings.customer_id")
@@ -365,7 +377,9 @@ class AdminController extends BaseController {
         $order->start_date = Input::get("startDate")[0];
         $order->end_date = Input::get("endDate")[0];
 
-        // dd(Input::get("startKm"));
+        $order->carz_listing_details = json_encode(Input::get("carzListingDetails"));
+
+        $order->vendor_listing_details = json_encode(Input::get("vendorListingDetails"));
 
         Input::get('booking_status') == 3 ? ($order->invoice_no = $nextInvoiceId ) : '';
 
@@ -386,10 +400,10 @@ class AdminController extends BaseController {
         array_filter($endKMS);
 
         $start_DATE = Input::get("startDate");
-        array_filter($start_DATE);
+        array_shift($start_DATE);
 
         $end_DATE = Input::get("endDate");
-        array_filter($end_DATE);
+        array_shift($end_DATE);
 
         count(Input::get("startKm")) > $chkCOUNT ? : $order->start_km = Input::get("startKm")[0];
         count(Input::get("endKm")) > $chkCOUNT ? : $order->end_km = Input::get("endKm")[0];
@@ -414,6 +428,8 @@ class AdminController extends BaseController {
         $order->drivers = Input::get('venderDrivers');
         $order->cars = Input::get('vendersCars');
         $order->extras = Input::get("extraHrs")[0];
+
+        $order->extra_remarks = Input::get('extraRemark');
         $order->toll = Input::get('toll');
         $order->permit = Input::get('permit');
         $order->parking = Input::get('parking');
@@ -473,6 +489,13 @@ class AdminController extends BaseController {
         $orderUpdate->drivers = Input::get("venderDrivers");
         $orderUpdate->cars = Input::get("vendersCars");
         $orderUpdate->extras = Input::get("extraHrs")[0];
+        $orderUpdate->carz_listing_details = json_encode(Input::get("carzListingDetails"));
+
+        $orderUpdate->vendor_listing_details = json_encode(Input::get("vendorListingDetails"));
+
+        $orderUpdate->extra_remarks = Input::get('extraRemark');
+
+
         $orderUpdate->toll = Input::get('toll');
         $orderUpdate->permit = Input::get('permit');
         $orderUpdate->parking = Input::get('parking');
@@ -494,10 +517,10 @@ class AdminController extends BaseController {
         array_filter($endKMS);
 
         $start_DATE = Input::get("startDate");
-        array_filter($start_DATE);
+        array_shift($start_DATE);
 
         $end_DATE = Input::get("endDate");
-        array_filter($end_DATE);
+        array_shift($end_DATE);
 
         count(Input::get("startKm")) > 1 ? : $orderUpdate->start_km = Input::get("startKm")[0];
         count(Input::get("endKm")) > 1 ? : $orderUpdate->end_km = Input::get("endKm")[0];

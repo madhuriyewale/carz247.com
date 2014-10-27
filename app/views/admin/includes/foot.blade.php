@@ -53,6 +53,11 @@ $(function() {
     $("table#OrdersTables th:nth-child(27),table#OrdersTables td:nth-child(27)").hide();
     $("table#OrdersTables th:nth-child(28),table#OrdersTables td:nth-child(28)").hide();
     $("table#OrdersTables th:nth-child(29),table#OrdersTables td:nth-child(29)").hide();
+    $("table#OrdersTables th:nth-child(30),table#OrdersTables td:nth-child(30)").hide();
+    $("table#OrdersTables th:nth-child(31),table#OrdersTables td:nth-child(31)").hide();
+    $("table#OrdersTables th:nth-child(32),table#OrdersTables td:nth-child(32)").hide();
+
+
 
 
 

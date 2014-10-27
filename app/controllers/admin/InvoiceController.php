@@ -1,33 +1,20 @@
 <?php
 
-
-
 class InvoiceController extends BaseController {
-
-
 
     public function invoice($id) {
 
 
 
         $bookingData = Booking::leftJoin("customers", "customers.id", "=", "bookings.customer_id")
-
                         ->leftJoin("localities", "localities.id", "=", "bookings.locality_id")
-
                         ->leftJoin("listings", "listings.id", "=", "bookings.listing_id")
-
                         ->leftJoin("services", "services.id", "=", "listings.service_id")
-
                         ->leftJoin("cities", "cities.id", "=", "listings.city_id")
-
                         ->leftJoin("packages", "packages.id", "=", "listings.package_id")
-
                         ->leftJoin("categories", "categories.id", "=", "listings.category_id")
-
                         ->leftJoin("venders", "venders.id", "=", "bookings.vender_id")
-
                         ->where("bookings.id", "=", $id)
-
                         ->get([ 'customers.fname', 'customers.lname', 'venders.venders_name', 'localities.locality', 'listings.*', 'services.service', 'cities.city', 'packages.package', 'categories.category', 'bookings.*'])->toArray();
 
 
@@ -38,7 +25,10 @@ class InvoiceController extends BaseController {
 
         $interval = $fromDate->diff($endDate);
 
+        $carz_listing_details_data = json_decode($bookingData[0]["carz_listing_details"], true);
 
+
+//dd($carz_listing_details_data[0]);
 
 
 
@@ -64,19 +54,17 @@ class InvoiceController extends BaseController {
 
 
 
-        if (preg_match("/local/i", $bookingData[0]["service"]) && ($interval->days + 1) > 1) {
-
-
-
-
+        if (preg_match("/local/i", $bookingData[0]["service"])) {
 
 
 
             $readings = json_decode($bookingData[0]["readings"], true);
+            
+          
 
 
-
-            $stCnt = count($readings[0]['StartKm']);
+            $stCnt = count(array_filter($readings[0]['StartKm']));
+             //   dd($readings);
 
             $amount = 0;
 
@@ -94,7 +82,7 @@ class InvoiceController extends BaseController {
 
 
 
-                $kmsTravelled = $kms - $bookingData[0]["min_kms"];
+                $kmsTravelled = $kms - $carz_listing_details_data[0];
 
 
 
@@ -110,12 +98,11 @@ class InvoiceController extends BaseController {
 
 
 
-                $hrsTravelled = ($ninterval->h + ($ninterval->i > 0 ? 1 : 0)) - $bookingData[0]["min_hrs"];
+                $hrsTravelled = ($ninterval->h + ($ninterval->i > 0 ? 1 : 0)) - $carz_listing_details_data[1];
 
 
 
                 $hrz += $hrsTravelled > 0 ? $hrsTravelled : 0;
-
             }
 
 
@@ -138,11 +125,11 @@ class InvoiceController extends BaseController {
 
                                 <td>Base Cost for " . ucwords(strtolower($bookingData[0]['service'])) . "  " . ucwords(strtolower($bookingData[0]['category'])) . " Car " . ucwords($bookingData[0]['package']) . " (" . date('d M y', strtotime($bookingData[0]['start_date'])) . " - " . date('d M y', strtotime($bookingData[0]['end_date'])) . ")</td>
 
-                                <td class = 'cnt'>" . $hours * $bookingData[0]["min_kms"] . "</td>
+                                <td class = 'cnt'>" . $hours * $carz_listing_details_data[0] . "</td>
 
                                 <td class = 'cnt'>$hours Day/s</td>
 
-                                <td>" . $bc = $hours * $bookingData[0]["base_cost"] . "</td>
+                                <td>" . $bc = $hours * $carz_listing_details_data[2] . "</td>
 
                             </tr>";
 
@@ -150,13 +137,13 @@ class InvoiceController extends BaseController {
 
             $recieptCont .= "<tr>
 
-                                <td>Extra km above " . $bookingData[0]["min_kms"] . " kms /- Day @ Rs." . $bookingData[0]["extra_km_cost"] . " / km </td>
+                                <td>Extra km above " . $carz_listing_details_data[0] . " kms /- Day @ Rs." . $carz_listing_details_data[4] . " / km </td>
 
                                 <td class = 'cnt'>$kmz</td>
 
                                 <td class = 'cnt'>-</td>
 
-                                <td>" . $kc = $kmz * $bookingData[0]["extra_km_cost"] . "</td>
+                                <td>" . $kc = $kmz * $carz_listing_details_data[4] . "</td>
 
                             </tr>";
 
@@ -164,19 +151,18 @@ class InvoiceController extends BaseController {
 
             $recieptCont .= "<tr>
 
-                                <td>Extra hrs above " . $bookingData[0]["min_hrs"] . " hrs /- Day @ Rs." . $bookingData[0]["extra_hr_cost"] . " / -hrs</td>
+                                <td>Extra hrs above " . $carz_listing_details_data[0] . " hrs /- Day @ Rs." . $carz_listing_details_data[5] . " / -hrs</td>
 
                                 <td class = 'cnt'>-</td>
 
                                 <td class = 'cnt'>$hrz Hour/s</td>
 
-                                <td>" . $hc = $hrz * $bookingData[0]["extra_hr_cost"] . "</td>
+                                <td>" . $hc = $hrz * $carz_listing_details_data[5] . "</td>
 
                             </tr>";
 
             $amount = $bc + $kc + $hc;
-
-        } elseif (preg_match("/local/i", $bookingData[0]["service"]) || preg_match("/airport/i", $bookingData[0]["service"])) {
+        } elseif (preg_match("/airport/i", $bookingData[0]["service"])) {
 
 
 
@@ -186,9 +172,9 @@ class InvoiceController extends BaseController {
 
             $kms = $bookingData[0]["end_km"] - $bookingData[0]["start_km"];
 
-            $kmsTravelled = $kms - $bookingData[0]["min_kms"];
+            $kmsTravelled = $kms - $carz_listing_details_data[0];
 
-            $hrsTravelled = $hours - $bookingData[0]["min_hrs"];
+            $hrsTravelled = $hours - $carz_listing_details_data[1];
 
 
 
@@ -196,11 +182,11 @@ class InvoiceController extends BaseController {
 
                                 <td>Base Cost for " . ucwords(strtolower($bookingData[0]['service'])) . "  " . ucwords(strtolower($bookingData[0]['category'])) . " Car " . ucwords($bookingData[0]['package']) . " (" . date('d M y', strtotime($bookingData[0]['start_date'])) . ")</td>
 
-                                <td class = 'cnt'>" . $bookingData[0]["min_kms"] . "</td>
+                                <td class = 'cnt'>" . $carz_listing_details_data[0] . "</td>
 
-                                <td class = 'cnt'>" . $bookingData[0]["min_hrs"] . " Hours</td>
+                                <td class = 'cnt'>" . $carz_listing_details_data[1] . " Hours</td>
 
-                                <td>" . $bc = $bookingData[0]["base_cost"] . "</td>
+                                <td>" . $bc = $carz_listing_details_data[2] . "</td>
 
                             </tr>";
 
@@ -208,13 +194,13 @@ class InvoiceController extends BaseController {
 
             $recieptCont .= "<tr>
 
-                                <td>Extra km above " . $bookingData[0]["min_kms"] . " kms @ Rs." . $bookingData[0]["extra_km_cost"] . " / km </td>
+                                <td>Extra km above " . $carz_listing_details_data[0] . " kms @ Rs." . $carz_listing_details_data[4] . " / km </td>
 
                                 <td class = 'cnt'>" . ($kmsTravelled > 0 ? $kmsTravelled : 0) . "</td>
 
                                 <td class = 'cnt'>-</td>
 
-                                <td>" . $kc = $kmsTravelled * $bookingData[0]["extra_km_cost"] . "</td>
+                                <td>" . $kc = $kmsTravelled * $carz_listing_details_data[4] . "</td>
 
                             </tr>";
 
@@ -224,20 +210,19 @@ class InvoiceController extends BaseController {
 
             $recieptCont .= "<tr>
 
-                                <td>Extra hrs above " . $bookingData[0]["min_hrs"] . " hrs  @ Rs." . $bookingData[0]["extra_hr_cost"] . " / -hrs</td>
+                                <td>Extra hrs above " . $carz_listing_details_data[1] . " hrs  @ Rs." . $carz_listing_details_data[5] . " / -hrs</td>
 
                                 <td class = 'cnt'>-</td>
 
                                 <td class = 'cnt'>" . ($hrsTravelled > 0 ? $hrsTravelled : 0) . " Hours</td>
 
-                                <td>" . $hc = $hrsTravelled * $bookingData[0]["extra_hr_cost"] . "</td>
+                                <td>" . $hc = $hrsTravelled * $carz_listing_details_data[5] . "</td>
 
                             </tr>";
 
 
 
             $amount = $bc + $kc + $hc;
-
         } else {
 
 
@@ -248,9 +233,9 @@ class InvoiceController extends BaseController {
 
             $kms = $bookingData[0]["end_km"] - $bookingData[0]["start_km"];
 
-            $kmsTravelled = $kms - $bookingData[0]["min_kms"] * $days;
+            $kmsTravelled = $kms - $carz_listing_details_data[0] * $days;
 
-            $amount = ($kmsTravelled <= 0 ? $bookingData[0]["min_kms"] * $days : $kms ) * $bookingData[0]["extra_km_cost"] + $days * $bookingData[0]["driver_cost"];
+            $amount = ($kmsTravelled <= 0 ? $carz_listing_details_data[0] * $days : $kms ) * $carz_listing_details_data[4] + $days * $carz_listing_details_data[3];
 
 
 
@@ -268,11 +253,11 @@ class InvoiceController extends BaseController {
 
                                 <td>Base Cost for " . ucwords(strtolower($bookingData[0]['service'])) . "  " . ucwords(strtolower($bookingData[0]['category'])) . " Car " . ucwords($bookingData[0]['package']) . " (" . date('d M y', strtotime($bookingData[0]['start_date'])) . " - " . date('d M y', strtotime($bookingData[0]['end_date'])) . ")</td>
 
-                                <td class = 'cnt'>" . $bookingData[0]["min_kms"] * $days . "</td>
+                                <td class = 'cnt'>" . $carz_listing_details_data[0] * $days . "</td>
 
                                 <td class = 'cnt'>" . $days . " Days</td>
 
-                                <td>" . $bc = ($bookingData[0]["min_kms"] * $days * $bookingData[0]["extra_km_cost"] ) + $bookingData[0]["driver_cost"] * $days . "</td>
+                                <td>" . $bc = ($carz_listing_details_data[0] * $days * $carz_listing_details_data[4] ) + $carz_listing_details_data[3] * $days . "</td>
 
                             </tr>";
 
@@ -280,13 +265,13 @@ class InvoiceController extends BaseController {
 
             $recieptCont .= "<tr>
 
-                                <td>Extra km above " . $bookingData[0]["min_kms"] . " kms /- Day @ Rs." . $bookingData[0]["extra_km_cost"] . " / km </td>
+                                <td>Extra km above " . $carz_listing_details_data[0] . " kms /- Day @ Rs." . $carz_listing_details_data[4] . " / km </td>
 
                                 <td class = 'cnt'>" . ($kmsTravelled > 0 ? $kmsTravelled : 0) . "</td>
 
                                 <td class = 'cnt'>-</td>
 
-                                <td>" . $kc = $kmsTravelled * $bookingData[0]["extra_km_cost"] . "</td>
+                                <td>" . $kc = $kmsTravelled * $carz_listing_details_data[4] . "</td>
 
                             </tr>";
 
@@ -301,10 +286,7 @@ class InvoiceController extends BaseController {
 
 
             $hours = $days;
-
         }
-
-
 
 
 
@@ -321,38 +303,22 @@ class InvoiceController extends BaseController {
         $bookingUpdate->update();
 
         return View::make('admin.pages.invoice', compact('bookingData', 'recieptCnt', 'recieptCont', 'kms', 'hours', 'amount', 'discount', 'extra', 'st', 'prepaid', 'finalAmnt', 'permit', 'parking', 'toll', 'finalAmntNoST'));
-
     }
-
-
 
     public function purchase_invoice($id) {
 
 
 
         $bookingData = Booking::leftJoin("customers", "customers.id", "=", "bookings.customer_id")
-
                         ->leftJoin("localities", "localities.id", "=", "bookings.locality_id")
-
                         ->leftJoin("vender_listings", "vender_listings.id", "=", "bookings.vender_listing_id")
-
                         ->leftJoin("services", "services.id", "=", "vender_listings.service_id")
-
                         ->leftJoin("cities", "cities.id", "=", "vender_listings.city_id")
-
                         ->leftJoin("packages", "packages.id", "=", "vender_listings.package_id")
-
                         ->leftJoin("categories", "categories.id", "=", "vender_listings.category_id")
-
                         ->leftJoin("venders", "venders.id", "=", "bookings.vender_id")
-
                         ->where("bookings.id", "=", $id)
-
                         ->get([ 'customers.fname', 'customers.lname', 'venders.venders_name', 'localities.locality', 'vender_listings.*', 'services.service', 'cities.city', 'packages.package', 'categories.category', 'bookings.*'])->toArray();
-
-
-
-
 
 
 
@@ -362,10 +328,10 @@ class InvoiceController extends BaseController {
 
         $interval = $fromDate->diff($endDate);
 
+        $vendor_listing_details_data = json_decode($bookingData[0]["vendor_listing_details"], true);
 
 
-
-
+//dd($vendor_listing_details_data[0]);
         $discount = $bookingData[0]["discount"];
 
         $st = $bookingData[0]["service_tax"];
@@ -382,25 +348,14 @@ class InvoiceController extends BaseController {
 
 
 
-
-
-
-
-
-
-        if (preg_match("/local/i", $bookingData[0]["service"]) && ($interval->days + 1) > 1) {
-
-
-
-
-
+        if (preg_match("/local/i", $bookingData[0]["service"])) {
 
 
             $readings = json_decode($bookingData[0]["readings"], true);
 
 
 
-            $stCnt = count($readings[0]['StartKm']);
+            $stCnt = count(array_filter($readings[0]['StartKm']));
 
             $amount = 0;
 
@@ -415,10 +370,7 @@ class InvoiceController extends BaseController {
 
 
 
-
-
-
-                $kmsTravelled = $kms - $bookingData[0]["min_kms"];
+                $kmsTravelled = $kms - $vendor_listing_details_data[0];
 
 
 
@@ -434,12 +386,11 @@ class InvoiceController extends BaseController {
 
 
 
-                $hrsTravelled = ($ninterval->h + ($ninterval->i > 1 ? 1 : 0)) - $bookingData[0]["min_hrs"];
+                $hrsTravelled = ($ninterval->h + ($ninterval->i > 1 ? 1 : 0)) - $vendor_listing_details_data[1];
 
 
 
                 $hrz += $hrsTravelled > 0 ? $hrsTravelled : 0;
-
             }
 
 
@@ -462,11 +413,11 @@ class InvoiceController extends BaseController {
 
                                 <td>Base Cost for " . ucwords(strtolower($bookingData[0]['service'])) . "  " . ucwords(strtolower($bookingData[0]['category'])) . " Car " . ucwords($bookingData[0]['package']) . " (" . date('d M y', strtotime($bookingData[0]['start_date'])) . " - " . date('d M y', strtotime($bookingData[0]['end_date'])) . ")</td>
 
-                                <td class = 'cnt'>" . $hours * $bookingData[0]["min_kms"] . "</td>
+                                <td class = 'cnt'>" . $hours * $vendor_listing_details_data[0] . "</td>
 
                                 <td class = 'cnt'>$hours Day/s</td>
 
-                                <td>" . $bc = $hours * $bookingData[0]["base_cost"] . "</td>
+                                <td>" . $bc = $hours * $vendor_listing_details_data[2] . "</td>
 
                             </tr>";
 
@@ -474,13 +425,13 @@ class InvoiceController extends BaseController {
 
             $recieptCont .= "<tr>
 
-                                <td>Extra km above " . $bookingData[0]["min_kms"] . " kms /- Day @ Rs." . $bookingData[0]["extra_km_cost"] . " / km </td>
+                                <td>Extra km above " . $vendor_listing_details_data[0] . " kms /- Day @ Rs." . $vendor_listing_details_data[4] . " / km </td>
 
                                 <td class = 'cnt'>$kmz</td>
 
                                 <td class = 'cnt'>-</td>
 
-                                <td>" . $kc = $kmz * $bookingData[0]["extra_km_cost"] . "</td>
+                                <td>" . $kc = $kmz * $vendor_listing_details_data[4] . "</td>
 
                             </tr>";
 
@@ -488,19 +439,18 @@ class InvoiceController extends BaseController {
 
             $recieptCont .= "<tr> 
 
-                                <td>Extra hrs above " . $bookingData[0]["min_hrs"] . " hrs /- Day @ Rs." . $bookingData[0]["extra_hr_cost"] . " / -hrs</td>
+                                <td>Extra hrs above " . $vendor_listing_details_data[1] . " hrs /- Day @ Rs." . $vendor_listing_details_data[5] . " / -hrs</td>
 
                                 <td class = 'cnt'>-</td>
 
                                 <td class = 'cnt'>$hrz Hour/s</td>
 
-                                <td>" . $hc = $hrz * $bookingData[0]["extra_hr_cost"] . "</td>
+                                <td>" . $hc = $hrz * $vendor_listing_details_data[5] . "</td>
 
                             </tr>";
 
             $amount = $bc + $kc + $hc;
-
-        } elseif (preg_match("/local/i", $bookingData[0]["service"]) || preg_match("/airport/i", $bookingData[0]["service"])) {
+        } elseif (preg_match("/airport/i", $bookingData[0]["service"])) {
 
 
 
@@ -510,9 +460,9 @@ class InvoiceController extends BaseController {
 
             $kms = $bookingData[0]["end_km"] - $bookingData[0]["start_km"];
 
-            $kmsTravelled = $kms - $bookingData[0]["min_kms"];
+            $kmsTravelled = $kms - $vendor_listing_details_data[0];
 
-            $hrsTravelled = $hours - $bookingData[0]["min_hrs"];
+            $hrsTravelled = $hours - $vendor_listing_details_data[1];
 
 
 
@@ -520,11 +470,11 @@ class InvoiceController extends BaseController {
 
                                 <td>Base Cost for " . ucwords(strtolower($bookingData[0]['service'])) . "  " . ucwords(strtolower($bookingData[0]['category'])) . " Car " . ucwords($bookingData[0]['package']) . " (" . date('d M y', strtotime($bookingData[0]['start_date'])) . ")</td>
 
-                                <td class = 'cnt'>" . $bookingData[0]["min_kms"] . "</td>
+                                <td class = 'cnt'>" . $vendor_listing_details_data[0] . "</td>
 
-                                <td class = 'cnt'>" . $bookingData[0]["min_hrs"] . " Hours</td>
+                                <td class = 'cnt'>" . $vendor_listing_details_data[1] . " Hours</td>
 
-                                <td>" . $bc = $bookingData[0]["base_cost"] . "</td>
+                                <td>" . $bc = $vendor_listing_details_data[2] . "</td>
 
                             </tr>";
 
@@ -532,13 +482,13 @@ class InvoiceController extends BaseController {
 
             $recieptCont .= "<tr>
 
-                                <td>Extra km above " . $bookingData[0]["min_kms"] . " kms @ Rs." . $bookingData[0]["extra_km_cost"] . " / km </td>
+                                <td>Extra km above " . $vendor_listing_details_data[0] . " kms @ Rs." . $vendor_listing_details_data[4] . " / km </td>
 
                                 <td class = 'cnt'>" . ($kmsTravelled > 0 ? $kmsTravelled : 0) . "</td>
 
                                 <td class = 'cnt'>-</td>
 
-                                <td>" . $kc = $kmsTravelled * $bookingData[0]["extra_km_cost"] . "</td>
+                                <td>" . $kc = $kmsTravelled * $vendor_listing_details_data[4] . "</td>
 
                             </tr>";
 
@@ -548,20 +498,19 @@ class InvoiceController extends BaseController {
 
             $recieptCont .= "<tr>
 
-                                <td>Extra hrs above " . $bookingData[0]["min_hrs"] . " hrs  @ Rs." . $bookingData[0]["extra_hr_cost"] . " / -hrs</td>
+                                <td>Extra hrs above " . $vendor_listing_details_data[1] . " hrs  @ Rs." . $vendor_listing_details_data[5] . " / -hrs</td>
 
                                 <td class = 'cnt'>-</td>
 
                                 <td class = 'cnt'>" . ($hrsTravelled > 0 ? $hrsTravelled : 0) . " Hours</td>
 
-                                <td>" . $hc = $hrsTravelled * $bookingData[0]["extra_hr_cost"] . "</td>
+                                <td>" . $hc = $hrsTravelled * $vendor_listing_details_data[5] . "</td>
 
                             </tr>";
 
 
 
             $amount = $bc + $kc + $hc;
-
         } else {
 
 
@@ -572,9 +521,9 @@ class InvoiceController extends BaseController {
 
             $kms = $bookingData[0]["end_km"] - $bookingData[0]["start_km"];
 
-            $kmsTravelled = $kms - $bookingData[0]["min_kms"] * $days;
+            $kmsTravelled = $kms - $vendor_listing_details_data[0] * $days;
 
-            $amount = ($kmsTravelled <= 0 ? $bookingData[0]["min_kms"] * $days : $kms ) * $bookingData[0]["extra_km_cost"] + $days * $bookingData[0]["driver_cost"];
+            $amount = ($kmsTravelled <= 0 ? $vendor_listing_details_data[0] * $days : $kms ) * $vendor_listing_details_data[4] + $days * $vendor_listing_details_data[3];
 
 
 
@@ -592,11 +541,11 @@ class InvoiceController extends BaseController {
 
                                 <td>Base Cost for " . ucwords(strtolower($bookingData[0]['service'])) . "  " . ucwords(strtolower($bookingData[0]['category'])) . " Car " . ucwords($bookingData[0]['package']) . " (" . date('d M y', strtotime($bookingData[0]['start_date'])) . " - " . date('d M y', strtotime($bookingData[0]['end_date'])) . ")</td>
 
-                                <td class = 'cnt'>" . $bookingData[0]["min_kms"] * $days . "</td>
+                                <td class = 'cnt'>" . $vendor_listing_details_data[0] * $days . "</td>
 
                                 <td class = 'cnt'>" . $days . " Days</td>
 
-                                <td>" . $bc = ($bookingData[0]["min_kms"] * $days * $bookingData[0]["extra_km_cost"] ) + $bookingData[0]["driver_cost"] * $days . "</td>
+                                <td>" . $bc = ($vendor_listing_details_data[0] * $days * $vendor_listing_details_data[4] ) + $vendor_listing_details_data[3] * $days . "</td>
 
                             </tr>";
 
@@ -604,13 +553,13 @@ class InvoiceController extends BaseController {
 
             $recieptCont .= "<tr>
 
-                                <td>Extra km above " . $bookingData[0]["min_kms"] . " kms /- Day @ Rs." . $bookingData[0]["extra_km_cost"] . " / km </td>
+                                <td>Extra km above " . $vendor_listing_details_data[0] . " kms /- Day @ Rs." . $vendor_listing_details_data[4] . " / km </td>
 
                                 <td class = 'cnt'>" . ($kmsTravelled > 0 ? $kmsTravelled : 0) . "</td>
 
                                 <td class = 'cnt'>-</td>
 
-                                <td>" . $kc = $kmsTravelled * $bookingData[0]["extra_km_cost"] . "</td>
+                                <td>" . $kc = $kmsTravelled * $vendor_listing_details_data[4] . "</td>
 
                             </tr>";
 
@@ -625,7 +574,6 @@ class InvoiceController extends BaseController {
 
 
             $hours = $days;
-
         }
 
 
@@ -645,10 +593,6 @@ class InvoiceController extends BaseController {
         $bookingUpdate->update();
 
         return View::make('admin.pages.sale_invoice', compact('bookingData', 'recieptCnt', 'recieptCont', 'kms', 'hours', 'amount', 'discount', 'extra', 'st', 'prepaid', 'finalAmnt', 'permit', 'parking', 'toll', 'finalAmntNoST'));
-
     }
 
-
-
 }
-

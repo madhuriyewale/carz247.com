@@ -113,6 +113,70 @@
 
                             <div class="clearfix"></div>
 
+                            <h4 class="box-title">Carz Listing Details</h4>
+                            <div class="form-group col-sm-2 carzListingDetails">
+                                <label class="carzListingDetails"><strong>Min Kms</strong></label>
+                                <input type="text" required="true" name="carzListingDetails[]" id="carzMinKm" value="" class="form-control carzListingDetails" placeholder="Min Kms"> 
+                            </div>
+
+                            <div class="form-group col-sm-2 carzListingDetails">
+                                <label class="carzListingDetails"><strong>Min hrs</strong></label>
+                                <input type="text" required="true" name="carzListingDetails[]" value="" id="carzMinHr" class="form-control carzListingDetails" placeholder="Min Hrs"> 
+                            </div>
+
+                            <div class="form-group col-sm-2 carzListingDetails">
+                                <label class="carzListingDetails"><strong>Base Cost</strong></label>
+                                <input type="text" required="true" name="carzListingDetails[]" value="" id="carzBaseCost" class="form-control carzListingDetails" placeholder="Base Cost"> 
+                            </div>
+                            <div class="form-group col-sm-2 carzListingDetails">
+                                <label class="carzListingDetails"><strong>Driver Cost</strong></label>
+                                <input type="text" required="true" name="carzListingDetails[]" value="" id="carzDriverCost" class="form-control carzListingDetails" placeholder="Driver Cost"> 
+                            </div>
+
+                            <div class="form-group col-sm-2 carzListingDetails">
+                                <label class="carzListingDetails"><strong>Extra Km Cost</strong></label>
+                                <input type="text" required="true" name="carzListingDetails[]" value="" id="carzExtraKmCost" class="form-control carzListingDetails" placeholder="Extra Km Cost"> 
+                            </div>
+
+                            <div class="form-group col-sm-2 carzListingDetails">
+                                <label class="carzListingDetails"><strong>Extra Hr Cost</strong></label>
+                                <input type="text" required="true" name="carzListingDetails[]" value=""   id="carzExtraHrCost" class="form-control carzListingDetails" placeholder="Extra Hr Cost"> 
+                            </div>
+
+
+
+                            <h4 class="box-title">Vendor Listing Details</h4>
+                            <div class="form-group col-sm-2 vendorListingDetails">
+                                <label class="vendorListingDetails"><strong>Min Kms</strong></label>
+                                <input type="text" required="true" name="vendorListingDetails[]" id="vendorMinKm" value="" class="form-control vendorListingDetails" placeholder="Min Kms"> 
+                            </div>
+
+                            <div class="form-group col-sm-2 vendorListingDetails">
+                                <label class="vendorListingDetails"><strong>Min hrs</strong></label>
+                                <input type="text" required="true" name="vendorListingDetails[]" value="" id="vendorMinHr" class="form-control vendorListingDetails" placeholder="Min Hrs"> 
+                            </div>
+
+                            <div class="form-group col-sm-2 vendorListingDetails">
+                                <label class="vendorListingDetails"><strong>Base Cost</strong></label>
+                                <input type="text" required="true" name="vendorListingDetails[]" value="" id="vendorBaseCost" class="form-control vendorListingDetails" placeholder="Base Cost"> 
+                            </div>
+                            <div class="form-group col-sm-2 vendorListingDetails">
+                                <label class="vendorListingDetails"><strong>Driver Cost</strong></label>
+                                <input type="text" required="true" name="vendorListingDetails[]" value="" id="vendorDriverCost" class="form-control vendorListingDetails" placeholder="Driver Cost"> 
+                            </div>
+
+                            <div class="form-group col-sm-2 vendorListingDetails">
+                                <label class="vendorListingDetails"><strong>Extra Km Cost</strong></label>
+                                <input type="text" required="true" name="vendorListingDetails[]" value="" id="vendorExtraKmCost" class="form-control vendorListingDetails" placeholder="Extra Km Cost"> 
+                            </div>
+
+                            <div class="form-group col-sm-2 vendorListingDetails">
+                                <label class="vendorListingDetails"><strong>Extra Hr Cost</strong></label>
+                                <input type="text" required="true" name="vendorListingDetails[]" value=""   id="vendorExtraHrCost" class="form-control vendorListingDetails" placeholder="Extra Hr Cost"> 
+                            </div>
+
+
+
                             <div class="bb od-2">
                                 <h4 class="box-title">Vendor Allocation Details</h4>
                                 <div class="form-group col-sm-3 ">
@@ -164,27 +228,37 @@
                                     <label class="labelStartKm"><strong>End Km</strong></label>
                                     <input type="text" name="endKm[]"  required="true" value="" class="form-control endkm" placeholder="End Km"> 
                                 </div>
+
+
+
+
+
                                 <div class="clearfix "></div>
 
 
-                                <div class="form-group col-sm-3 toll_div">
+                                <div class="form-group col-sm-2 toll_div">
                                     <label class="labelToll"><strong>Toll</strong></label>
                                     <input type="text" required="true" name="toll" value="" class="form-control toll" placeholder="Toll"> 
                                 </div>
 
-                                <div class="form-group col-sm-3 permit_div ">
+                                <div class="form-group col-sm-2 permit_div ">
                                     <label class="labelPermit"><strong>Permit</strong></label>
                                     <input type="text" required="true" name="permit" value="" class="form-control permit" placeholder="Permit"> 
                                 </div>
 
-                                <div class="form-group col-sm-3 parking_div">
+                                <div class="form-group col-sm-2 parking_div">
                                     <label class="labelParking"><strong>Parking</strong></label>
                                     <input type="text" required="true" name="parking" value="" class="form-control Parking" placeholder="Parking"> 
                                 </div>
 
-                                <div class="form-group col-sm-3 extras_div">
+                                <div class="form-group col-sm-2 extras_div">
                                     <label class="labelExtras"><strong>Extra Charges</strong></label>
                                     <input type="text" name="extraHrs[]" value="" class="form-control extras" placeholder="Extra Charges"> 
+                                </div>
+
+                                <div class="form-group col-sm-2 extras_div"> 
+                                    <label class="labelExtrasCharges"><strong>Extra Remarks</strong></label>
+                                    <input type="text" name="extraRemark" value="" class="form-control extraRemark" placeholder="Extra Charges Remark"> 
                                 </div>
 
                                 <div class="form-group col-sm-3 discount_div">
@@ -261,6 +335,11 @@
                                     <th>Parking</th>
                                     <th>Permit</th>
                                     <th>vendor listing</th>
+                                    <th>extra remarks</th>
+
+                                    <th>carz Details</th>
+                                      <th>vendor Details</th>
+
                                     <th></th>
 
                                 </tr>
@@ -309,8 +388,11 @@
                                     <td>{{ $order->permit }}</td>
 
                                     <td data-value="{{$order->vender_listing_id}}">{{$order->vender_listing_id}}</td>
+                                    <td>{{ $order->extra_remarks }}</td>
 
+                                    <td>{{ $order->carz_listing_details }}</td>
 
+                                       <td>{{ $order->vendor_listing_details }}</td>
                                     <td>
                                         <a href="javascript:void();" class="orderEdit" data-id="{{$order->id}}" title="Edit Order Details" ><i class="fa fa-edit"> </i></a>
                                         {{HTML::linkAction('order_view', '', $order->id, array("title"=>"View Order Details","class"=>"fa fa-calendar-o")) }}
@@ -334,7 +416,8 @@
     </section><!-- /.content -->
 </aside><!-- /.right-side -->
 <script>
-    //order edit
+    var carzListing;
+    var vendorListing;
     var id = "";
     jQuery(document).ready(function($) {
 
@@ -398,6 +481,25 @@
             $("form#orderForm input[name='toll']").val($("tr[data-tr='" + id + "'] td").eq(25).text());
             $("form#orderForm input[name='parking']").val($("tr[data-tr='" + id + "'] td").eq(26).text());
             $("form#orderForm input[name='permit']").val($("tr[data-tr='" + id + "'] td").eq(27).text());
+
+            $("form#orderForm input[name='extraRemark']").val($("tr[data-tr='" + id + "'] td").eq(29).text());
+
+            var carzListing = jQuery.parseJSON($("tr[data-tr='" + id + "'] td").eq(30).text())
+            $("#carzMinKm").val(carzListing[0]);
+            $("#carzMinHr").val(carzListing[1]);
+            $("#carzBaseCost").val(carzListing[2]);
+            $("#carzDriverCost").val(carzListing[3]);
+            $("#carzExtraKmCost").val(carzListing[4]);
+            $("#carzExtraHrCost").val(carzListing[5]);
+            
+              var vendorListing = jQuery.parseJSON($("tr[data-tr='" + id + "'] td").eq(31).text())
+            $("#vendorMinKm").val(vendorListing[0]);
+            $("#vendorMinHr").val(vendorListing[1]);
+            $("#vendorBaseCost").val(vendorListing[2]);
+            $("#vendorDriverCost").val(vendorListing[3]);
+            $("#vendorExtraKmCost").val(vendorListing[4]);
+            $("#vendorExtraHrCost").val(vendorListing[5]);
+
             if ($("tr[data-tr='" + id + "'] td").eq(28).attr("data-value") != "") {
                 getVendorListing($("tr[data-tr='" + id + "'] td").eq(28).attr("data-value"), $("tr[data-tr='" + id + "'] td").eq(12).attr("data-value"));
             }
@@ -501,7 +603,7 @@
 
                             var nDate = start.getDate() + "-" + (start.getMonth() + 1) + "-" + start.getFullYear();
 
-                            var ActulaDateTimePopulate = start.getFullYear() + "-" + (start.getMonth() + 1) + "-" + start.getDate();
+                            var ActulaDateTimePopulate = start.getFullYear() + "-" + (start.getMonth() + 1) + "-" + start.getDate() + " 00:00:00";
 
                             cont += ('<div class="form-group col-sm-2 days_div"><p><strong> ' + nDate + ' </strong></p></div> <div class="form-group col-sm-2 start_km_div"><label class="labelStartKm"><strong>Start Km</strong></label><input type="text" required="true" name="startKm[]" value="" class="form-control startkm" placeholder="Start Km"></div><div class="form-group col-sm-2 end_km_div"><label class="labelStartKm"><strong>End Km</strong></label><input type="text" required="true" name="endKm[]" value="" class="form-control endkm" placeholder="End Km"></div><div class="form-group col-sm-2 start_DATE_div"><label class="labelStart"><strong>Actual start time</strong></label><input type="text" required="true" name="startDate[]" value="' + ActulaDateTimePopulate + '" class="form-control endkm datepickerz"  placeholder="Actual start time" autocomplete="off"></div><div class="form-group col-sm-2 end_DATE_div"><label class="labelEnd"><strong>Actual end time</strong></label><input type="text" required="true" name="endDate[]" value="' + ActulaDateTimePopulate + '" class="form-control endkm datepickerz"  placeholder="Actual end time" autocomplete="off"></div><div class="clearfix"></div>');
                             j++;
@@ -553,6 +655,36 @@
                 }
             });
         }
+
+
+        $(document).on("change", ".listing_class", function() {
+            var value = $(this).val();
+            $.get(document.location.origin + "/admin/carz_listing_details/" + value, function(data) {
+                carzListing = jQuery.parseJSON(data);
+                //  alert(carzListing);
+                $("#carzMinKm").val(carzListing[0]["min_kms"]);
+                $("#carzMinHr").val(carzListing[0]["min_hrs"]);
+                $("#carzBaseCost").val(carzListing[0]["base_cost"]);
+                $("#carzDriverCost").val(carzListing[0]["driver_cost"]);
+                $("#carzExtraKmCost").val(carzListing[0]["extra_km_cost"]);
+                $("#carzExtraHrCost").val(carzListing[0]["extra_hr_cost"]);
+
+            });
+            
+               $.get(document.location.origin + "/admin/vendor_listing_details/" + value, function(data) {
+                vendorListing = jQuery.parseJSON(data);
+                //  alert(carzListing);
+                $("#vendorMinKm").val(vendorListing[0]["min_kms"]);
+                $("#vendorMinHr").val(vendorListing[0]["min_hrs"]);
+                $("#vendorBaseCost").val(vendorListing[0]["base_cost"]);
+                $("#vendorDriverCost").val(vendorListing[0]["driver_cost"]);
+                $("#vendorExtraKmCost").val(vendorListing[0]["extra_km_cost"]);
+                $("#vendorExtraHrCost").val(vendorListing[0]["extra_hr_cost"]);
+
+            });
+            
+        });
+
     });
 
     function stringToDate(s) {
