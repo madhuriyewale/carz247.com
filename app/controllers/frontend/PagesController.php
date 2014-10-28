@@ -5,8 +5,10 @@ class PagesController extends BaseController {
     public function home() {
 
         $categories = Category::leftJoin("listings", "listings.category_id", "=", "categories.id")
-                ->orderBy('categories.category','asc')
-                ->where("listings.city_id", "=", 815)->where("listings.service_id", "=", 1)->where("listings.package_id", "=", 1)->get(["categories.*", "listings.extra_km_cost"]);
+                        ->orderBy('categories.category', 'asc')
+                        ->where("listings.city_id", "=", 815)
+                        ->where("categories.status", "=", 1)
+                        ->where("listings.service_id", "=", 1)->where("listings.package_id", "=", 1)->get(["categories.*", "listings.extra_km_cost"]);
 
         /* Cities/packages for Local Listings */
 
@@ -120,10 +122,12 @@ class PagesController extends BaseController {
         $listings = Listing::where('city_id', '=', Input::get("city_id"))
                         ->where('package_id', '=', Input::get("package_id"))
                         ->where('service_id', '=', Input::get("service_id"))
+                        ->where('categories.status', '=', 1)
                         ->join("services", "services.id", "=", "listings.service_id")
                         ->join("cities", "cities.id", "=", "listings.city_id")
                         ->join("packages", "packages.id", "=", "listings.package_id")
-                        ->join("categories", "categories.id", "=", "listings.category_id")->get(['listings.*', 'cities.city', 'services.service', 'packages.package', 'categories.category', 'categories.image', 'categories.cars', 'categories.seats'])->toArray();
+                        ->join("categories", "categories.id", "=", "listings.category_id")
+                        ->get(['listings.*', 'cities.city', 'services.service', 'packages.package', 'categories.category', 'categories.image', 'categories.cars', 'categories.seats'])->toArray();
 
         return View::make('frontend.pages.listing', compact('listings'));
     }
@@ -140,6 +144,7 @@ class PagesController extends BaseController {
 
         $listings = Listing::where('city_id', '=', Input::get("city_id"))
                         ->where('service_id', '=', Input::get("service_id"))
+                        ->where('categories.status', '=', 1)
                         ->join("services", "services.id", "=", "listings.service_id")
                         ->join("cities", "cities.id", "=", "listings.city_id")
                         ->join("categories", "categories.id", "=", "listings.category_id")->get(['listings.*', 'cities.city', 'services.service', 'categories.category', 'categories.image', 'categories.cars', 'categories.seats'])->toArray();
@@ -164,6 +169,7 @@ class PagesController extends BaseController {
 
         $listings = Listing::where('city_id', '=', Input::get("city_id"))
                         ->where('service_id', '=', Input::get("service_id"))
+                        ->where('categories.status', '=', 1)
                         ->join("services", "services.id", "=", "listings.service_id")
                         ->join("cities", "cities.id", "=", "listings.city_id")
                         ->join("categories", "categories.id", "=", "listings.category_id")->orderBy('categories.id', 'ASC')->get(['listings.*', 'cities.city', 'services.service', 'categories.category', 'categories.image', 'categories.cars', 'categories.seats'])->toArray();
@@ -258,10 +264,10 @@ class PagesController extends BaseController {
                     $message->from($contactEmail, $contactName);
                     $message->to($email_id, $to_name)->subject('Thank you for Registration with Carz247');
                 });
-               // $mobileNo = Input::get('mobile');
-              //  $message="Thank you for Registration with Carz247";
+                // $mobileNo = Input::get('mobile');
+                //  $message="Thank you for Registration with Carz247";
                 //sending sms 
-              //  Helper::sendSMS($mobileNo,$message);
+                //  Helper::sendSMS($mobileNo,$message);
 
                 return Redirect::route('register')->withErrors(['Successfully registered with carz247.']);
             } else {

@@ -101,6 +101,7 @@ class AdminController extends BaseController {
 
         $categories = new Category();
         $categories->category = Input::get('category');
+         $categories->status = Input::get('status');
         $categories->cars = json_encode(explode(",", Input::get('cars')));
         $categories->seats = Input::get('seats');
         $destinationPath = public_path() . '/frontend/images/car-uploads/';
@@ -190,6 +191,7 @@ class AdminController extends BaseController {
     public function category_edit() {
         $categories = Category::find(Input::get("id"));
         $categories->category = Input::get('category');
+         $categories->status = Input::get('status');
         $categories->cars = json_encode(explode(",", Input::get('cars')));
         $categories->seats = Input::get('seats');
 
