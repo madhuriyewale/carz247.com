@@ -49,7 +49,7 @@
                                 </div>
                                 <div class="form-group col-sm-3">
                                     <label>Listing</label>
-                                    <select class="form-control listing_class" name="listing"  required="true">
+                                    <select class="form-control listing_class" id="carz_Listing" name="listing"  required="true">
 
                                         <option value="">Please Select</option>
                                         @foreach ($listings as $listing)
@@ -128,57 +128,28 @@
                                 <label class="carzListingDetails"><strong>Base Cost</strong></label>
                                 <input type="text" required="true" name="carzListingDetails[]" value="" id="carzBaseCost" class="form-control carzListingDetails" placeholder="Base Cost"> 
                             </div>
-                            <div class="form-group col-sm-2 carzListingDetails">
-                                <label class="carzListingDetails"><strong>Driver Cost</strong></label>
-                                <input type="text" required="true" name="carzListingDetails[]" value="" id="carzDriverCost" class="form-control carzListingDetails" placeholder="Driver Cost"> 
-                            </div>
+
 
                             <div class="form-group col-sm-2 carzListingDetails">
                                 <label class="carzListingDetails"><strong>Extra Km Cost</strong></label>
-                                <input type="text" required="true" name="carzListingDetails[]" value="" id="carzExtraKmCost" class="form-control carzListingDetails" placeholder="Extra Km Cost"> 
+                                <input type="text"  name="carzListingDetails[]" value="" id="carzExtraKmCost" class="form-control carzListingDetails" placeholder="Extra Km Cost"> 
                             </div>
 
                             <div class="form-group col-sm-2 carzListingDetails">
                                 <label class="carzListingDetails"><strong>Extra Hr Cost</strong></label>
-                                <input type="text" required="true" name="carzListingDetails[]" value=""   id="carzExtraHrCost" class="form-control carzListingDetails" placeholder="Extra Hr Cost"> 
+                                <input type="text" name="carzListingDetails[]" value=""   id="carzExtraHrCost" class="form-control carzListingDetails" placeholder="Extra Hr Cost"> 
+                            </div>
+                            <div class="form-group col-sm-2 carzListingDetails">
+                                <label class="carzListingDetails"><strong>Driver Cost</strong></label>
+                                <input type="text"  name="carzListingDetails[]" value="" id="carzDriverCost" class="form-control carzListingDetails" placeholder="Driver Cost"> 
                             </div>
 
 
-
-                            <h4 class="box-title">Vendor Listing Details</h4>
-                            <div class="form-group col-sm-2 vendorListingDetails">
-                                <label class="vendorListingDetails"><strong>Min Kms</strong></label>
-                                <input type="text" required="true" name="vendorListingDetails[]" id="vendorMinKm" value="" class="form-control vendorListingDetails" placeholder="Min Kms"> 
-                            </div>
-
-                            <div class="form-group col-sm-2 vendorListingDetails">
-                                <label class="vendorListingDetails"><strong>Min hrs</strong></label>
-                                <input type="text" required="true" name="vendorListingDetails[]" value="" id="vendorMinHr" class="form-control vendorListingDetails" placeholder="Min Hrs"> 
-                            </div>
-
-                            <div class="form-group col-sm-2 vendorListingDetails">
-                                <label class="vendorListingDetails"><strong>Base Cost</strong></label>
-                                <input type="text" required="true" name="vendorListingDetails[]" value="" id="vendorBaseCost" class="form-control vendorListingDetails" placeholder="Base Cost"> 
-                            </div>
-                            <div class="form-group col-sm-2 vendorListingDetails">
-                                <label class="vendorListingDetails"><strong>Driver Cost</strong></label>
-                                <input type="text" required="true" name="vendorListingDetails[]" value="" id="vendorDriverCost" class="form-control vendorListingDetails" placeholder="Driver Cost"> 
-                            </div>
-
-                            <div class="form-group col-sm-2 vendorListingDetails">
-                                <label class="vendorListingDetails"><strong>Extra Km Cost</strong></label>
-                                <input type="text" required="true" name="vendorListingDetails[]" value="" id="vendorExtraKmCost" class="form-control vendorListingDetails" placeholder="Extra Km Cost"> 
-                            </div>
-
-                            <div class="form-group col-sm-2 vendorListingDetails">
-                                <label class="vendorListingDetails"><strong>Extra Hr Cost</strong></label>
-                                <input type="text" required="true" name="vendorListingDetails[]" value=""   id="vendorExtraHrCost" class="form-control vendorListingDetails" placeholder="Extra Hr Cost"> 
-                            </div>
 
 
 
                             <div class="bb od-2">
-                                <h4 class="box-title">Vendor Allocation Details</h4>
+                                <h4 class="box-title">Vendor Allocation and  Listing Details</h4>
                                 <div class="form-group col-sm-3 ">
                                     <label class="venderlabel" >Vendors </label>
                                     <select class="form-control select_vender_name"  required="true" id="vendersName" name="vendersName" placeholder="Please Select">
@@ -206,6 +177,70 @@
                                         <option> </option>
                                     </select>
                                 </div>
+
+
+
+                                <div class="form-group col-sm-2 vendorListingDetails">
+                                    <label class="vendorListingDetails"><strong>Min Kms</strong></label>
+                                    <input type="text" required="true" name="vendorListingDetails[]" id="vendorMinKm" value="" class="form-control vendorListingDetails" placeholder="Min Kms"> 
+                                </div>
+
+                                <div class="form-group col-sm-2 vendorListingDetails">
+                                    <label class="vendorListingDetails"><strong>Min hrs</strong></label>
+                                    <input type="text" required="true" name="vendorListingDetails[]" value="" id="vendorMinHr" class="form-control vendorListingDetails" placeholder="Min Hrs"> 
+                                </div>
+
+                                <div class="form-group col-sm-2 vendorListingDetails">
+                                    <label class="vendorListingDetails"><strong>Base Cost</strong></label>
+                                    <input type="text" required="true" name="vendorListingDetails[]" value="" id="vendorBaseCost" class="form-control vendorListingDetails" placeholder="Base Cost"> 
+                                </div>
+
+
+                                <div class="form-group col-sm-2 vendorListingDetails">
+                                    <label class="vendorListingDetails"><strong>Extra Km Cost</strong></label>
+                                    <input type="text" name="vendorListingDetails[]" value="" id="vendorExtraKmCost" class="form-control vendorListingDetails" placeholder="Extra Km Cost"> 
+                                </div>
+
+                                <div class="form-group col-sm-2 vendorListingDetails">
+                                    <label class="vendorListingDetails"><strong>Extra Hr Cost</strong></label>
+                                    <input type="text"  name="vendorListingDetails[]" value=""   id="vendorExtraHrCost" class="form-control vendorListingDetails" placeholder="Extra Hr Cost"> 
+                                </div>
+
+                                <div class="form-group col-sm-2 vendorListingDetails">
+                                    <label class="vendorListingDetails"><strong>Driver Cost</strong></label>
+                                    <input type="text"  name="vendorListingDetails[]" value="" id="vendorDriverCost" class="form-control vendorListingDetails" placeholder="Driver Cost"> 
+                                </div>
+
+
+                                <div class="form-group col-sm-2 vendorPrepaidBookingAmt">
+                                    <label class="vendorPrepaidBookingAmt"><strong>Advance Given</strong></label>
+                                    <input type="text"  name="vendor_prepaid_booking_amt" value="" id="vendorPrepaidBookingAmt" class="form-control vendorPrepaidBookingAmt" placeholder="Prepaid Amount"> 
+                                </div>
+
+                                <div class="form-group col-sm-2 vendorExtraCharges">
+                                    <label class="vendorExtraCharges"><strong> Extra Charges</strong></label>
+                                    <input type="text"  name="vendor_extra_charges" value="" id="vendorExtraCharges" class="form-control vendorExtraCharges" placeholder="Vendor Extra Charges"> 
+                                </div>
+
+
+                                <div class="form-group col-sm-2 vendorRemarks">
+                                    <label class="vendorRemarks"><strong> Remarks</strong></label>
+                                    <input type="text"  name="vendor_remarks" value="" id="vendorRemarks" class="form-control vendorExtraCharges" placeholder="Vendor Remarks"> 
+                                </div>
+
+                                <div class="form-group col-sm-2 vendorDiscount">
+                                    <label class="vendorDiscount"><strong> Discount(Rs.)</strong></label>
+                                    <input type="text"  name="vendor_discount" value="" id="vendorDiscount" class="form-control vendorDiscount" placeholder="Vendor Discount"> 
+                                </div>
+
+                                <div class="form-group col-sm-2 vendorServiceTax">
+                                    <label class="vendorServiceTax"><strong> Service Tax (%)</strong></label>
+                                    <input type="text"  name="vendor_service_tax" value="" id="vendorServiceTax" class="form-control vendorServiceTax" placeholder="Vendor Service Tax"> 
+                                </div>
+
+
+
+
                             </div>
 
 
@@ -238,17 +273,17 @@
 
                                 <div class="form-group col-sm-2 toll_div">
                                     <label class="labelToll"><strong>Toll</strong></label>
-                                    <input type="text" required="true" name="toll" value="" class="form-control toll" placeholder="Toll"> 
+                                    <input type="text"  name="toll" value="" class="form-control toll" placeholder="Toll"> 
                                 </div>
 
                                 <div class="form-group col-sm-2 permit_div ">
                                     <label class="labelPermit"><strong>Permit</strong></label>
-                                    <input type="text" required="true" name="permit" value="" class="form-control permit" placeholder="Permit"> 
+                                    <input type="text"  name="permit" value="" class="form-control permit" placeholder="Permit"> 
                                 </div>
 
                                 <div class="form-group col-sm-2 parking_div">
                                     <label class="labelParking"><strong>Parking</strong></label>
-                                    <input type="text" required="true" name="parking" value="" class="form-control Parking" placeholder="Parking"> 
+                                    <input type="text"  name="parking" value="" class="form-control Parking" placeholder="Parking"> 
                                 </div>
 
                                 <div class="form-group col-sm-2 extras_div">
@@ -263,12 +298,12 @@
 
                                 <div class="form-group col-sm-3 discount_div">
                                     <label class="labelDiscount"><strong>Discount(Value in Rs.)</strong></label>
-                                    <input type="text" name="discount" required="true" value="" class="form-control discount" placeholder="Discount"> 
+                                    <input type="text" name="discount"  value="" class="form-control discount" placeholder="Discount"> 
                                 </div>
 
                                 <div class="form-group col-sm-3 service_tax_div">
                                     <label class="labelRemark"><strong>Service Tax(%)</strong></label>
-                                    <input type="text" required="true" name="serviceTax" value="" class="form-control serviceTax" placeholder="Service Tax"> 
+                                    <input type="text"  name="serviceTax" value="" class="form-control serviceTax" placeholder="Service Tax"> 
                                 </div>
 
                                 <div class="form-group col-sm-3 upload_div">
@@ -338,7 +373,16 @@
                                     <th>extra remarks</th>
 
                                     <th>carz Details</th>
-                                      <th>vendor Details</th>
+                                    <th>vendor Details</th>
+
+
+                                    <th>vendor prepaid amt</th>
+                                    <th>vendor extra charges</th>
+                                    <th>vendor remarks</th>
+                                    <th>vendor discount</th>
+                                    <th>vendor service tax</th>
+
+
 
                                     <th></th>
 
@@ -392,7 +436,24 @@
 
                                     <td>{{ $order->carz_listing_details }}</td>
 
-                                       <td>{{ $order->vendor_listing_details }}</td>
+                                    <td>{{ $order->vendor_listing_details }}</td>
+
+
+
+
+                                    <td>{{ $order->vendor_prepaid_amt }}</td>
+
+                                    <td>{{ $order->vendor_extra_charges }}</td>
+                                    <td>{{ $order->vendor_remarks }}</td>
+
+                                    <td>{{ $order->vendor_discount }}</td>
+
+                                    <td>{{ $order->vendor_service_tax }}</td>
+
+
+
+
+
                                     <td>
                                         <a href="javascript:void();" class="orderEdit" data-id="{{$order->id}}" title="Edit Order Details" ><i class="fa fa-edit"> </i></a>
                                         {{HTML::linkAction('order_view', '', $order->id, array("title"=>"View Order Details","class"=>"fa fa-calendar-o")) }}
@@ -419,7 +480,12 @@
     var carzListing;
     var vendorListing;
     var id = "";
+    
+
     jQuery(document).ready(function($) {
+        
+        
+
 
         $(document).on("focus", ".datepickerz", function() {
 
@@ -488,17 +554,29 @@
             $("#carzMinKm").val(carzListing[0]);
             $("#carzMinHr").val(carzListing[1]);
             $("#carzBaseCost").val(carzListing[2]);
-            $("#carzDriverCost").val(carzListing[3]);
-            $("#carzExtraKmCost").val(carzListing[4]);
-            $("#carzExtraHrCost").val(carzListing[5]);
-            
-              var vendorListing = jQuery.parseJSON($("tr[data-tr='" + id + "'] td").eq(31).text())
+
+            $("#carzExtraKmCost").val(carzListing[3]);
+            $("#carzExtraHrCost").val(carzListing[4])
+            $("#carzDriverCost").val(carzListing[5]);
+            ;
+
+            var vendorListing = jQuery.parseJSON($("tr[data-tr='" + id + "'] td").eq(31).text())
             $("#vendorMinKm").val(vendorListing[0]);
             $("#vendorMinHr").val(vendorListing[1]);
             $("#vendorBaseCost").val(vendorListing[2]);
-            $("#vendorDriverCost").val(vendorListing[3]);
-            $("#vendorExtraKmCost").val(vendorListing[4]);
-            $("#vendorExtraHrCost").val(vendorListing[5]);
+
+            $("#vendorExtraKmCost").val(vendorListing[3]);
+            $("#vendorExtraHrCost").val(vendorListing[4]);
+            $("#vendorDriverCost").val(vendorListing[5]);
+            
+  $("form#orderForm input[name='vendor_prepaid_booking_amt']").val($("tr[data-tr='" + id + "'] td").eq(32).text());
+  $("form#orderForm input[name='vendor_extra_charges']").val($("tr[data-tr='" + id + "'] td").eq(33).text());
+  $("form#orderForm input[name='vendor_remarks']").val($("tr[data-tr='" + id + "'] td").eq(34).text());
+  $("form#orderForm input[name='vendor_discount']").val($("tr[data-tr='" + id + "'] td").eq(35).text());
+  $("form#orderForm input[name='vendor_service_tax']").val($("tr[data-tr='" + id + "'] td").eq(36).text());
+
+            
+            
 
             if ($("tr[data-tr='" + id + "'] td").eq(28).attr("data-value") != "") {
                 getVendorListing($("tr[data-tr='" + id + "'] td").eq(28).attr("data-value"), $("tr[data-tr='" + id + "'] td").eq(12).attr("data-value"));
@@ -665,27 +743,44 @@
                 $("#carzMinKm").val(carzListing[0]["min_kms"]);
                 $("#carzMinHr").val(carzListing[0]["min_hrs"]);
                 $("#carzBaseCost").val(carzListing[0]["base_cost"]);
-                $("#carzDriverCost").val(carzListing[0]["driver_cost"]);
+
                 $("#carzExtraKmCost").val(carzListing[0]["extra_km_cost"]);
                 $("#carzExtraHrCost").val(carzListing[0]["extra_hr_cost"]);
+                $("#carzDriverCost").val(carzListing[0]["driver_cost"]);
+
 
             });
-            
-               $.get(document.location.origin + "/admin/vendor_listing_details/" + value, function(data) {
-                vendorListing = jQuery.parseJSON(data);
-                //  alert(carzListing);
-                $("#vendorMinKm").val(vendorListing[0]["min_kms"]);
-                $("#vendorMinHr").val(vendorListing[0]["min_hrs"]);
-                $("#vendorBaseCost").val(vendorListing[0]["base_cost"]);
-                $("#vendorDriverCost").val(vendorListing[0]["driver_cost"]);
-                $("#vendorExtraKmCost").val(vendorListing[0]["extra_km_cost"]);
-                $("#vendorExtraHrCost").val(vendorListing[0]["extra_hr_cost"]);
 
-            });
-            
+
+
+        });
+        
+    $("#carz_Listing").select2();
+    
+    $("#venderListing").select2();
+    
+
+    });
+
+
+    $(document).on("change", ".select_venderListing", function() {
+        var value = $(this).val();
+        $.get(document.location.origin + "/admin/vendor_listing_details/" + value, function(data) {
+            vendorListing = jQuery.parseJSON(data);
+            //  alert(carzListing);
+            $("#vendorMinKm").val(vendorListing[0]["min_kms"]);
+            $("#vendorMinHr").val(vendorListing[0]["min_hrs"]);
+            $("#vendorBaseCost").val(vendorListing[0]["base_cost"]);
+
+            $("#vendorExtraKmCost").val(vendorListing[0]["extra_km_cost"]);
+            $("#vendorExtraHrCost").val(vendorListing[0]["extra_hr_cost"]);
+            $("#vendorDriverCost").val(vendorListing[0]["driver_cost"]);
+
         });
 
     });
+
+
 
     function stringToDate(s) {
         var dateParts = s.split(' ')[0].split('-');
@@ -717,6 +812,9 @@
 
             if (vid != "") {
                 $(".select_venderListing option[value='" + $("tr[data-tr='" + id + "'] td").eq(28).text() + "']").prop('selected', true);
+                
+                
+                
             }
         });
     }
@@ -737,6 +835,8 @@
 
         });
     }
+    
+    
 
 </script>
 @stop

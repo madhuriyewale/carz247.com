@@ -8,15 +8,15 @@
 
         <style>
 
-             p{
+            p{
 
                 margin: 0px;
 
                 line-height: 2em;
-				background: #ededed;
-				margin: 5px 0px;
-				padding-left: 10px; 
-				font-size:15px;
+                background: #ededed;
+                margin: 5px 0px;
+                padding-left: 10px; 
+                font-size:15px;
 
             }
 
@@ -27,8 +27,8 @@
                 margin: auto;
 
                 font-family: verdana;
-				
-				border: 1px solid #ccc;
+
+                border: 1px solid #ccc;
 
             }
 
@@ -37,9 +37,9 @@
                 text-align: center;
 
                 padding: 20px;
-				
-/*				background: #ededed;
-*/
+
+                /*				background: #ededed;
+                */
             }
 
             div#info div {
@@ -58,7 +58,7 @@
 
             }
 
-			  div#rtInfo {
+            div#rtInfo {
 
                 float: left;
 
@@ -89,8 +89,8 @@
                 border: 1px solid #ccc;
 
                 padding: 10px;
-				
-				font-size:14px;
+
+                font-size:14px;
 
             }
 
@@ -99,30 +99,30 @@
                 text-align: center;
 
             }
-			.btn{display: inline-block;
-			padding: 6px 12px;
-			margin-bottom: 0;
-			font-size: 14px;
-			font-weight: normal;
-			line-height: 1.428571429;
-			text-align: center;
-			white-space: nowrap;
-			vertical-align: middle;
-			cursor: pointer;
-			background-image: none;
-			text-decoration:none;
-			color:#fff;
-			font-family: verdana;
-			}
-			.btn.btn-default:hover, .btn.btn-default:active, .btn.btn-default.hover{background-color: #367fa9 !important;}
-			.btn.btn-default {
-			background-color: #3c8dbc;
-			color: #fff;
-			border-color: #367fa9 ;
-			border-bottom-color: #ddd;
-			border-radius: 3px;
-			}
-			
+            .btn{display: inline-block;
+                 padding: 6px 12px;
+                 margin-bottom: 0;
+                 font-size: 14px;
+                 font-weight: normal;
+                 line-height: 1.428571429;
+                 text-align: center;
+                 white-space: nowrap;
+                 vertical-align: middle;
+                 cursor: pointer;
+                 background-image: none;
+                 text-decoration:none;
+                 color:#fff;
+                 font-family: verdana;
+            }
+            .btn.btn-default:hover, .btn.btn-default:active, .btn.btn-default.hover{background-color: #367fa9 !important;}
+            .btn.btn-default {
+                background-color: #3c8dbc;
+                color: #fff;
+                border-color: #367fa9 ;
+                border-bottom-color: #ddd;
+                border-radius: 3px;
+            }
+
 
 
 
@@ -183,13 +183,15 @@
                 <div id="rtInfo">
                     <p style="border-left: 1px solid #ccc;">Invoice No: <strong> {{ $bookingData[0]['id'];  }} </strong></p>
 
-                    <p style="border-left: 1px solid #ccc;">Date: <?php echo date('d-m-Y'); ?></p>
-
                     <p style="border-left: 1px solid #ccc;">
 
                         <span class="slp">Duty Slip No: {{ $bookingData[0]['id'];  }}</span>
 
                     </p>
+
+                    <p style="border-left: 1px solid #ccc;">Date: <?php echo date('d-m-Y'); ?></p>
+
+
 
                 </div>
 
@@ -265,7 +267,7 @@
 
                     <tr>
 
-                        <td>Extra Charges</td>
+                        <td>Extra Charges {{ ($bookingData[0]['vendor_remarks'])=="" ? "":"(".($bookingData[0]['vendor_remarks']).")"; }}</td>
 
                         <td></td>
 
@@ -323,7 +325,7 @@
 
                     </tr>
 
-                     <tr style="background:#ededed;">
+                    <tr style="background:#ededed;">
 
                         <td><strong>Grand Total</strong></td>
 
@@ -355,7 +357,7 @@
 
                         <td colspan="3" rowspan="2" style="vertical-align: bottom;">
 
-                            <p style="text-align: right;font-weight: bold; background:none;">FOR CARZ247 SOLUTIONS PVT. LTD</p>
+                            <p style="text-align: center;font-weight: bold; background:none;">FOR {{ $bookingData[0]['venders_name']; }}</p>
 
                         </td>
 

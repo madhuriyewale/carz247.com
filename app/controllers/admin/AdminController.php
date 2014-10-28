@@ -101,13 +101,15 @@ class AdminController extends BaseController {
 
         $categories = new Category();
         $categories->category = Input::get('category');
-         $categories->status = Input::get('status');
+        $categories->status = Input::get('status');
         $categories->cars = json_encode(explode(",", Input::get('cars')));
         $categories->seats = Input::get('seats');
-        $destinationPath = public_path() . '/frontend/images/car-uploads/';
-        $fileName = date("YmdHis") . "." . Input::file('image')->getClientOriginalExtension();
+
 
         if (Input::hasFile('image')) {
+
+            $destinationPath = public_path() . '/frontend/images/car-uploads/';
+            $fileName = date("YmdHis") . "." . Input::file('image')->getClientOriginalExtension();
             $upload_success = Input::file('image')->move($destinationPath, $fileName);
             if ($upload_success) {
                 $categories->image = $fileName;
@@ -191,7 +193,7 @@ class AdminController extends BaseController {
     public function category_edit() {
         $categories = Category::find(Input::get("id"));
         $categories->category = Input::get('category');
-         $categories->status = Input::get('status');
+        $categories->status = Input::get('status');
         $categories->cars = json_encode(explode(",", Input::get('cars')));
         $categories->seats = Input::get('seats');
 
@@ -312,13 +314,13 @@ class AdminController extends BaseController {
 
     public function carz_listing_details($id) {
 
-        $carzListingDetails = Listing::where("id", "=", $id)->get(['min_kms', 'min_hrs', 'base_cost', 'driver_cost', 'extra_km_cost', 'extra_hr_cost'])->toArray();
+        $carzListingDetails = Listing::where("id", "=", $id)->get(['min_kms', 'min_hrs', 'base_cost', 'extra_km_cost', 'extra_hr_cost', 'driver_cost'])->toArray();
 
         echo json_encode($carzListingDetails);
     }
 
     public function vendor_listing_details($id) {
-        $vendorListingDetails = VenderListing::where("id", "=", $id)->get(['min_kms', 'min_hrs', 'base_cost', 'driver_cost', 'extra_km_cost', 'extra_hr_cost'])->toArray();
+        $vendorListingDetails = VenderListing::where("id", "=", $id)->get(['min_kms', 'min_hrs', 'base_cost', 'extra_km_cost', 'extra_hr_cost', 'driver_cost'])->toArray();
         echo json_encode($vendorListingDetails);
     }
 
@@ -348,7 +350,7 @@ class AdminController extends BaseController {
 
         $customers = Customer::all();
         $localities = Locality::orderBy('locality', 'asc')->get();
-        $venders = Vender::all();
+        $venders = Vender::orderBy('venders_name', 'asc')->get();
         $listings = Listing::leftJoin("services", "services.id", "=", "listings.service_id")
                         ->leftJoin("cities", "cities.id", "=", "listings.city_id")
                         ->leftJoin("packages", "packages.id", "=", "listings.package_id")
@@ -427,6 +429,12 @@ class AdminController extends BaseController {
         $order->vender_id = Input::get('vendersName');
         $order->vender_listing_id = Input::get('venderListing');
 
+        $order->vendor_prepaid_amt = Input::get('vendor_prepaid_booking_amt');
+        $order->vendor_extra_charges = Input::get('vendor_extra_charges');
+        $order->vendor_remarks = Input::get('vendor_remarks');
+        $order->vendor_discount = Input::get('vendor_discount');
+        $order->vendor_service_tax = Input::get('vendor_service_tax');
+
         $order->drivers = Input::get('venderDrivers');
         $order->cars = Input::get('vendersCars');
         $order->extras = Input::get("extraHrs")[0];
@@ -487,6 +495,13 @@ class AdminController extends BaseController {
         $orderUpdate->booking_status = Input::get("booking_status");
         $orderUpdate->vender_id = Input::get("vendersName");
         $orderUpdate->vender_listing_id = Input::get('venderListing');
+
+        $orderUpdate->vendor_prepaid_amt = Input::get('vendor_prepaid_booking_amt');
+        $orderUpdate->vendor_extra_charges = Input::get('vendor_extra_charges');
+        $orderUpdate->vendor_remarks = Input::get('vendor_remarks');
+        $orderUpdate->vendor_discount = Input::get('vendor_discount');
+        $orderUpdate->vendor_service_tax = Input::get('vendor_service_tax');
+
 
         $orderUpdate->drivers = Input::get("venderDrivers");
         $orderUpdate->cars = Input::get("vendersCars");

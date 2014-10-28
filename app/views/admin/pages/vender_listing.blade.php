@@ -74,7 +74,7 @@
 
                             <div class="form-group">
                                 <label>Package</label>
-                                <select class="form-control"  name="package" required="true">
+                                <select class="form-control"  name="package">
                                     <option value="">Please Select</option>
                                     @foreach ($packages as $package)
                                     <option value="{{ $package->id }}" >{{ $package->package }}</option>

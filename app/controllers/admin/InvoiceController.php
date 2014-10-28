@@ -137,13 +137,13 @@ class InvoiceController extends BaseController {
 
             $recieptCont .= "<tr>
 
-                                <td>Extra km above " . $carz_listing_details_data[0] . " kms /- Day @ Rs." . $carz_listing_details_data[4] . " / km </td>
+                                <td>Extra km above " . $carz_listing_details_data[0] . " kms /- Day @ Rs." . $carz_listing_details_data[3] . " / km </td>
 
                                 <td class = 'cnt'>$kmz</td>
 
                                 <td class = 'cnt'>-</td>
 
-                                <td>" . $kc = $kmz * $carz_listing_details_data[4] . "</td>
+                                <td>" . $kc = $kmz * $carz_listing_details_data[3] . "</td>
 
                             </tr>";
 
@@ -151,13 +151,13 @@ class InvoiceController extends BaseController {
 
             $recieptCont .= "<tr>
 
-                                <td>Extra hrs above " . $carz_listing_details_data[0] . " hrs /- Day @ Rs." . $carz_listing_details_data[5] . " / -hrs</td>
+                                <td>Extra hrs above " . $carz_listing_details_data[2] . " hrs /- Day @ Rs." . $carz_listing_details_data[4] . " / hrs</td>
 
                                 <td class = 'cnt'>-</td>
 
                                 <td class = 'cnt'>$hrz Hour/s</td>
 
-                                <td>" . $hc = $hrz * $carz_listing_details_data[5] . "</td>
+                                <td>" . $hc = $hrz * $carz_listing_details_data[4] . "</td>
 
                             </tr>";
 
@@ -194,13 +194,13 @@ class InvoiceController extends BaseController {
 
             $recieptCont .= "<tr>
 
-                                <td>Extra km above " . $carz_listing_details_data[0] . " kms @ Rs." . $carz_listing_details_data[4] . " / km </td>
+                                <td>Extra km above " . $carz_listing_details_data[0] . " kms @ Rs." . $carz_listing_details_data[3] . " / km </td>
 
                                 <td class = 'cnt'>" . ($kmsTravelled > 0 ? $kmsTravelled : 0) . "</td>
 
                                 <td class = 'cnt'>-</td>
 
-                                <td>" . $kc = $kmsTravelled * $carz_listing_details_data[4] . "</td>
+                                <td>" . $kc = $kmsTravelled * $carz_listing_details_data[3] . "</td>
 
                             </tr>";
 
@@ -210,13 +210,13 @@ class InvoiceController extends BaseController {
 
             $recieptCont .= "<tr>
 
-                                <td>Extra hrs above " . $carz_listing_details_data[1] . " hrs  @ Rs." . $carz_listing_details_data[5] . " / -hrs</td>
+                                <td>Extra hrs above " . $carz_listing_details_data[1] . " hrs  @ Rs." . $carz_listing_details_data[4] . " / hrs</td>
 
                                 <td class = 'cnt'>-</td>
 
                                 <td class = 'cnt'>" . ($hrsTravelled > 0 ? $hrsTravelled : 0) . " Hours</td>
 
-                                <td>" . $hc = $hrsTravelled * $carz_listing_details_data[5] . "</td>
+                                <td>" . $hc = ($hrsTravelled > 0 ? $hrsTravelled : 0) * $carz_listing_details_data[4] . "</td>
 
                             </tr>";
 
@@ -235,7 +235,7 @@ class InvoiceController extends BaseController {
 
             $kmsTravelled = $kms - $carz_listing_details_data[0] * $days;
 
-            $amount = ($kmsTravelled <= 0 ? $carz_listing_details_data[0] * $days : $kms ) * $carz_listing_details_data[4] + $days * $carz_listing_details_data[3];
+            $amount = ($kmsTravelled <= 0 ? $carz_listing_details_data[0] * $days : $kms ) * $carz_listing_details_data[3] + $days * $carz_listing_details_data[5];
 
 
 
@@ -257,7 +257,7 @@ class InvoiceController extends BaseController {
 
                                 <td class = 'cnt'>" . $days . " Days</td>
 
-                                <td>" . $bc = ($carz_listing_details_data[0] * $days * $carz_listing_details_data[4] ) + $carz_listing_details_data[3] * $days . "</td>
+                                <td>" . $bc = ($carz_listing_details_data[0] * $days * $carz_listing_details_data[3] ) + $carz_listing_details_data[5] * $days . "</td>
 
                             </tr>";
 
@@ -265,13 +265,13 @@ class InvoiceController extends BaseController {
 
             $recieptCont .= "<tr>
 
-                                <td>Extra km above " . $carz_listing_details_data[0] . " kms /- Day @ Rs." . $carz_listing_details_data[4] . " / km </td>
+                                <td>Extra km above " . $carz_listing_details_data[0] . " kms /- Day @ Rs." . $carz_listing_details_data[3] . " / km </td>
 
                                 <td class = 'cnt'>" . ($kmsTravelled > 0 ? $kmsTravelled : 0) . "</td>
 
                                 <td class = 'cnt'>-</td>
 
-                                <td>" . $kc = $kmsTravelled * $carz_listing_details_data[4] . "</td>
+                                <td>" . $kc = $kmsTravelled * $carz_listing_details_data[3] . "</td>
 
                             </tr>";
 
@@ -332,13 +332,11 @@ class InvoiceController extends BaseController {
 
 
 //dd($vendor_listing_details_data[0]);
-        $discount = $bookingData[0]["discount"];
-
-        $st = $bookingData[0]["service_tax"];
-
-        $prepaid = $bookingData[0]["cost"];
-
-        $extra = $bookingData[0]["extras"];
+        $discount = $bookingData[0]["vendor_discount"];
+        $st = $bookingData[0]["vendor_service_tax"];
+        $prepaid = $bookingData[0]["vendor_prepaid_amt"];
+        $extra = $bookingData[0]["vendor_extra_charges"];
+        
 
         $toll = $bookingData[0]["toll"];
 
@@ -425,13 +423,13 @@ class InvoiceController extends BaseController {
 
             $recieptCont .= "<tr>
 
-                                <td>Extra km above " . $vendor_listing_details_data[0] . " kms /- Day @ Rs." . $vendor_listing_details_data[4] . " / km </td>
+                                <td>Extra km above " . $vendor_listing_details_data[0] . " kms /- Day @ Rs." . $vendor_listing_details_data[3] . " / km </td>
 
                                 <td class = 'cnt'>$kmz</td>
 
                                 <td class = 'cnt'>-</td>
 
-                                <td>" . $kc = $kmz * $vendor_listing_details_data[4] . "</td>
+                                <td>" . $kc = $kmz * $vendor_listing_details_data[3] . "</td>
 
                             </tr>";
 
@@ -439,13 +437,13 @@ class InvoiceController extends BaseController {
 
             $recieptCont .= "<tr> 
 
-                                <td>Extra hrs above " . $vendor_listing_details_data[1] . " hrs /- Day @ Rs." . $vendor_listing_details_data[5] . " / -hrs</td>
+                                <td>Extra hrs above " . $vendor_listing_details_data[1] . " hrs /- Day @ Rs." . $vendor_listing_details_data[4] . " / hrs</td>
 
                                 <td class = 'cnt'>-</td>
 
                                 <td class = 'cnt'>$hrz Hour/s</td>
 
-                                <td>" . $hc = $hrz * $vendor_listing_details_data[5] . "</td>
+                                <td>" . $hc = $hrz * $vendor_listing_details_data[4] . "</td>
 
                             </tr>";
 
@@ -482,13 +480,13 @@ class InvoiceController extends BaseController {
 
             $recieptCont .= "<tr>
 
-                                <td>Extra km above " . $vendor_listing_details_data[0] . " kms @ Rs." . $vendor_listing_details_data[4] . " / km </td>
+                                <td>Extra km above " . $vendor_listing_details_data[0] . " kms @ Rs." . $vendor_listing_details_data[3] . " / km </td>
 
                                 <td class = 'cnt'>" . ($kmsTravelled > 0 ? $kmsTravelled : 0) . "</td>
 
                                 <td class = 'cnt'>-</td>
 
-                                <td>" . $kc = $kmsTravelled * $vendor_listing_details_data[4] . "</td>
+                                <td>" . $kc = $kmsTravelled * $vendor_listing_details_data[3] . "</td>
 
                             </tr>";
 
@@ -498,13 +496,13 @@ class InvoiceController extends BaseController {
 
             $recieptCont .= "<tr>
 
-                                <td>Extra hrs above " . $vendor_listing_details_data[1] . " hrs  @ Rs." . $vendor_listing_details_data[5] . " / -hrs</td>
+                                <td>Extra hrs above " . $vendor_listing_details_data[1] . " hrs  @ Rs." . $vendor_listing_details_data[4] . " / hrs</td>
 
                                 <td class = 'cnt'>-</td>
 
                                 <td class = 'cnt'>" . ($hrsTravelled > 0 ? $hrsTravelled : 0) . " Hours</td>
 
-                                <td>" . $hc = $hrsTravelled * $vendor_listing_details_data[5] . "</td>
+                                <td>" . $hc = ($hrsTravelled > 0 ? $hrsTravelled : 0) * $vendor_listing_details_data[4] . "</td>
 
                             </tr>";
 
@@ -523,7 +521,7 @@ class InvoiceController extends BaseController {
 
             $kmsTravelled = $kms - $vendor_listing_details_data[0] * $days;
 
-            $amount = ($kmsTravelled <= 0 ? $vendor_listing_details_data[0] * $days : $kms ) * $vendor_listing_details_data[4] + $days * $vendor_listing_details_data[3];
+            $amount = ($kmsTravelled <= 0 ? $vendor_listing_details_data[0] * $days : $kms ) * $vendor_listing_details_data[3] + $days * $vendor_listing_details_data[5];
 
 
 
@@ -545,7 +543,7 @@ class InvoiceController extends BaseController {
 
                                 <td class = 'cnt'>" . $days . " Days</td>
 
-                                <td>" . $bc = ($vendor_listing_details_data[0] * $days * $vendor_listing_details_data[4] ) + $vendor_listing_details_data[3] * $days . "</td>
+                                <td>" . $bc = ($vendor_listing_details_data[0] * $days * $vendor_listing_details_data[3] ) + $vendor_listing_details_data[5] * $days . "</td>
 
                             </tr>";
 
@@ -553,13 +551,13 @@ class InvoiceController extends BaseController {
 
             $recieptCont .= "<tr>
 
-                                <td>Extra km above " . $vendor_listing_details_data[0] . " kms /- Day @ Rs." . $vendor_listing_details_data[4] . " / km </td>
+                                <td>Extra km above " . $vendor_listing_details_data[0] . " kms /- Day @ Rs." . $vendor_listing_details_data[3] . " / km </td>
 
                                 <td class = 'cnt'>" . ($kmsTravelled > 0 ? $kmsTravelled : 0) . "</td>
 
                                 <td class = 'cnt'>-</td>
 
-                                <td>" . $kc = $kmsTravelled * $vendor_listing_details_data[4] . "</td>
+                                <td>" . $kc = $kmsTravelled * $vendor_listing_details_data[3] . "</td>
 
                             </tr>";
 

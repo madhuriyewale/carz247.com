@@ -18,6 +18,8 @@
 
 {{ HTML::style('public/admin/css/morris/morris.css'); }}
 
+
+
 {{ HTML::style('public/admin/css/morris/morris.css'); }}
 <link href="//code.jquery.com/ui/1.11.1/themes/pepper-grinder/jquery-ui.css" rel="stylesheet" />
 
@@ -27,6 +29,11 @@
 <script src="//code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
 {{ HTML::script('public/admin/js/jquery-ui-timepicker-addon.js'); }}
 
+
+
+{{ HTML::script('public/admin/js/plugins/select2.js'); }}
+
+{{ HTML::style('public/admin/css/select2.css'); }}
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

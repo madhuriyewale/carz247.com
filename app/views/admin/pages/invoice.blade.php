@@ -266,13 +266,13 @@
 
                     <tr>
 
-                        <td>Extra Charges</td>
+                        <td>Extra Charges {{ ($bookingData[0]['extra_remarks'])=="" ? "":"(".($bookingData[0]['extra_remarks']).")"; }}</td>
+
+                        <td></td>   
 
                         <td></td>
 
-                        <td></td>
-
-                        <td>{{ @number_format($extra) }}</td>
+                        <td>{{ @number_format($extra) }}  </td>
 
                     </tr>
 

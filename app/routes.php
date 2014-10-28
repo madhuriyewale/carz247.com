@@ -31,6 +31,11 @@ return View::make('frontend.pages.privacy_policy');
 
 
 Route::get('/partner-with-us', array('as' => 'partner-with-us', 'uses' => 'PagesController@partner_with_us'));
+
+Route::get('/international-booking', array('as' => 'international-booking', 'uses' => 'InternationalBookingController@international_bookings'));
+Route::get('/international-listings', array('as' => 'international-listings', 'uses' => 'InternationalBookingController@international_listings'));
+
+
 Route::post('/save_partner', array('as' => 'save_partner', 'uses' => 'PagesController@save_partner'));
 
 Route::get('/contact', array('as' => 'contact', 'uses' => 'PagesController@contact'));
