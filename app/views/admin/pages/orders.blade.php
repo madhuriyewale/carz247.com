@@ -296,34 +296,25 @@
                                     <input type="text" name="extraRemark" value="" class="form-control extraRemark" placeholder="Extra Charges Remark"> 
                                 </div>
                                 <div class="clearfix "></div>
-                                <div class="form-group col-sm-2 discount_div">
+                                <div class="form-group col-sm-3 discount_div">
                                     <label class="labelDiscount"><strong>Discount(Rs.)</strong></label>
                                     <input type="text" name="discount"  value="" class="form-control discount" placeholder="Discount"> 
                                 </div>
 
-                                <div class="form-group col-sm-2 service_tax_div">
+                                <div class="form-group col-sm-3 service_tax_div">
                                     <label class="labelRemark"><strong>Service Tax(%)</strong></label>
                                     <input type="text"  name="serviceTax" value="" class="form-control serviceTax" placeholder="Service Tax"> 
                                 </div>
 
-                                <div class="form-group col-sm-2 upload_div">
+                                <div class="form-group col-sm-6 upload_div">
                                     <label class="labelUpload"><strong>Order Documents</strong></label>
                                     <input type="file" name="uploadFile[]" class="form-control uploadFile" multiple="multiple"> 
                                 </div>
 
-
-
-
-                                <div class="form-group col-sm-2 totalAmtPaid">
-                                    <label class="labelTotalAmt"><strong>Total Amount Paid</strong></label>
-                                    <input type="text"  name="totalAmtPaid" value="" class="form-control totalAmtPaid" placeholder="Total Amount Paid"> 
-                                </div>
-
-
-
-                                <div class="form-group col-sm-2">
+                                <div class="clearfix "></div>
+                                <div class="form-group col-sm-3">
                                     <label>Payment Status</label>
-                                    <select class="form-control payment_status_select" id="paymentStatus" name="paymentStatus" placeholder="Please Select" required="true">
+                                    <select class="form-control payment_status_select" id="paymentStatus" name="paymentStatus" placeholder="Please Select">
                                         <option value="">Please Select</option>
                                         <option value="0">Unpaid</option>
                                         <option value="1">Partially Paid</option>
@@ -331,10 +322,16 @@
 
                                     </select>
                                 </div>
-                                <div class="clearfix "></div>
-                                <div class="form-group col-sm-12 remark_div">
+
+                                <div class="form-group col-sm-3 totalAmtPaid">
+                                    <label class="labelTotalAmt"><strong>Total Amount Paid</strong></label>
+                                    <input type="text"   name="totalAmtPaid" value="" class="form-control totalAmtPaid" placeholder="Total Amount Paid"> 
+                                </div>
+
+
+                                <div class="form-group col-sm-6 remark_div">
                                     <label class="labelRemark"><strong>Payment Details</strong></label>
-                                    <textarea  name="remark" value="" class="form-control remark" cols="10" rows="1" placeholder="Remark"> </textarea>
+                                    <textarea  style="width: 464px; height: 34px;" name="remark" value="" class="form-control remark" cols="10" rows="1" placeholder="Remark"> </textarea>
                                 </div>
                                 <div class="clearfix "></div>
 
@@ -504,7 +501,7 @@
 
     jQuery(document).ready(function($) {
 
-        $("#carz_Listing").select2();
+             $("#carz_Listing").select2();
 
         $("#venderListing").select2();
 
@@ -547,9 +544,7 @@
 
 
             $("form#orderForm select[name='customer'] option[value='" + $("tr[data-tr='" + id + "'] td").eq(1).attr("data-value") + "']").prop('selected', true);
-
-            //   $("form#orderForm select[name='listing'] option[value='" + $("tr[data-tr='" + id + "'] td").eq(2).attr("data-value") + "']").prop('selected', true);
-
+            // $("form#orderForm select[name='listing'] option[value='" + $("tr[data-tr='" + id + "'] td").eq(2).attr("data-value") + "']").prop('selected', true);
             $('#carz_Listing').select2().select2('val', $("tr[data-tr='" + id + "'] td").eq(2).attr("data-value"));
 
             $("form#orderForm input[name='pickuptime']").val($("tr[data-tr='" + id + "'] td").eq(4).text());
@@ -562,7 +557,6 @@
             $("form#orderForm select[name='booking_status'] option[value='" + $("tr[data-tr='" + id + "'] td").eq(11).attr("data-value") + "']").prop('selected', true);
             $("form#orderForm select[name='vendersName'] option[value='" + $("tr[data-tr='" + id + "'] td").eq(12).attr("data-value") + "']").prop('selected', true);
             $('#venderListing').select2().select2('val', $("tr[data-tr='" + id + "'] td").eq(28).attr("data-value"));
-
 
             $("form#orderForm input[name='startDate[]']").val($("tr[data-tr='" + id + "'] td").eq(15).attr("data-value"));
             $("form#orderForm input[name='endDate[]']").val($("tr[data-tr='" + id + "'] td").eq(16).attr("data-value"));
@@ -577,6 +571,13 @@
             $("form#orderForm input[name='permit']").val($("tr[data-tr='" + id + "'] td").eq(27).text());
 
             $("form#orderForm input[name='extraRemark']").val($("tr[data-tr='" + id + "'] td").eq(29).text());
+
+            if ($("tr[data-tr='" + id + "'] td").eq(37).text() != 0) {
+                $("form#orderForm input[name='totalAmtPaid']").val($("tr[data-tr='" + id + "'] td").eq(37).text());
+            }
+            else {
+                $("form#orderForm input[name='totalAmtPaid']").val($("tr[data-tr='" + id + "'] td").eq(6).text());
+            }
 
             var carzListing = jQuery.parseJSON($("tr[data-tr='" + id + "'] td").eq(30).text())
             $("#carzMinKm").val(carzListing[0]);
@@ -602,11 +603,7 @@
             $("form#orderForm input[name='vendor_remarks']").val($("tr[data-tr='" + id + "'] td").eq(34).text());
             $("form#orderForm input[name='vendor_discount']").val($("tr[data-tr='" + id + "'] td").eq(35).text());
             $("form#orderForm input[name='vendor_service_tax']").val($("tr[data-tr='" + id + "'] td").eq(36).text());
-
-            $("form#orderForm input[name='totalAmtPaid']").val($("tr[data-tr='" + id + "'] td").eq(37).text());
             $("form#orderForm select[name='paymentStatus'] option[value='" + $("tr[data-tr='" + id + "'] td").eq(38).attr("data-value") + "']").prop('selected', true);
-
-
 
             if ($("tr[data-tr='" + id + "'] td").eq(28).attr("data-value") != "") {
                 getVendorListing($("tr[data-tr='" + id + "'] td").eq(28).attr("data-value"), $("tr[data-tr='" + id + "'] td").eq(12).attr("data-value"));
@@ -688,7 +685,6 @@
             } else if (value == "3") {
                 $(".od-3").show();
                 $(".od-2").show();
-
 
                 if (/local/i.test($("select[name='listing'] option:selected").text()))
                 {
@@ -778,10 +774,7 @@
                 $("#carzExtraHrCost").val(carzListing[0]["extra_hr_cost"]);
                 $("#carzDriverCost").val(carzListing[0]["driver_cost"]);
 
-
             });
-
-
 
         });
 
@@ -823,8 +816,6 @@
 
     });
 
-
-
     function stringToDate(s) {
         var dateParts = s.split(' ')[0].split('-');
         var timeParts = s.split(' ')[1].split(':');
@@ -835,15 +826,10 @@
     }
 
     function check(select) {
-
         if (select.value == 0) {
             window.location.href = '{{ URL::route("users") }}?add=new'
-
         }
-
     }
-
-
 
     $(document).on("change", ".listing_class", function() {
         var lid = $(this).val();
@@ -854,7 +840,6 @@
     function getLocality(lid, eid) {
         $.get(document.location.origin + "/admin/locality_dropdown/" + lid, function(data) {
             $("#locality_id").empty().append(data);
-
             if (lid != "") {
                 $("form#orderForm select[name='locality'] option[value='" + $("tr[data-tr='" + id + "'] td").eq(3).attr("data-value") + "']").prop('selected', true);
             }

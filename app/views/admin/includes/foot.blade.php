@@ -27,11 +27,9 @@ $(function() {
     });
 
     var oTable = $('#OrdersTables').dataTable({
-        "aaSorting": [],
-        "initComplete": function(settings, json) {
-
-        }
+        "aaSorting": []
     });
+
 
     $("table#OrdersTables th:nth-child(6),table#OrdersTables td:nth-child(6)").hide();
     $("table#OrdersTables th:nth-child(8),table#OrdersTables td:nth-child(8)").hide();
@@ -56,7 +54,6 @@ $(function() {
     $("table#OrdersTables th:nth-child(30),table#OrdersTables td:nth-child(30)").hide();
     $("table#OrdersTables th:nth-child(31),table#OrdersTables td:nth-child(31)").hide();
     $("table#OrdersTables th:nth-child(32),table#OrdersTables td:nth-child(32)").hide();
-
     $("table#OrdersTables th:nth-child(33),table#OrdersTables td:nth-child(33)").hide();
     $("table#OrdersTables th:nth-child(34),table#OrdersTables td:nth-child(34)").hide();
     $("table#OrdersTables th:nth-child(35),table#OrdersTables td:nth-child(35)").hide();
@@ -67,8 +64,38 @@ $(function() {
 
 
 
-
-
+    oTable.on('draw', function() {
+        $("table#OrdersTables th:nth-child(6),table#OrdersTables td:nth-child(6)").hide();
+        $("table#OrdersTables th:nth-child(8),table#OrdersTables td:nth-child(8)").hide();
+        $("table#OrdersTables th:nth-child(9),table#OrdersTables td:nth-child(9)").hide();
+        $("table#OrdersTables th:nth-child(10),table#OrdersTables td:nth-child(10)").hide();
+        $("table#OrdersTables th:nth-child(11),table#OrdersTables td:nth-child(11)").hide();
+        $("table#OrdersTables th:nth-child(13),table#OrdersTables td:nth-child(13)").hide();
+        $("table#OrdersTables th:nth-child(14),table#OrdersTables td:nth-child(14)").hide();
+        $("table#OrdersTables th:nth-child(15),table#OrdersTables td:nth-child(15)").hide();
+        $("table#OrdersTables th:nth-child(18),table#OrdersTables td:nth-child(18)").hide();
+        $("table#OrdersTables th:nth-child(19),table#OrdersTables td:nth-child(19)").hide();
+        $("table#OrdersTables th:nth-child(20),table#OrdersTables td:nth-child(20)").hide();
+        $("table#OrdersTables th:nth-child(21),table#OrdersTables td:nth-child(21)").hide();
+        $("table#OrdersTables th:nth-child(22),table#OrdersTables td:nth-child(22)").hide();
+        $("table#OrdersTables th:nth-child(23),table#OrdersTables td:nth-child(23)").hide();
+        $("table#OrdersTables th:nth-child(24),table#OrdersTables td:nth-child(24)").hide();
+        $("table#OrdersTables th:nth-child(25),table#OrdersTables td:nth-child(25)").hide();
+        $("table#OrdersTables th:nth-child(26),table#OrdersTables td:nth-child(26)").hide();
+        $("table#OrdersTables th:nth-child(27),table#OrdersTables td:nth-child(27)").hide();
+        $("table#OrdersTables th:nth-child(28),table#OrdersTables td:nth-child(28)").hide();
+        $("table#OrdersTables th:nth-child(29),table#OrdersTables td:nth-child(29)").hide();
+        $("table#OrdersTables th:nth-child(30),table#OrdersTables td:nth-child(30)").hide();
+        $("table#OrdersTables th:nth-child(31),table#OrdersTables td:nth-child(31)").hide();
+        $("table#OrdersTables th:nth-child(32),table#OrdersTables td:nth-child(32)").hide();
+        $("table#OrdersTables th:nth-child(33),table#OrdersTables td:nth-child(33)").hide();
+        $("table#OrdersTables th:nth-child(34),table#OrdersTables td:nth-child(34)").hide();
+        $("table#OrdersTables th:nth-child(35),table#OrdersTables td:nth-child(35)").hide();
+        $("table#OrdersTables th:nth-child(36),table#OrdersTables td:nth-child(36)").hide();
+        $("table#OrdersTables th:nth-child(37),table#OrdersTables td:nth-child(37)").hide();
+        $("table#OrdersTables th:nth-child(38),table#OrdersTables td:nth-child(38)").hide();
+        $("table#OrdersTables th:nth-child(39),table#OrdersTables td:nth-child(39)").hide();
+    });
 
 });
 </script>
@@ -76,7 +103,7 @@ $(function() {
 <script>
 
     $(document).ready(function() {
-
+ 
 //cities Edit
         $(document).on("click", ".citiesEdit", function() {
             var id = $(this).attr('data-id');
