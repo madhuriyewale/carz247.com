@@ -109,117 +109,157 @@
                                         </ol>
                                     </td>
                                 </tr> 
-                            <td>Vendors Name</td>
-                            <td>{{ $orders_view[0]['venders_name']; }} </td>
-                            </tr>
-                            <tr>
-                            <tr>
-                                <td>Vendors Listing Name</td>
-                                <td>{{ $vender_listing_data[0]['city']; }}  {{ $vender_listing_data[0]['service']; }} {{ $vender_listing_data[0]['category']; }} {{ $vender_listing_data[0]['package']; }}</td>
-                            </tr>
-                            <tr>  
+                                <tr>
+                                    <td>Vendors Name</td>
+                                    <td>{{ $orders_view[0]['venders_name']; }} </td>
+                                </tr>
 
-                                <td>Drivers</td>
-                                <td>{{ $orders_view[0]['drivers']; }} </td>
-                            </tr>
+                                <tr>
+                                    <td>Vendors Listing Name</td>
+                                    <td>{{ $vender_listing_data[0]['city']; }}  {{ $vender_listing_data[0]['service']; }} {{ $vender_listing_data[0]['category']; }} {{ $vender_listing_data[0]['package']; }}</td>
+                                </tr>
 
-                            <tr>
-                                <td>Cars</td>
-                                <td>{{ $orders_view[0]['cars']; }} </td>
-                            </tr>
+                                <tr>  
+                                    <td>Vendor prepaid amount</td>
+                                    <td>{{ $orders_view[0]['vendor_prepaid_amt']; }} </td>
+                                </tr>
+                                <tr>  
+                                    <td>Vendor Extra charges</td>
+                                    <td>{{ $orders_view[0]['vendor_extra_charges']; }} </td>
+                                </tr>
 
-                            <tr>
-                                <td>Start Date</td>
-                                <td>{{ $orders_view[0]['start_date']; }} </td>
-                            </tr>
+                                <tr>  
+                                    <td>Vendor Remarks</td>
+                                    <td>{{ $orders_view[0]['vendor_remarks']; }} </td>
+                                </tr>
 
-                            <tr>
-                                <td>End Date</td>
-                                <td>{{ $orders_view[0]['end_date']; }} </td>
-                            </tr>
+                                <tr>  
+                                    <td>Vendor Discount</td>
+                                    <td>{{ $orders_view[0]['vendor_discount']; }} </td>
+                                </tr>
 
-                            <tr>
-                                <td>Start Km</td>
-                                <td>{{ $orders_view[0]['start_km']; }} </td>
-                            </tr>
+                                <tr>  
+                                    <td>Vendor Service Tax</td>
+                                    <td>{{ $orders_view[0]['vendor_service_tax']; }} </td>
+                                </tr>
 
-                            <tr>
-                                <td>End Km</td>
-                                <td>{{ $orders_view[0]['end_km']; }} </td>
-                            </tr>
+                                <tr>  
 
-                            <tr>
-                                <td>Discount</td>
-                                <td>{{ $orders_view[0]['discount']; }} </td>
-                            </tr>
-                            <tr>
-                                <td>Service tax</td>
-                                <td>{{ $orders_view[0]['service_tax']; }} </td>
-                            </tr>
-                            <tr>
-                                <td>Extras</td>
-                                <td>{{ $orders_view[0]['extras']; }} </td>
-                            </tr>
+                                    <td>Drivers</td>
+                                    <td>{{ $orders_view[0]['drivers']; }} </td>
+                                </tr>
 
-                            <tr>
-                                <td>Readings</td>
-                                <td>
-                                    <?php
-                                    $readingz = json_decode($orders_view[0]['readings'], true);
-                                    //  print_r($readingz);
-                                    $startKmData = $readingz[0]['StartKm'];
-                                    $endKmData = $readingz[1]['EndKm'];
-                                    $START_DATE = $readingz[2]['start_DATE'];
-                                    $END_DATE = $readingz[3]['end_DATE'];
-                                    ?>
-                                    <table>
-                                        <tr>
-                                            @foreach($startKmData as $startKmData1)
+                                <tr>
+                                    <td>Cars</td>
+                                    <td>{{ $orders_view[0]['cars']; }} </td>
+                                </tr>
 
-                                            <td> Start Km :- {{ $startKmData1 }}  </td>
-                                            <td></td>
+                                <tr>
+                                    <td>Start Date</td>
+                                    <td>{{ $orders_view[0]['start_date']; }} </td>
+                                </tr>
 
-                                            @endforeach
-                                        </tr><tr>
-                                            @foreach($endKmData as $endKmData1)
-                                            <td>   End Km :- {{ $endKmData1 }}</td>
-                                            <td></td>
+                                <tr>
+                                    <td>End Date</td>
+                                    <td>{{ $orders_view[0]['end_date']; }} </td>
+                                </tr>
 
-                                            @endforeach
+                                <tr>
+                                    <td>Start Km</td>
+                                    <td>{{ $orders_view[0]['start_km']; }} </td>
+                                </tr>
 
-                                        </tr><tr>
+                                <tr>
+                                    <td>End Km</td>
+                                    <td>{{ $orders_view[0]['end_km']; }} </td>
+                                </tr>
 
-                                            @foreach($START_DATE as $START_DATE1)
+                                <tr>
+                                    <td>Discount</td>
+                                    <td>{{ $orders_view[0]['discount']; }} </td>
+                                </tr>
+                                <tr>
+                                    <td>Service tax</td>
+                                    <td>{{ $orders_view[0]['service_tax']; }} </td>
+                                </tr>
+                                <tr>
+                                    <td>Extras</td>
+                                    <td>{{ $orders_view[0]['extras']; }} </td>
+                                </tr>
 
-                                            <td> Start Date:- {{ $START_DATE1 }} </td>
-                                            <td></td>
-                                            @endforeach
-                                        </tr><tr>
-                                            @foreach($END_DATE as $END_DATE1)
+                                <tr>
+                                    <td>Readings</td>
+                                    <td>
+                                        <?php
+                                        $readingz = json_decode($orders_view[0]['readings'], true);
+                                        //  print_r($readingz);
+                                        $startKmData = array_filter($readingz[0]['StartKm']);
+                                        $endKmData = array_filter($readingz[1]['EndKm']);
+                                        $START_DATE = $readingz[2]['start_DATE'];
+                                        $END_DATE = $readingz[3]['end_DATE'];
+                                        ?>
+                                        <table>
+                                            <tr>
+                                                @foreach($startKmData as $startKmData1)
 
-                                            <td>End Date:- {{ $END_DATE1 }} </td>
-                                            <td></td>
-                                            @endforeach
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Toll</td>
-                                <td>{{ $orders_view[0]['toll']; }} </td>
-                            </tr>
-                            <tr>
-                                <td>Permit</td>
-                                <td>{{ $orders_view[0]['permit']; }} </td>
-                            </tr>
-                            <tr>
-                                <td>Parking</td>
-                                <td>{{ $orders_view[0]['parking']; }} </td>
-                            </tr>
-                            <tr>
-                                <td>Remarks</td>
-                                <td>{{ $orders_view[0]['remarks']; }} </td>
-                            </tr>
+                                                <td> Start Km :- {{ $startKmData1 }}  </td>
+                                                <td></td>
+
+                                                @endforeach
+                                            </tr><tr>
+                                                @foreach($endKmData as $endKmData1)
+                                                <td>   End Km :- {{ $endKmData1 }}</td>
+                                                <td></td>
+
+                                                @endforeach
+
+                                            </tr><tr>
+
+                                                @foreach($START_DATE as $START_DATE1)
+
+                                                <td> Start Date:- {{ $START_DATE1 }} </td>
+                                                <td></td>
+                                                @endforeach
+                                            </tr><tr>
+                                                @foreach($END_DATE as $END_DATE1)
+
+                                                <td>End Date:- {{ $END_DATE1 }} </td>
+                                                <td></td>
+                                                @endforeach
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Toll</td>
+                                    <td>{{ $orders_view[0]['toll']; }} </td>
+                                </tr>
+                                <tr>
+                                    <td>Permit</td>
+                                    <td>{{ $orders_view[0]['permit']; }} </td>
+                                </tr>
+                                <tr>
+                                    <td>Parking</td>
+                                    <td>{{ $orders_view[0]['parking']; }} </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>Total Amount Paid</td>
+                                    <td>{{ $orders_view[0]['total_amt_paid']; }} </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Payment Details</td>
+                                    <td>{{ $orders_view[0]['remarks']; }} </td>
+                                </tr>
+                                <tr>
+                                    <td>Payment Status</td>
+                                    <td data-value="{{$orders_view[0]['payment_status'];}}" >{{ Helper::payment_status($orders_view[0]['payment_status']) }} </td>
+                                </tr>
+
+
+
                             </tbody>
 
                         </table>
