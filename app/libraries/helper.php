@@ -82,6 +82,12 @@ group by services.service"));
         $status = ['Received', 'Confirmed', 'Allocated', 'Completed', 'Cancelled'];
         return $status[$id];
     }
+    
+      public static function payment_status($id) {
+        $status = ['Unpaid', 'Partially Paid', 'Fully Paid'];
+        return $status[$id];
+    }
+    
 
     public static function sendSMS($to, $message) {
         // create curl resource 

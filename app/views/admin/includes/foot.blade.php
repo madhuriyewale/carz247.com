@@ -62,6 +62,9 @@ $(function() {
     $("table#OrdersTables th:nth-child(35),table#OrdersTables td:nth-child(35)").hide();
     $("table#OrdersTables th:nth-child(36),table#OrdersTables td:nth-child(36)").hide();
     $("table#OrdersTables th:nth-child(37),table#OrdersTables td:nth-child(37)").hide();
+    $("table#OrdersTables th:nth-child(38),table#OrdersTables td:nth-child(38)").hide();
+    $("table#OrdersTables th:nth-child(39),table#OrdersTables td:nth-child(39)").hide();
+
 
 
 
@@ -187,6 +190,16 @@ $(function() {
         });
         $("form#categoryForm input[name='cars']").val(e.slice(0, -1));
         $("form#categoryForm input[name='seats']").val($("tr[data-tr='" + id + "'] td").eq(3).text());
+        var optValue = $.trim($("tr[data-tr='" + id + "'] td").eq(5).text());
+        var chkValue = "Yes";
+        if (optValue == chkValue) {
+            $('#optionsRadios1').parent('div').addClass('checked');
+            $('#optionsRadios2').parent('div').removeClass('checked');
+        }
+        else {
+            $('#optionsRadios2').parent('div').addClass('checked');
+            $('#optionsRadios1').parent('div').removeClass('checked');
+        }
         $("form#categoryForm").append("<input type='hidden' name='id' value='" + $("tr[data-tr='" + id + "'] td").eq(0).text() + "'>")
         $("form#categoryForm").attr("action", "{{ URL::route('category_edit')}}");
     });

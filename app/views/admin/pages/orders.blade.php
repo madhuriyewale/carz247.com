@@ -295,26 +295,46 @@
                                     <label class="labelExtrasCharges"><strong>Extra Remarks</strong></label>
                                     <input type="text" name="extraRemark" value="" class="form-control extraRemark" placeholder="Extra Charges Remark"> 
                                 </div>
-
-                                <div class="form-group col-sm-3 discount_div">
-                                    <label class="labelDiscount"><strong>Discount(Value in Rs.)</strong></label>
+                                <div class="clearfix "></div>
+                                <div class="form-group col-sm-2 discount_div">
+                                    <label class="labelDiscount"><strong>Discount(Rs.)</strong></label>
                                     <input type="text" name="discount"  value="" class="form-control discount" placeholder="Discount"> 
                                 </div>
 
-                                <div class="form-group col-sm-3 service_tax_div">
+                                <div class="form-group col-sm-2 service_tax_div">
                                     <label class="labelRemark"><strong>Service Tax(%)</strong></label>
                                     <input type="text"  name="serviceTax" value="" class="form-control serviceTax" placeholder="Service Tax"> 
                                 </div>
 
-                                <div class="form-group col-sm-3 upload_div">
+                                <div class="form-group col-sm-2 upload_div">
                                     <label class="labelUpload"><strong>Order Documents</strong></label>
                                     <input type="file" name="uploadFile[]" class="form-control uploadFile" multiple="multiple"> 
                                 </div>
 
 
-                                <div class="form-group col-sm-3 remark_div">
-                                    <label class="labelRemark"><strong>Remarks</strong></label>
-                                    <input type="text"  name="remark" value="" class="form-control remark" placeholder="Remark"> 
+
+
+                                <div class="form-group col-sm-2 totalAmtPaid">
+                                    <label class="labelTotalAmt"><strong>Total Amount Paid</strong></label>
+                                    <input type="text"  name="totalAmtPaid" value="" class="form-control totalAmtPaid" placeholder="Total Amount Paid"> 
+                                </div>
+
+
+
+                                <div class="form-group col-sm-2">
+                                    <label>Payment Status</label>
+                                    <select class="form-control payment_status_select" id="paymentStatus" name="paymentStatus" placeholder="Please Select" required="true">
+                                        <option value="">Please Select</option>
+                                        <option value="0">Unpaid</option>
+                                        <option value="1">Partially Paid</option>
+                                        <option value="2">Fully Paid</option>
+
+                                    </select>
+                                </div>
+                                <div class="clearfix "></div>
+                                <div class="form-group col-sm-12 remark_div">
+                                    <label class="labelRemark"><strong>Payment Details</strong></label>
+                                    <textarea  name="remark" value="" class="form-control remark" cols="10" rows="1" placeholder="Remark"> </textarea>
                                 </div>
                                 <div class="clearfix "></div>
 
@@ -371,18 +391,16 @@
                                     <th>Permit</th>
                                     <th>vendor listing</th>
                                     <th>extra remarks</th>
-
                                     <th>carz Details</th>
                                     <th>vendor Details</th>
-
 
                                     <th>vendor prepaid amt</th>
                                     <th>vendor extra charges</th>
                                     <th>vendor remarks</th>
                                     <th>vendor discount</th>
                                     <th>vendor service tax</th>
-
-
+                                    <th>Total Amount Paid</th>
+                                    <th>Payment Status</th>
 
                                     <th></th>
 
@@ -450,7 +468,9 @@
 
                                     <td>{{ $order->vendor_service_tax }}</td>
 
+                                    <td>{{ $order->total_amt_paid }}</td>
 
+                                    <td data-value="{{$order->payment_status}}">{{ Helper::payment_status($order->payment_status) }}</td>
 
 
 
@@ -480,11 +500,13 @@
     var carzListing;
     var vendorListing;
     var id = "";
-    
+
 
     jQuery(document).ready(function($) {
-        
-        
+
+        $("#carz_Listing").select2();
+
+        $("#venderListing").select2();
 
 
         $(document).on("focus", ".datepickerz", function() {
@@ -525,7 +547,11 @@
 
 
             $("form#orderForm select[name='customer'] option[value='" + $("tr[data-tr='" + id + "'] td").eq(1).attr("data-value") + "']").prop('selected', true);
-            $("form#orderForm select[name='listing'] option[value='" + $("tr[data-tr='" + id + "'] td").eq(2).attr("data-value") + "']").prop('selected', true);
+
+            //   $("form#orderForm select[name='listing'] option[value='" + $("tr[data-tr='" + id + "'] td").eq(2).attr("data-value") + "']").prop('selected', true);
+
+            $('#carz_Listing').select2().select2('val', $("tr[data-tr='" + id + "'] td").eq(2).attr("data-value"));
+
             $("form#orderForm input[name='pickuptime']").val($("tr[data-tr='" + id + "'] td").eq(4).text());
             $("form#orderForm input[name='instructions']").val($("tr[data-tr='" + id + "'] td").eq(5).text());
             $("form#orderForm input[name='cost']").val($("tr[data-tr='" + id + "'] td").eq(6).text());
@@ -535,14 +561,16 @@
             $("form#orderForm input[name='txn_msg']").val($("tr[data-tr='" + id + "'] td").eq(10).text());
             $("form#orderForm select[name='booking_status'] option[value='" + $("tr[data-tr='" + id + "'] td").eq(11).attr("data-value") + "']").prop('selected', true);
             $("form#orderForm select[name='vendersName'] option[value='" + $("tr[data-tr='" + id + "'] td").eq(12).attr("data-value") + "']").prop('selected', true);
-            $("form#orderForm select[name='venderListing'] option[value='" + $("tr[data-tr='" + id + "'] td").eq(28).attr("data-value") + "']").prop('selected', true);
+            $('#venderListing').select2().select2('val', $("tr[data-tr='" + id + "'] td").eq(28).attr("data-value"));
+
+
             $("form#orderForm input[name='startDate[]']").val($("tr[data-tr='" + id + "'] td").eq(15).attr("data-value"));
             $("form#orderForm input[name='endDate[]']").val($("tr[data-tr='" + id + "'] td").eq(16).attr("data-value"));
             $("form#orderForm input[name='startKm[]']").val($("tr[data-tr='" + id + "'] td").eq(17).text());
             $("form#orderForm input[name='endKm[]']").val($("tr[data-tr='" + id + "'] td").eq(18).text());
             $("form#orderForm input[name='discount']").val($("tr[data-tr='" + id + "'] td").eq(19).text());
             $("form#orderForm input[name='serviceTax']").val($("tr[data-tr='" + id + "'] td").eq(20).text());
-            $("form#orderForm input[name='remark']").val($("tr[data-tr='" + id + "'] td").eq(22).text());
+            $("form#orderForm textarea[name='remark']").val($("tr[data-tr='" + id + "'] td").eq(22).text());
             $("form#orderForm input[name='extraHrs[]']").val($("tr[data-tr='" + id + "'] td").eq(23).text());
             $("form#orderForm input[name='toll']").val($("tr[data-tr='" + id + "'] td").eq(25).text());
             $("form#orderForm input[name='parking']").val($("tr[data-tr='" + id + "'] td").eq(26).text());
@@ -568,15 +596,17 @@
             $("#vendorExtraKmCost").val(vendorListing[3]);
             $("#vendorExtraHrCost").val(vendorListing[4]);
             $("#vendorDriverCost").val(vendorListing[5]);
-            
-  $("form#orderForm input[name='vendor_prepaid_booking_amt']").val($("tr[data-tr='" + id + "'] td").eq(32).text());
-  $("form#orderForm input[name='vendor_extra_charges']").val($("tr[data-tr='" + id + "'] td").eq(33).text());
-  $("form#orderForm input[name='vendor_remarks']").val($("tr[data-tr='" + id + "'] td").eq(34).text());
-  $("form#orderForm input[name='vendor_discount']").val($("tr[data-tr='" + id + "'] td").eq(35).text());
-  $("form#orderForm input[name='vendor_service_tax']").val($("tr[data-tr='" + id + "'] td").eq(36).text());
 
-            
-            
+            $("form#orderForm input[name='vendor_prepaid_booking_amt']").val($("tr[data-tr='" + id + "'] td").eq(32).text());
+            $("form#orderForm input[name='vendor_extra_charges']").val($("tr[data-tr='" + id + "'] td").eq(33).text());
+            $("form#orderForm input[name='vendor_remarks']").val($("tr[data-tr='" + id + "'] td").eq(34).text());
+            $("form#orderForm input[name='vendor_discount']").val($("tr[data-tr='" + id + "'] td").eq(35).text());
+            $("form#orderForm input[name='vendor_service_tax']").val($("tr[data-tr='" + id + "'] td").eq(36).text());
+
+            $("form#orderForm input[name='totalAmtPaid']").val($("tr[data-tr='" + id + "'] td").eq(37).text());
+            $("form#orderForm select[name='paymentStatus'] option[value='" + $("tr[data-tr='" + id + "'] td").eq(38).attr("data-value") + "']").prop('selected', true);
+
+
 
             if ($("tr[data-tr='" + id + "'] td").eq(28).attr("data-value") != "") {
                 getVendorListing($("tr[data-tr='" + id + "'] td").eq(28).attr("data-value"), $("tr[data-tr='" + id + "'] td").eq(12).attr("data-value"));
@@ -754,11 +784,24 @@
 
 
         });
-        
-    $("#carz_Listing").select2();
-    
-    $("#venderListing").select2();
-    
+
+        $(document).on("change", "#vendersName", function() {
+            var vid = $(this).val();
+            getVendorListing("", vid);
+
+        });
+        function getVendorListing(vlid, vid) {
+            $.get(document.location.origin + "/admin/vendor_listing_dropdown/" + vid, function(data) {
+
+                $("#venderListing").empty().append(data);
+
+                if (vid != "") {
+                    $('#venderListing').select2().select2('val', $("tr[data-tr='" + id + "'] td").eq(28).attr("data-value"));
+                    //   $(".select_venderListing option[value='" + $("tr[data-tr='" + id + "'] td").eq(28).text() + "']").prop('selected', true);
+                }
+            });
+        }
+
 
     });
 
@@ -800,24 +843,7 @@
 
     }
 
-    $(document).on("change", "#vendersName", function() {
-        var vid = $(this).val();
-        getVendorListing("", vid);
 
-    });
-    function getVendorListing(vlid, vid) {
-        $.get(document.location.origin + "/admin/vendor_listing_dropdown/" + vid, function(data) {
-
-            $("#venderListing").empty().append(data);
-
-            if (vid != "") {
-                $(".select_venderListing option[value='" + $("tr[data-tr='" + id + "'] td").eq(28).text() + "']").prop('selected', true);
-                
-                
-                
-            }
-        });
-    }
 
     $(document).on("change", ".listing_class", function() {
         var lid = $(this).val();
@@ -835,8 +861,8 @@
 
         });
     }
-    
-    
+
+
 
 </script>
 @stop

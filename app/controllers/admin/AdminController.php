@@ -448,6 +448,11 @@ class AdminController extends BaseController {
         $order->discount = Input::get("discount");
         $order->remark = Input::get("remark");
 
+        $order->total_amt_paid = Input::get("totalAmtPaid");
+        $order->payment_status = Input::get("paymentStatus");
+
+
+
         $order->service_tax = Input::get("serviceTax");
         $orderDocs = $order->upload == "" ? array() : json_decode($order->upload, true);
         $destinationPath = public_path() . '/admin/uploads/order-uploads/';
@@ -554,6 +559,10 @@ class AdminController extends BaseController {
         $orderUpdate->readings = $readings_data;
         $orderUpdate->discount = Input::get("discount");
         $orderUpdate->remark = Input::get("remark");
+
+        $orderUpdate->total_amt_paid = Input::get("totalAmtPaid");
+        $orderUpdate->payment_status = Input::get("paymentStatus");
+
 
         $orderUpdate->service_tax = Input::get("serviceTax");
         $orderDocs = $orderUpdate->upload == "" ? array() : json_decode($orderUpdate->upload, true);
