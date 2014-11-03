@@ -69,7 +69,7 @@
                                 </div>
                                 <div class="form-group col-sm-3">
                                     <label>Locality</label>
-                                    <select class="form-control locality_class" id="locality_id" name="locality" required="true">
+                                    <select class="form-control locality_class" id="locality_id" name="locality">
 
                                         <option ></option>
                                     </select>
@@ -501,7 +501,7 @@
 
     jQuery(document).ready(function($) {
 
-             $("#carz_Listing").select2();
+        $("#carz_Listing").select2();
 
         $("#venderListing").select2();
 
@@ -547,6 +547,9 @@
             // $("form#orderForm select[name='listing'] option[value='" + $("tr[data-tr='" + id + "'] td").eq(2).attr("data-value") + "']").prop('selected', true);
             $('#carz_Listing').select2().select2('val', $("tr[data-tr='" + id + "'] td").eq(2).attr("data-value"));
 
+            if ($("tr[data-tr='" + id + "'] td").eq(3).attr("data-value") != "") {
+                getLocality($("tr[data-tr='" + id + "'] td").eq(2).attr("data-value"), id);
+            }
             $("form#orderForm input[name='pickuptime']").val($("tr[data-tr='" + id + "'] td").eq(4).text());
             $("form#orderForm input[name='instructions']").val($("tr[data-tr='" + id + "'] td").eq(5).text());
             $("form#orderForm input[name='cost']").val($("tr[data-tr='" + id + "'] td").eq(6).text());
@@ -579,16 +582,31 @@
                 $("form#orderForm input[name='totalAmtPaid']").val($("tr[data-tr='" + id + "'] td").eq(6).text());
             }
 
-            var carzListing = jQuery.parseJSON($("tr[data-tr='" + id + "'] td").eq(30).text())
-            $("#carzMinKm").val(carzListing[0]);
-            $("#carzMinHr").val(carzListing[1]);
-            $("#carzBaseCost").val(carzListing[2]);
+          if ($("tr[data-tr='" + id + "'] td").eq(30).text() != "") {
+                var carzListing = jQuery.parseJSON($("tr[data-tr='" + id + "'] td").eq(30).text())
+                $("#carzMinKm").val(carzListing[0]);
+                $("#carzMinHr").val(carzListing[1]);
+                $("#carzBaseCost").val(carzListing[2]);
 
-            $("#carzExtraKmCost").val(carzListing[3]);
-            $("#carzExtraHrCost").val(carzListing[4])
-            $("#carzDriverCost").val(carzListing[5]);
-            ;
+                $("#carzExtraKmCost").val(carzListing[3]);
+                $("#carzExtraHrCost").val(carzListing[4])
+                $("#carzDriverCost").val(carzListing[5]);
+                ;
+            } else {
+                var value = $("tr[data-tr='" + id + "'] td").eq(2).attr("data-value");
+                $.get(document.location.origin + "/admin/carz_listing_details/" + value, function(data) {
+                    carzListing = jQuery.parseJSON(data);
+                    //  alert(carzListing);
+                    $("#carzMinKm").val(carzListing[0]["min_kms"]);
+                    $("#carzMinHr").val(carzListing[0]["min_hrs"]);
+                    $("#carzBaseCost").val(carzListing[0]["base_cost"]);
+                    $("#carzExtraKmCost").val(carzListing[0]["extra_km_cost"]);
+                    $("#carzExtraHrCost").val(carzListing[0]["extra_hr_cost"]);
+                    $("#carzDriverCost").val(carzListing[0]["driver_cost"]);
 
+                });
+
+            }
             var vendorListing = jQuery.parseJSON($("tr[data-tr='" + id + "'] td").eq(31).text())
             $("#vendorMinKm").val(vendorListing[0]);
             $("#vendorMinHr").val(vendorListing[1]);
@@ -612,9 +630,7 @@
                 getVendorDetails($("tr[data-tr='" + id + "'] td").eq(12).attr("data-value"), id);
             }
 
-            if ($("tr[data-tr='" + id + "'] td").eq(3).attr("data-value") != "") {
-                getLocality($("tr[data-tr='" + id + "'] td").eq(2).attr("data-value"), id);
-            }
+
 
             $(".od-2").hide();
             $(".od-3").hide();
