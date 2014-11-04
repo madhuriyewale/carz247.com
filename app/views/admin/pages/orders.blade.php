@@ -559,7 +559,7 @@
             $("form#orderForm input[name='txn_msg']").val($("tr[data-tr='" + id + "'] td").eq(10).text());
             $("form#orderForm select[name='booking_status'] option[value='" + $("tr[data-tr='" + id + "'] td").eq(11).attr("data-value") + "']").prop('selected', true);
             $("form#orderForm select[name='vendersName'] option[value='" + $("tr[data-tr='" + id + "'] td").eq(12).attr("data-value") + "']").prop('selected', true);
-            $('#venderListing').select2().select2('val', $("tr[data-tr='" + id + "'] td").eq(28).attr("data-value"));
+            //  $('#venderListing').select2().select2('val', $("tr[data-tr='" + id + "'] td").eq(28).attr("data-value"));
 
             $("form#orderForm input[name='startDate[]']").val($("tr[data-tr='" + id + "'] td").eq(15).attr("data-value"));
             $("form#orderForm input[name='endDate[]']").val($("tr[data-tr='" + id + "'] td").eq(16).attr("data-value"));
@@ -582,7 +582,7 @@
                 $("form#orderForm input[name='totalAmtPaid']").val($("tr[data-tr='" + id + "'] td").eq(6).text());
             }
 
-          if ($("tr[data-tr='" + id + "'] td").eq(30).text() != "") {
+            if ($("tr[data-tr='" + id + "'] td").eq(30).text() != "") {
                 var carzListing = jQuery.parseJSON($("tr[data-tr='" + id + "'] td").eq(30).text())
                 $("#carzMinKm").val(carzListing[0]);
                 $("#carzMinHr").val(carzListing[1]);
@@ -630,6 +630,9 @@
                 getVendorDetails($("tr[data-tr='" + id + "'] td").eq(12).attr("data-value"), id);
             }
 
+            if ($("tr[data-tr='" + id + "'] td").eq(12).text() != "") {
+                getPreSelectedVendoListings($("tr[data-tr='" + id + "'] td").eq(12).attr("data-value"));
+            }
 
 
             $(".od-2").hide();
@@ -794,26 +797,34 @@
 
         });
 
-        $(document).on("change", "#vendersName", function() {
-            var vid = $(this).val();
-            getVendorListing("", vid);
 
-        });
-        function getVendorListing(vlid, vid) {
+        function getPreSelectedVendoListings(vid) {
             $.get(document.location.origin + "/admin/vendor_listing_dropdown/" + vid, function(data) {
-
                 $("#venderListing").empty().append(data);
-
                 if (vid != "") {
                     $('#venderListing').select2().select2('val', $("tr[data-tr='" + id + "'] td").eq(28).attr("data-value"));
-                    //   $(".select_venderListing option[value='" + $("tr[data-tr='" + id + "'] td").eq(28).text() + "']").prop('selected', true);
                 }
             });
         }
 
 
     });
+    $(document).on("change", "#vendersName", function() {
+        var vid = $(this).val();
+        getVendorListing("", vid);
 
+    });
+    function getVendorListing(vlid, vid) {
+        $.get(document.location.origin + "/admin/vendor_listing_dropdown/" + vid, function(data) {
+
+            $("#venderListing").empty().append(data);
+
+//                if (vid != "") {
+//                    $('#venderListing').select2().select2('val', $("tr[data-tr='" + id + "'] td").eq(28).attr("data-value"));
+//                    //   $(".select_venderListing option[value='" + $("tr[data-tr='" + id + "'] td").eq(28).text() + "']").prop('selected', true);
+//                }
+        });
+    }
 
     $(document).on("change", ".select_venderListing", function() {
         var value = $(this).val();
