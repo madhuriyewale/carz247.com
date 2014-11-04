@@ -607,6 +607,7 @@
                 });
 
             }
+             if ($("tr[data-tr='" + id + "'] td").eq(31).text() != "") {
             var vendorListing = jQuery.parseJSON($("tr[data-tr='" + id + "'] td").eq(31).text())
             $("#vendorMinKm").val(vendorListing[0]);
             $("#vendorMinHr").val(vendorListing[1]);
@@ -615,7 +616,7 @@
             $("#vendorExtraKmCost").val(vendorListing[3]);
             $("#vendorExtraHrCost").val(vendorListing[4]);
             $("#vendorDriverCost").val(vendorListing[5]);
-
+        }
             $("form#orderForm input[name='vendor_prepaid_booking_amt']").val($("tr[data-tr='" + id + "'] td").eq(32).text());
             $("form#orderForm input[name='vendor_extra_charges']").val($("tr[data-tr='" + id + "'] td").eq(33).text());
             $("form#orderForm input[name='vendor_remarks']").val($("tr[data-tr='" + id + "'] td").eq(34).text());
@@ -686,6 +687,7 @@
                 $(".start_km_div").show();
                 $(".end_km_div").show();
             }
+          
             $("form#orderForm").append("<input type='hidden' name='id' value='" + $("tr[data-tr='" + id + "'] td").eq(0).text() + "'>")
             $("form#orderForm").attr("action", "{{ URL::route('order_edit') }}");
         });
