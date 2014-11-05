@@ -516,7 +516,8 @@
         });
 
         $("#startDate").datetimepicker({
-            dateFormat: "yy-mm-dd",
+            showTimepicker: false,
+            dateFormat: "yy-mm-dd 00:00:00",
             timeFormat: "HH:mm:ss",
             onClose: function(selectedDate) {
                 $("#endDate").datepicker("option", "minDate", selectedDate);
@@ -524,7 +525,8 @@
         });
 
         $("#endDate").datetimepicker({
-            dateFormat: "yy-mm-dd",
+            showTimepicker: false,
+            dateFormat: "yy-mm-dd 00:00:00",
             timeFormat: "HH:mm:ss",
             onClose: function(selectedDate) {
                 $("#startDate").datepicker("option", "maxDate", selectedDate);
