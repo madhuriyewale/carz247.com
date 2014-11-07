@@ -486,7 +486,7 @@ class InvoiceController extends BaseController {
 
                                 <td class = 'cnt'>-</td>
 
-                                <td>" . $kc = $kmsTravelled * $vendor_listing_details_data[3] . "</td>
+                                <td>" . $kc = ($kmsTravelled > 0 ? $kmsTravelled : 0) * $vendor_listing_details_data[3] . "</td>
 
                             </tr>";
 
