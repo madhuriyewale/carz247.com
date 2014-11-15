@@ -2,15 +2,15 @@
 
 <head>
 
-<title>Carz247 - Rent A Car</title>
+    <title>Carz247 - Rent A Car</title>
 
-<meta name="description" content="Call +91-7666947247 and book your car now! Carz247 is a car rental service for Delhi, Mumbai, Bangalore, Hyderabad, Gurgaon, Noida and Pune locations.">
+    <meta name="description" content="Call +91-7666947247 and book your car now! Carz247 is a car rental service for Delhi, Mumbai, Bangalore, Hyderabad, Gurgaon, Noida and Pune locations.">
 
-<meta name="keywords" content="rent car,carz247,self drive car rent mumbai,car rental">
+    <meta name="keywords" content="rent car,carz247,self drive car rent mumbai,car rental">
 
-<meta name="author" content="Infini Systems">
+    <meta name="author" content="Infini Systems">
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
 </head>
 
@@ -41,22 +41,22 @@
 
 
     .border-right{border-right: 1px solid #f1f1f1;}
-	.int_booking{font-size: 14px;
-padding: 10px 15px;
-//height: 44px;
-color: #4f5e62 !important;
-text-shadow: 0 1px 1px #fff;
-text-decoration: none;
-text-transform: uppercase;
-background: none;
-font-weight: 500;
-font-family: 'Cabin', sans-serif;
-display: inline-block;
-}
-.int_booking a{color: #4f5e62 !important;}
-.int_booking:hover{background: #ed3237 ;color: #fff!important;
-}
-.int_booking a:hover{color: #fff!important;}
+    .int_booking{font-size: 14px;
+                 padding: 10px 15px;
+                 //height: 44px;
+                 color: #4f5e62 !important;
+                 text-shadow: 0 1px 1px #fff;
+                 text-decoration: none;
+                 text-transform: uppercase;
+                 background: none;
+                 font-weight: 500;
+                 font-family: 'Cabin', sans-serif;
+                 display: inline-block;
+    }
+    .int_booking a{color: #4f5e62 !important;}
+    .int_booking:hover{background: #ed3237 ;color: #fff!important;
+    }
+    .int_booking a:hover{color: #fff!important;}
 
 </style>
 
@@ -119,8 +119,8 @@ display: inline-block;
 
 
                     <li class=" border-right"><a href="#tabs_1_3"> <i class="fa fa-plane"></i> Airport Transfer </a></li>
-					
-					<div class="int_booking"><a href="{{ URL::route('international-booking');}}"  target="_blank"> <i class="fa fa-globe"></i> International Bookings</a> </div>
+
+                    <div class="int_booking"><a href="{{ URL::route('international-booking');}}"  target="_blank"> <i class="fa fa-globe"></i> Self  Drive</a> </div>
 
 
 
@@ -691,23 +691,18 @@ display: inline-block;
 
 
                 $.fn.css = $.fn.cssOriginal;
-
                 $('.fullwidthbanner').revolution({
 
 
 
         delay: 5000,
-
                 startwidth: 950,
-
                 startheight: 617,
-
                 onHoverStop: "off", // Stop Banner Timet at Hover on Slide on/off
 
 
 
                 hideThumbs: 0,
-
                 navigationType: "bullet", // bullet, thumb, none
 
 
@@ -737,9 +732,7 @@ display: inline-block;
 
 
                 navigationHOffset: 0,
-
                 navigationVOffset: 23,
-
                 touchenabled: "on", // Enable Swipe Function : on/off
 
 
@@ -777,7 +770,6 @@ display: inline-block;
 
 
                 fullWidth: "on",
-
                 shadow: 0								//0 = no Shadow, 1,2,3 = 3 Different Art of Shadows -  (No Shadow in Fullwidth Version !)
 
 
@@ -787,7 +779,6 @@ display: inline-block;
 
 
         });
-
         });</script>
 
 
@@ -973,25 +964,17 @@ display: inline-block;
 
 
                 var car_specical = $('#special_offers');
-
                         car_specical.carouFredSel({
 
 
 
                         prev: "#special_offers_prev",
-
                                 next: "#special_offers_next",
-
                                 infinite: true,
-
                                 circular: false,
-
                                 auto: false,
-
                                 width: '100%',
-
                                 direction: "down",
-
                                 scroll: {
 
 
@@ -1005,7 +988,6 @@ display: inline-block;
 
 
                         });
-
                 }
 
 
@@ -1015,21 +997,15 @@ display: inline-block;
 
 
                 carSpecicalInit();
-
                 });
-
                         var resizeTimer;
-
                         $(window).resize(function() {
 
 
 
                 clearTimeout(resizeTimer);
-
                         resizeTimer = setTimeout(carSpecicalInit, 100);
-
                 });
-
                 });</script> 
 
 
@@ -1355,25 +1331,17 @@ display: inline-block;
 
 
                 next: "#testimonials_next",
-
                         prev: "#testimonials_prev",
-
                         infinite: false,
-
                         items: 1,
-
                         auto: true,
-
                         scroll: {
 
 
 
                         items: 1,
-
                                 fx: "crossfade",
-
                                 easing: "linear",
-
                                 duration: 300
 
 
@@ -1383,7 +1351,6 @@ display: inline-block;
 
 
                 });
-
                 });
 
 
