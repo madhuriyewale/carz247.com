@@ -16,10 +16,10 @@ $(function() {
 
     $("form").validate();
 
-    var dtable = $('#listingTables').dataTable({
+     var dtable = $('#listingTables').dataTable({
         "bPaginate": true,
-        "bLengthChange": false,
-        "bFilter": false,
+        "bLengthChange": true,
+        "bFilter": true,
         "bSort": true,
         "bInfo": true,
         "bAutoWidth": false,
@@ -95,6 +95,36 @@ $(function() {
         $("table#OrdersTables th:nth-child(37),table#OrdersTables td:nth-child(37)").hide();
         $("table#OrdersTables th:nth-child(38),table#OrdersTables td:nth-child(38)").hide();
         $("table#OrdersTables th:nth-child(39),table#OrdersTables td:nth-child(39)").hide();
+    });
+    
+    
+     var vTable = $('#vendorTables').dataTable({
+        "aaSorting": []
+    });
+   // $("table#vendorTables th:nth-child(2),table#vendorTables td:nth-child(2)").hide();
+    $("table#vendorTables th:nth-child(3),table#vendorTables td:nth-child(3)").hide();
+    $("table#vendorTables th:nth-child(4),table#vendorTables td:nth-child(4)").hide();
+    $("table#vendorTables th:nth-child(5),table#vendorTables td:nth-child(5)").hide();
+    $("table#vendorTables th:nth-child(6),table#vendorTables td:nth-child(6)").hide();
+    $("table#vendorTables th:nth-child(7),table#vendorTables td:nth-child(7)").hide();
+    $("table#vendorTables th:nth-child(8),table#vendorTables td:nth-child(8)").hide();
+    $("table#vendorTables th:nth-child(13),table#vendorTables td:nth-child(13)").hide();
+    $("table#vendorTables th:nth-child(14),table#vendorTables td:nth-child(14)").hide();
+
+
+    vTable.on('draw', function() {
+      //  $("table#vendorTables th:nth-child(2),table#vendorTables td:nth-child(2)").hide();
+        $("table#vendorTables th:nth-child(3),table#vendorTables td:nth-child(3)").hide();
+        $("table#vendorTables th:nth-child(4),table#vendorTables td:nth-child(4)").hide();
+        $("table#vendorTables th:nth-child(5),table#vendorTables td:nth-child(5)").hide();
+        $("table#vendorTables th:nth-child(6),table#vendorTables td:nth-child(6)").hide();
+        $("table#vendorTables th:nth-child(7),table#vendorTables td:nth-child(7)").hide();
+        $("table#vendorTables th:nth-child(8),table#vendorTables td:nth-child(8)").hide();
+        $("table#vendorTables th:nth-child(13),table#vendorTables td:nth-child(13)").hide();
+        $("table#vendorTables th:nth-child(14),table#vendorTables td:nth-child(14)").hide();
+
+
+
     });
 
 });
@@ -179,10 +209,13 @@ $(function() {
         });
 
         //vender Edit
-        $(document).on("click", ".venderEdit", function() {
+         $(document).on("click", ".venderEdit", function() {
             var id = $(this).attr('data-id');
             $("form#venderForm input[name='vendersName']").val($("tr[data-tr='" + id + "'] td").eq(1).text());
-            $("form#venderForm input[name='cityName']").val($("tr[data-tr='" + id + "'] td").eq(2).text());
+            $("form#venderForm select[name='cityName'] option[value='" + $("tr[data-tr='" + id + "'] td").eq(2).attr("data-value") + "']").prop('selected', true);
+            //$("form#venderForm select[name='cityName']").val($("tr[data-tr='" + id + "'] td").eq(2).text());
+            // $("form#venderForm select[name='cityName'] option[value='" + $("tr[data-tr='" + id + "'] td").eq(2).attr("data-value") + "']").prop('selected', true);
+
             $("form#venderForm input[name='address']").val($("tr[data-tr='" + id + "'] td").eq(3).text());
             $("form#venderForm input[name='zone']").val($("tr[data-tr='" + id + "'] td").eq(4).text());
             var e = "";
@@ -202,9 +235,62 @@ $(function() {
                 e = e + $.trim($(this).text()) + ",";
             });
             $("form#venderForm input[name='cars']").val(e.slice(0, -1));
+
+            $("form#venderForm input[name='venderContactName']").val($("tr[data-tr='" + id + "'] td").eq(10).text());
+            $("form#venderForm input[name='altContactNo']").val($("tr[data-tr='" + id + "'] td").eq(11).text());
+
+            $("form#venderForm input[name='serviceTaxNo']").val($("tr[data-tr='" + id + "'] td").eq(12).text());
+            $("form#venderForm input[name='emailId']").val($("tr[data-tr='" + id + "'] td").eq(13).text());
+
+            var e = "";
+            $("tr[data-tr='" + id + "'] td").eq(14).children("ol").children("li").each(function() {
+                e = e + $.trim($(this).text()) + ",";
+            });
+            $("form#venderForm input[name='carNumbers']").val(e.slice(0, -1));
+            if ($("tr[data-tr='" + id + "'] td").eq(16).text() != "") {
+                var e = "";
+                $("tr[data-tr='" + id + "'] td").eq(16).children("ol").children("li").each(function() {
+                    e = $.trim($(this).attr("data-value"));
+
+                    if (e == 0) {
+                        $('#chk0').parent('div').addClass('checked').attr("aria-checked", true);
+                        $('#chk0').attr("checked", "checked");
+                    }
+
+                    if (e == 1) {
+                        $('#chk1').parent('div').addClass('checked').attr("aria-checked", true);
+                        $('#chk1').attr("checked", "checked");
+                    }
+
+                    if (e == 2) {
+                        $('#chk2').parent('div').addClass('checked').attr("aria-checked", true);
+                        $('#chk2').attr("checked", "checked");
+
+                    }
+                    if (e == 3) {
+                        $('#chk3').parent('div').addClass('checked').attr("aria-checked", true);
+                        $('#chk3').attr("checked", "checked");
+                    }
+                    if (e == 4) {
+                        $('#chk4').parent('div').addClass('checked').attr("aria-checked", true);
+                        $('#chk4').attr("checked", "checked");
+                    }
+
+                });
+
+            }
+
+            var e = "";
+            $("tr[data-tr='" + id + "'] td").eq(15).children("ol").children("li").each(function() {
+                e = $.trim($(this).text());
+                $(".doc").append("<p><ol><li type='disc'><a  href='/public/admin/uploads/vendor-uploads/" + e + "' target='_blank'>" + e + "</a></li></ol></p>");
+
+            });
+
+            $("form#venderForm checkbox[name='chk[]']").parent('div').addClass('checked');
             $("form#venderForm").append("<input type='hidden' name='id' value='" + $("tr[data-tr='" + id + "'] td").eq(0).text() + "'>")
             $("form#venderForm").attr("action", "{{ URL::route('vender_edit')}}");
-        });
+        });  
     });
     //category Edit
 

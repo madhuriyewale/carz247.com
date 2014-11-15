@@ -638,11 +638,14 @@ class AdminController extends BaseController {
         return Redirect::to('/admin');
     }
 
-    public function venders() {
-        $venders = Vender::all();
-
-        return View::make('admin.pages.venders', compact('venders'));
+      public function venders() {
+        //  $venders = Vender::all();
+        $venders = Vender::leftJoin("cities", "cities.id", "=", "venders.city_id")
+                ->get(['venders.*', 'cities.city']);
+        $cities = City::all();
+        return View::make('admin.pages.venders', compact('venders', 'cities'));
     }
+
 
     public function drivers_dropdown($input) {
         $drivers = Vender::where("id", "=", $input)->get(['drivers', 'cars'])->toArray();
@@ -669,10 +672,36 @@ class AdminController extends BaseController {
         }
     }
 
-    public function save_vender() {
+   public function save_vender() {
         $venders = new Vender();
         $venders->venders_name = Input::get('vendersName');
-        $venders->city = Input::get('cityName');
+        $chkValue =   is_null(Input::get("chk"))? json_encode(array()) : json_encode(Input::get("chk"));
+        $venders->check_vendors_documents = $chkValue;
+        $venders->city_id = Input::get('cityName');
+        $venders->vendors_contact_name = Input::get("venderContactName");
+        $venders->alternate_contact_no = Input::get("altContactNo");
+        $venders->email_id = Input::get("emailId");
+        $venders->service_tax_no = Input::get("serviceTaxNo");
+        $venders->cars_numbers = json_encode(explode(',', Input::get("carNumbers")));
+        $venders->vendors_documents = json_encode(array());
+        $vendorDocs = $venders->vendors_documents == "" ? array() : json_decode($venders->vendors_documents, true);
+        $destinationPath = public_path() . '/admin/uploads/vendor-uploads/';
+        if (Input::hasFile('uploadFile')) {
+            $i = 1;
+            foreach (Input::file("uploadFile") as $file) {
+                $fileName = date("YmdHis") . "-$i" . "." . $file->getClientOriginalExtension();
+                $upload_success = $file->move($destinationPath, $fileName);
+                if ($upload_success) {
+                    array_push($vendorDocs, $fileName);
+                    $i++;
+                } else {
+                    
+                }
+            }
+        }
+        $venders->vendors_documents = json_encode($vendorDocs);
+ 
+        //dd($venders->vendors_documents);
         $venders->address = Input::get('address');
         $venders->zone = Input::get('zone');
         $venders->mobile_no = json_encode(explode(',', Input::get('mobileNo')));
@@ -690,10 +719,37 @@ class AdminController extends BaseController {
     }
 
     public function vender_edit() {
-
         $venderUpdate = Vender::find(Input::get("id"));
+        $chkValue =   is_null(Input::get("chk"))? json_encode(array()) : json_encode(Input::get("chk"));
+        $venderUpdate->check_vendors_documents = $chkValue;
         $venderUpdate->venders_name = Input::get("vendersName");
-        $venderUpdate->city = Input::get("cityName");
+        $venderUpdate->city_id = Input::get('cityName');
+        $venderUpdate->vendors_contact_name = Input::get("venderContactName");
+        $venderUpdate->alternate_contact_no = Input::get("altContactNo");
+        $venderUpdate->email_id = Input::get("emailId");
+        $venderUpdate->service_tax_no = Input::get("serviceTaxNo");
+        $vendorDocs = $venderUpdate->vendors_documents == "" ? array() : json_decode($venderUpdate->vendors_documents, true);
+        
+        $destinationPath = public_path() . '/admin/uploads/vendor-uploads/';
+        if (Input::hasFile('uploadFile')) {
+            $i = 1;
+            foreach (Input::file("uploadFile") as $file) {
+                $fileName = date("YmdHis") . "-$i" . "." . $file->getClientOriginalExtension();
+                $upload_success = $file->move($destinationPath, $fileName);
+                if ($upload_success) {
+                    array_push($vendorDocs, $fileName);
+                    $i++;
+                } else {
+                    
+                }
+            }
+        }
+        
+        $venderUpdate->check_vendors_documents = json_encode(Input::get("chk"));
+        $venderUpdate->cars_numbers = json_encode(explode(',', Input::get("carNumbers")));
+        $venderUpdate->vendors_documents = json_encode(array());
+ 
+        $venderUpdate->vendors_documents = json_encode($vendorDocs);
         $venderUpdate->address = Input::get("address");
         $venderUpdate->zone = Input::get("zone");
         $venderUpdate->mobile_no = json_encode(explode(',', Input::get("mobileNo")));
@@ -702,8 +758,10 @@ class AdminController extends BaseController {
         $venderUpdate->drivers = json_encode(explode(',', Input::get("drivers")));
         $venderUpdate->cars = json_encode(explode(',', Input::get("cars")));
         $venderUpdate->update();
+      
         return Redirect::route('venders');
     }
+
 
     public function vender_listings() {
 
