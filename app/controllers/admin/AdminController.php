@@ -745,7 +745,7 @@ class AdminController extends BaseController {
             }
         }
         
-        $venderUpdate->check_vendors_documents = json_encode(Input::get("chk"));
+      //  $venderUpdate->check_vendors_documents = json_encode(Input::get("chk"));
         $venderUpdate->cars_numbers = json_encode(explode(',', Input::get("carNumbers")));
         $venderUpdate->vendors_documents = json_encode(array());
  
